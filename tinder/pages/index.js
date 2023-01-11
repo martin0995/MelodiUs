@@ -6,8 +6,8 @@ import fondo from "../public/bg-img.jpeg";
 
 export default function Home() {
   return (
-    <div className="h-screen flex flex-col justify-between bg-fondito">
-      {/* <Imagen /> */}      
+    <div className="h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
+      {/* <Imagen /> */}
       <div className="p-2 h-8 flex justify-center gap-1">
         <Icon />
         <h6> tinderMusic</h6>
