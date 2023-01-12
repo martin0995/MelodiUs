@@ -3,7 +3,7 @@ import Cruz from "./cruz.js";
 
 export default function Register() {
   return (
-    <div>
+    <div className="bg-white-900">
       <div>
         <Cruz />
       </div>

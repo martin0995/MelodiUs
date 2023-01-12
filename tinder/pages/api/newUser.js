@@ -22,7 +22,7 @@ export default async function newuser(req, res) {
             email,
           }).save();
           await db.disconnect();
-          res.status(200).send(user);
+          res.status(201).send("entro");
         } catch (err) {
           console.log(err);
         }
@@ -33,6 +33,14 @@ export default async function newuser(req, res) {
       break;
     case "GET":
       {
+        console.log(req.params);
+        const findUser = await User.find({ email: req.params.email });
+        if (findUser[0]) {
+          console.log(findUser);
+          console.log("El usuario ya existe2");
+          return res.status(200).send(findUser);
+        }
+        res.status(404).send("No existe usuario");
       }
       break;
 

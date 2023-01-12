@@ -22,14 +22,19 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
+  // const handleRegister = async () => {
+  //   console.log("Creando usuario con Gmail");
+  //   signIn("google", { callbackUrl: "/espera" });
+  //   const user = await axios.post("/api/newUser", {
+  //     email: session.user.email,
+  //   });
+  // };
+
   const handleLogin = async () => {
-    console.log("ingresando con Gmail");
-    signIn("google");
-    axios.post("/api/newUser", {
+    signIn("google", { callbackUrl: "/espera" });
+    const user = await axios.post("/api/newUser", {
       email: session.user.email,
     });
-    //Guardar en redux
-    router.push("/login");
   };
 
   return (
@@ -48,7 +53,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col mb-28 gap-4">
               <button
-                onClick={() => handleLogin()}
+                onClick={handleLogin}
                 className="border-green-600 bg-green-600 text-black  border-2 p-2 text-xl rounded-full w-80 m-auto"
               >
                 Crear cuenta

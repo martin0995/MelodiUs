@@ -11,16 +11,11 @@ export default NextAuth({
   secret: process.env.JWT_SECRET,
   // callbacks: {
   //   redirect: async (url, baseUrl) => {
-  //     console.log("logOut", url);
-  //     if (url.url === "/login") {
-  //       return Promise.resolve("/login");
-  //     } else return Promise.resolve("/register");
+  //     console.log("url", url);
+  //     if (url === "/api/auth/signout") {
+  //       return Promise.resolve("/register/register");
+  //     }
+  //     return Promise.resolve("/login");
   //   },
-  // redirect: async (url, baseUrl) => {
-  //   if (url === "/api/auth/signout") {
-  //     return Promise.resolve("/register/register");
-  //   }
-  //   return Promise.resolve("/");
-  // },
   // },
 });
