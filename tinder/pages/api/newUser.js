@@ -11,7 +11,6 @@ export default async function newuser(req, res) {
           console.log("REQ BODY", req.body);
           await db.connect();
           const findUser = await User.find({ email: req.body.email });
-
           if (findUser[0]) {
             console.log(findUser);
             console.log("El usuario ya existe2");

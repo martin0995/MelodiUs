@@ -1,5 +1,6 @@
 import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { Navigate } from "react-router-dom";
 
 const login = () => {
   const { data: session } = useSession();

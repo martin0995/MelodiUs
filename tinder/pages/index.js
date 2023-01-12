@@ -6,10 +6,13 @@ import fondo from "../public/bg-img.jpeg";
 import { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
   // console.log(session);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,10 +24,12 @@ export default function Home() {
 
   const handleLogin = async () => {
     console.log("ingresando con Gmail");
-    signIn();
+    signIn("google");
     axios.post("/api/newUser", {
       email: session.user.email,
     });
+    //Guardar en redux
+    router.push("/login");
   };
 
   return (
@@ -52,7 +57,7 @@ export default function Home() {
                 onClick={handleLogin}
                 className="border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto"
               >
-                Iniciar sesion
+                Iniciar sesion <FcGoogle />
               </button>
             </div>
           </div>
