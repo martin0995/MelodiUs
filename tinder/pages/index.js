@@ -21,8 +21,8 @@ export default function Home() {
 
   const handleLogin = async () => {
     console.log("ingresando con Gmail");
-    await signIn();
-    await axios.post("/api/newUser", {
+    signIn();
+    axios.post("/api/newUser", {
       email: session.user.email,
     });
   };
@@ -49,7 +49,7 @@ export default function Home() {
                 Crear cuenta
               </button>
               <button
-                onClick={handleLogin()}
+                onClick={handleLogin}
                 className="border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto"
               >
                 Iniciar sesion
