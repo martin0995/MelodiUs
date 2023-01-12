@@ -3,7 +3,7 @@ import Image from "next/image";
 import Imagen from "./Index/Imagen";
 import Icon from "./Index/Icon";
 import fondo from "../public/bg-img.jpeg";
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function Home() {
         <Imagen />
       ) : (
         <>
-          <div className=" text-white h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
+          <div className="text-white-00  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
             <div className="p-2 h-8 flex justify-center gap-1">
               <Icon />
               <h6> tinderMusic</h6>

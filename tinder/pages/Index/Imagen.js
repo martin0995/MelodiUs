@@ -2,12 +2,8 @@ import React from "react";
 
 const Imagen = () => {
   return (
-    <div className="h-screen border-2 border-white mx-auto flex flex-col justify-center  bg-yellow-300">
-      <img
-        className=" w-3/6 mx-auto mb-10 md:mt-12"
-        src="./Music.png"
-        alt="HTML icon"
-      />
+    <div className="bg-fondito bg-center bg-no-repeat h-screen flex flex-col justify-center  m-auto">
+      <img className="w-60 m-auto" src="./Music.png" alt="HTML icon" />
     </div>
   );
 };
