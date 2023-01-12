@@ -20,7 +20,7 @@ export default function Home() {
         <Imagen />
       ) : (
         <>
-          <div className="text-white-00  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
+          <div className="text-white  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
             <div className="p-2 h-8 flex justify-center gap-1">
               <Icon />
               <h6> tinderMusic</h6>
