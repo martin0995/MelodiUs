@@ -8,16 +8,18 @@ export default async function newuser(req, res) {
     case "POST":
       {
         try {
-          console.log(req.body);
-          //  console.log(req.body);
+          console.log("REQ BODY", req.body);
           await db.connect();
-          const { name, password, email, isAdmin } = req.body;
-
+          const findUser = await User.find({ email: req.body.email });
+          if (findUser) {
+            console.log(findUser);
+            console.log("El usuario ya existe");
+            return res.send(404);
+          }
+          console.log("Usuario no existe. A crearlo entonces");
+          const { email } = req.body;
           const user = await new User({
-            name,
-            password,
             email,
-            isAdmin,
           }).save();
           await db.disconnect();
           res.status(200).send(user);

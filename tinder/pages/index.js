@@ -4,9 +4,13 @@ import Imagen from "./Index/Imagen";
 import Icon from "./Index/Icon";
 import fondo from "../public/bg-img.jpeg";
 import { useState, useEffect } from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import axios from "axios";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
+  const { data: session } = useSession();
+  // console.log(session);
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(true);
@@ -14,6 +18,15 @@ export default function Home() {
     setIsLoading(false);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleLogin = async () => {
+    console.log("ingresando con Gmail");
+    await signIn();
+    await axios.post("/api/newUser", {
+      email: session.user.email,
+    });
+  };
+
   return (
     <>
       {!isLoading ? (
@@ -29,10 +42,16 @@ export default function Home() {
               <h1>Bienvenido a tinderMusic</h1>
             </div>
             <div className="flex flex-col mb-28 gap-4">
-              <button className="border-green-600 bg-green-600 text-black  border-2 p-2 text-xl rounded-full w-80 m-auto">
+              <button
+                onClick={() => handleLogin()}
+                className="border-green-600 bg-green-600 text-black  border-2 p-2 text-xl rounded-full w-80 m-auto"
+              >
                 Crear cuenta
               </button>
-              <button className="border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto">
+              <button
+                onClick={handleLogin()}
+                className="border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto"
+              >
                 Iniciar sesion
               </button>
             </div>

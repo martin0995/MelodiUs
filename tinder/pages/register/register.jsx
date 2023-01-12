@@ -12,10 +12,8 @@ export default function Register() {
         <form>
           <input type="text" placeholder="Ingresa tu nombre.."></input>
           <p>Así es como se verá en tu perfil</p>
-          <input type="email" placeholder="Ingresa tu email.."></input>
           <p>Ingresa tu fecha de nacimiento</p>
           <input type="date"></input>
-
           <div>
             <p>Genero</p>
             <button value="hombre">Hombre</button>
@@ -28,7 +26,6 @@ export default function Register() {
             <button value="mujeres">Mujeres</button>
             <button value="ambos">Ambos</button>
           </div>
-
           <button>Continue</button>
         </form>
       </div>
