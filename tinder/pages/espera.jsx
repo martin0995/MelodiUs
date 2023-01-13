@@ -7,20 +7,32 @@ import { useRouter } from "next/router";
 
 const espera = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { data: session } = useSession();
-  console.log(session);
-  
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
   const fetchData = async () => {
-    const data = await axios.get(`/api/newUser/:${session.user.email}`);
-    console.log(data);
+    if (status === "authenticated") {
+      setIsLoading(true);
+      try {
+        const user = await axios.post("/api/newUser", {
+          email: session.user.email,
+        });
+
+        router.push("/register/register");
+      } catch (error) {
+        if (error.response.status == 404) {
+          console.log(error);
+          router.push("/logged/home");
+        }
+      }
+    }
   };
 
   useEffect(() => {
-    setIsLoading(true);
     fetchData();
 
     setIsLoading(false);
-  }, []);
+  }, [session]);
 
   return <div>{isLoading ? <Imagen /> : null}</div>;
 };

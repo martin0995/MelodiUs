@@ -4,16 +4,12 @@ import Imagen from "./Index/Imagen";
 import Icon from "./Index/Icon";
 import fondo from "../public/bg-img.jpeg";
 import { useState, useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
-import axios from "axios";
+import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { useRouter } from "next/router";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
-  const { data: session } = useSession();
-  const router = useRouter();
-  // console.log(session);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(true);
@@ -22,19 +18,8 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  // const handleRegister = async () => {
-  //   console.log("Creando usuario con Gmail");
-  //   signIn("google", { callbackUrl: "/espera" });
-  //   const user = await axios.post("/api/newUser", {
-  //     email: session.user.email,
-  //   });
-  // };
-
   const handleLogin = async () => {
     signIn("google", { callbackUrl: "/espera" });
-    const user = await axios.post("/api/newUser", {
-      email: session.user.email,
-    });
   };
 
   return (
