@@ -12,7 +12,7 @@ export default async function newuser(req, res) {
           const findUser = await User.find({ email: req.body.email });
           if (findUser[0]) {
             await db.disconnect();
-            return res.status(404).send(findUser);
+            return res.status(201).send(findUser);
           }
           const { email } = req.body;
           const user = await new User({
@@ -20,7 +20,7 @@ export default async function newuser(req, res) {
           }).save();
           console.log("userrr", user);
           await db.disconnect();
-          res.status(201).send(user);
+          res.status(200).send(user);
         } catch (err) {
           console.log(err);
         }
