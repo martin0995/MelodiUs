@@ -25,8 +25,6 @@ const espera = () => {
           router.push("/logged/home");
         }
         if (user.status === 200) {
-          dispatch(login(user.data));
-
           router.push("/register/register");
         }
       } catch (error) {
