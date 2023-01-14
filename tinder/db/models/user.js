@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     genre: { type: String },
     searchGenre: { type: String },
     isAdmin: { type: Boolean, default: false },
+    // profile: [{ type: String, default: false }],
   },
   {
     timestamps: true,
