@@ -45,9 +45,10 @@ export default function Home() {
               </button>
               <button
                 onClick={handleLogin}
-                className="border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto"
+                className=" flex gap-2 justify-center items-center border-green-600 border-2 p-2 text-xl rounded-full w-80 m-auto"
               >
-                Iniciar sesion <FcGoogle />
+                Ingresar
+                <FcGoogle />
               </button>
             </div>
           </div>
