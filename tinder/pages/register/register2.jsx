@@ -1,8 +1,18 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 const register2 = () => {
+  const router = useRouter();
+  const Nextpage = (event) => {
+    event.preventDefault();
+
+    router.push("/register/register");
+  };
   return (
     <div>
+      <div>
+        <button onClick={Nextpage}>Volver atras</button>
+      </div>
       <div>
         <p>Cargar fotos</p>
         <input type="file"></input>
