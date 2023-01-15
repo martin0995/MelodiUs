@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Cruz from "./cruz.js";
 import Icon from "../Index/Icon.js";
 import handleInput from "../../reactHooks/handleInput";
@@ -8,62 +8,93 @@ import { useDispatch } from "react-redux";
 
 export default function Register() {
   const router = useRouter();
-  const [generoActivado, setGeneroActivado] = useState(false);
+
   const [genero, setinputGenero] = useState("");
   const [buscargenero, setinputBuscarGenero] = useState("");
-  const [botonSeleccionado, setBotonSeleccionado] = useState(
-    "bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
-  );
+
+  //tu genero//
+  const generohombre = useRef("generohombre");
+  const generomujer = useRef("generomujer");
+  const otro = useRef("otro");
+  //genero buscado//
+  const generohombres = useRef("generoSearchhombres");
+  const generomujeres = useRef("generoSearchmujeres");
+  const ambos = useRef("ambos");
   const nombre = handleInput();
   const fecha = handleInput();
   const dispatch = useDispatch();
+  let rojito = "bg-rojito text-white text-base  w-48 rounded-full p-3";
+  let verde =
+    "bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3";
 
   const handleGenreButton = (event) => {
     event.preventDefault();
-    const elementoHombre = document.getElementById("genero-hombre");
-    const elementoMujer = document.getElementById("genero-mujer");
-    const elementoOtro = document.getElementById("genero-otro");
+
     const elemento = document.getElementById(event.target.id);
 
-    if (!generoActivado) {
-      if (
-        elemento.getAttribute("class") ===
-        "bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
-      ) {
-        elemento.setAttribute(
-          "class",
-          "bg-rojito text-white text-base  w-48 rounded-full p-3"
-        );
-        setGeneroActivado(true);
-      }
+    if (elemento.getAttribute("class") === verde) {
+      elemento.setAttribute("class", rojito);
+    } else {
+      elemento.setAttribute("class", verde);
     }
 
     setinputGenero(event.target.value);
   };
   const handleSearchGenre = (event) => {
     event.preventDefault();
+    const elemento = document.getElementById(event.target.id);
+
+    if (elemento.getAttribute("class") === verde) {
+      elemento.setAttribute("class", rojito);
+    } else {
+      elemento.setAttribute("class", verde);
+    }
 
     setinputBuscarGenero(event.target.value);
   };
-  const Nextpage = (event) => {
-    event.preventDefault();
 
-    router.push("/register/register2");
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("/api/NewUser", {
-      name: nombre,
-      birthday: fecha,
-      genre: genero,
-      searchGenre: buscargenero,
-    });
+
+    //tu genero
+    let generohombredata = generohombre.current.className;
+    let generomujerdata = generomujer.current.className;
+    let generootrodata = otro.current.className;
+    let arraygenero = [generohombredata, generomujerdata, generootrodata]
+      .map((value) => value == rojito)
+      .filter(Boolean).length;
+    if (arraygenero > 1) return alert("no podes seleccionar mas de un genero ");
+    if (arraygenero == 0) return alert("tienes que seleccionar tu genero");
+
+    //generos buscados
+    let generohombresdata = generohombres.current.className;
+    let generomujeresdata = generomujeres.current.className;
+    let generoambos = ambos.current.className;
+
+    if (
+      generoambos == rojito &&
+      (generohombresdata == rojito || generomujeresdata == rojito)
+    ) {
+      return alert("no podes seleccionar ambos y algo mas ");
+    }
+    if (
+      generoambos !== rojito ||
+      generohombredata !== rojito ||
+      generomujeresdata !== rojito
+    )
+      return alert("tienes que seleccionar el/los generos que buscas");
+    router.push("/register/register2");
+
+    // if (ele)
+    //   axios.post("/api/NewUser", {
+    //     name: nombre,
+    //     birthday: fecha,
+    //     genre: genero,
+    //     searchGenre: buscargenero,
+    //   });
   };
 
   // search();
-  console.log(genero);
-  console.log(fecha);
-  console.log(nombre);
 
   return (
     <div className="bg-white text-black h-screen">
@@ -112,6 +143,7 @@ export default function Register() {
                 className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleGenreButton}
                 value="hombre"
+                ref={generohombre}
               >
                 Hombre
               </button>
@@ -120,6 +152,7 @@ export default function Register() {
                 className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleGenreButton}
                 value="mujer"
+                ref={generomujer}
               >
                 Mujer
               </button>
@@ -128,6 +161,7 @@ export default function Register() {
                 className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleGenreButton}
                 value="otro"
+                ref={otro}
               >
                 Otro
               </button>
@@ -142,20 +176,25 @@ export default function Register() {
                 className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleSearchGenre}
                 value="hombres"
+                ref={generohombres}
               >
                 Hombres
               </button>
               <button
-                className={botonSeleccionado}
+                id="mostrar-mujeres"
+                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleSearchGenre}
                 value="mujeres"
+                ref={generomujeres}
               >
                 Mujeres
               </button>
               <button
-                className={botonSeleccionado}
+                id="mostrar-ambos"
+                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
                 onClick={handleSearchGenre}
                 value="ambos"
+                ref={ambos}
               >
                 Ambos
               </button>
@@ -164,7 +203,6 @@ export default function Register() {
           <button
             className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
             type="submit"
-            onClick={Nextpage}
           >
             Continuar
           </button>
