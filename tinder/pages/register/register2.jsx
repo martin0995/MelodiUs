@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
+import Cruz from "./cruz.js";
+import Icon from "../Index/Icon.js";
 const register2 = () => {
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
@@ -49,20 +50,42 @@ const register2 = () => {
     }
   }
   return (
-    <div>
-      <div>
-        <button onClick={Nextpage}>Volver atras</button>
+    <div className="bg-white text-black h-screen">
+      <div className="flex flex-row text-verdedos">
+        <div className="fixed text-black">
+          <button className="p-2" onClick={Nextpage}>
+            Volver atras
+          </button>
+        </div>
+        <div className="p-2 h-8 flex mx-auto gap-1">
+          <Icon />
+          <h6> tinderMusic</h6>
+        </div>
       </div>
-      <div>
+      <div></div>
+      <div className="flex flex-col text-1xl m-6 gap-6 ">
         <p>Cargar fotos</p>
         <input type="file"></input>
         <input type="file"></input>
       </div>
-      <div>
-        <p>Vincula tu cuenta de Spotify</p>
-        <button>Vincular</button>
+      <div className="flex flex-col text-2xl m-6 ">
+        <form className="flex flex-col text-xl gap-6">
+          <div className="flex flex-col gap-1">
+            <p>Agrega artista de spotify</p>
+            <input
+              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              type="text"
+              placeholder="Ingresa tu nombre.."
+            ></input>
+          </div>
+          <button
+            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
+            type="submit"
+          >
+            Enviar datos
+          </button>
+        </form>
       </div>
-      <button>Enviar datos</button>
     </div>
   );
 };
