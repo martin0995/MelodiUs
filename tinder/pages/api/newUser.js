@@ -29,24 +29,40 @@ export default async function newuser(req, res) {
       break;
     case "GET":
       {
-        try {
-          console.log("reqparams", req.query);
-          const findUser = await User.find({ email: req.params.email });
-          console.log("finduser2", findUser);
-          if (findUser[0]) {
-            console.log(findUser);
-            console.log("El usuario ya existe3");
-            return res.status(200).send(findUser);
-          }
-          res.status(404).send("No existe usuario");
-        } catch (error) {
-          console.log(error);
-        }
+        // try {
+        //   console.log("reqparams", req.query);
+        //   const findUser = await User.find({ email: req.params.email });
+        //   console.log("finduser2", findUser);
+        //   if (findUser[0]) {
+        //     console.log(findUser);
+        //     console.log("El usuario ya existe3");
+        //     return res.status(200).send(findUser);
+        //   }
+        //   res.status(404).send("No existe usuario");
+        // } catch (error) {
+        //   console.log(error);
+        // }
       }
       break;
 
     case "PUT":
       {
+        await db.connect();
+        const email = { email: req.body.email };
+        const userBody = {
+          name: req.body.name.value,
+          birthday: req.body.birthday.value,
+          genre: req.body.genre,
+          searchGenre: req.body.searchGenre,
+        };
+        console.log("email", email);
+        console.log("userBody", userBody);
+        let user = await User.findOneAndUpdate(email, userBody, {
+          returnOriginal: false,
+        });
+        console.log(user);
+        await db.disconnect();
+        res.status(200).send(user);
       }
       break;
 

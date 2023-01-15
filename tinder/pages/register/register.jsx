@@ -5,8 +5,10 @@ import handleInput from "../../reactHooks/handleInput";
 import { useRouter } from "next/router";
 import { setForm } from "../../store/reducers/formsSlice";
 import { useDispatch } from "react-redux";
-
+import axios from "axios";
+import { useSession, signIn, signOut } from "next-auth/react";
 export default function Register() {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [genero, setinputGenero] = useState("");
@@ -78,20 +80,20 @@ export default function Register() {
       return alert("no podes seleccionar ambos y algo mas ");
     }
     if (
-      generoambos !== rojito ||
-      generohombredata !== rojito ||
-      generomujeresdata !== rojito
+      generoambos == verde &&
+      generohombredata == verde &&
+      generomujeresdata == verde
     )
       return alert("tienes que seleccionar el/los generos que buscas");
+    console.log("buscar", buscargenero);
+    axios.put("/api/newUser", {
+      email: session.user.email,
+      name: nombre,
+      birthday: fecha,
+      genre: genero,
+      searchGenre: buscargenero,
+    });
     router.push("/register/register2");
-
-    // if (ele)
-    //   axios.post("/api/NewUser", {
-    //     name: nombre,
-    //     birthday: fecha,
-    //     genre: genero,
-    //     searchGenre: buscargenero,
-    //   });
   };
 
   // search();
