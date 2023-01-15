@@ -9,6 +9,11 @@ module.exports = {
       backgroundImage: {
         fondito: "url('../public/bg-img3.jpeg')",
       },
+      colors: {
+        "rojito": "#e5383b",
+        "verdecito": "#2b9348",
+        "verdedos": "#007f5f"
+      },
     },
   },
   plugins: [],
