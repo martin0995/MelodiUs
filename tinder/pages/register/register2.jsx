@@ -2,15 +2,42 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Cruz from "./cruz.js";
 import Icon from "../Index/Icon.js";
+import axios from "axios";
+import { useSession, signIn, signOut } from "next-auth/react";
+
 const register2 = () => {
+  const { data: session } = useSession();
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
   const router = useRouter();
   const [accessToken, setAccessToken] = useState();
+  const [image, setimage] = useState("");
+  const [imagenes, setImagenes] = useState("");
   const Nextpage = (event) => {
     event.preventDefault();
 
     router.push("/register/register");
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.put("/api/newUser2", {
+      imagenes: imagenes,
+      email: session.user.email,
+    });
+  };
+  const submitImage = (e) => {
+    e.preventDefault();
+    console.log("entro");
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "xwz9qlxn");
+    data.append("cloud_name", "dnieujc6g");
+    fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => setImagenes(data.url));
   };
   useEffect(() => {
     let authParameters = {
@@ -62,14 +89,25 @@ const register2 = () => {
           <h6> tinderMusic</h6>
         </div>
       </div>
-      <div></div>
-      <div className="flex flex-col text-1xl m-6 gap-6 ">
-        <p>Cargar fotos</p>
-        <input type="file"></input>
-        <input type="file"></input>
-      </div>
-      <div className="flex flex-col text-2xl m-6 ">
-        <form className="flex flex-col text-xl gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
+        <div className="flex flex-col text-1xl m-6 gap-6 ">
+          <p>Cargar fotos</p>
+          <input
+            type="file"
+            onChange={(e) => {
+              setimage(e.target.files[0]);
+            }}
+          ></input>
+          <button onClick={submitImage}>Upload</button>
+          <input
+            type="file"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          ></input>
+          <button onClick={submitImage}>Upload</button>
+        </div>
+        <div className="flex flex-col text-2xl m-6 ">
           <div className="flex flex-col gap-1">
             <p>Agrega artista de spotify</p>
             <input
@@ -84,8 +122,8 @@ const register2 = () => {
           >
             Enviar datos
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
