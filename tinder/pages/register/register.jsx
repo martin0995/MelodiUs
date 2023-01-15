@@ -29,6 +29,15 @@ export default function Register() {
 
     router.push("/register/register2");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("/api/NewUser", {
+      name: nombre,
+      birthday: fecha,
+      genre: genero,
+      searchGenre: buscargenero,
+    });
+  };
   useEffect(() => {
     let authParameters = {
       method: "POST",
@@ -78,7 +87,7 @@ export default function Register() {
       </div>
       <div>
         <h2>Mi nombre es</h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             {...nombre}
@@ -111,8 +120,9 @@ export default function Register() {
               Ambos
             </button>
           </div>
-          <button onClick={Nextpage}>Continue</button>
+          <button>Enviar</button>
         </form>
+        <button onClick={Nextpage}>Continue</button>
       </div>
     </div>
   );
