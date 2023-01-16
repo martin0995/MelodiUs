@@ -30,8 +30,7 @@ const register2 = () => {
     event.preventDefault();
     console.log(event);
   };
-  const submitImage = (e) => {
-    e.preventDefault();
+  const submitImage = () => {
     console.log("entro");
     const data = new FormData();
     data.append("file", image);
@@ -44,8 +43,7 @@ const register2 = () => {
       .then((res) => res.json())
       .then((data) => setImagenes(data.url));
   };
-  const submitImage2 = (e) => {
-    e.preventDefault();
+  const submitImage2 = () => {
     console.log("entro");
     const data = new FormData();
     data.append("file", image2);
@@ -59,10 +57,15 @@ const register2 = () => {
       .then((data) => setImagenes2(data.url));
   };
 
+  useEffect(() => {
+    if (image) submitImage();
+    if (image2) submitImage2();
+  }, [image, image2]);
+
   return (
     <div className="bg-white text-black h-screen">
       <div className="flex flex-row text-verdedos">
-        <div className="fixed text-black">
+        <div className="text-black">
           <button className="p-2" onClick={Nextpage}>
             Volver atras
           </button>
@@ -98,7 +101,6 @@ const register2 = () => {
             ></img>
           </div>
 
-          <button onClick={submitImage}>Upload</button>
           <div id="divfile">
             <IoAddCircleOutline
               className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
@@ -116,15 +118,13 @@ const register2 = () => {
               src={imagenes2}
             ></img>
           </div>
-
-          <button onClick={submitImage2}>Upload</button>
         </div>
         <div className="flex flex-col text-2xl m-6 ">
           <button
             className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
             type="submit"
           >
-            Enviar datos
+            Continuar
           </button>
         </div>
       </form>
