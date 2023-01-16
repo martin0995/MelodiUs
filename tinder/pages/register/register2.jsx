@@ -28,6 +28,10 @@ const register2 = () => {
       email: session.user.email,
     });
   };
+  const deleteimage = (event) => {
+    event.preventDefault();
+    console.log(event);
+  };
   const submitImage = (e) => {
     e.preventDefault();
     console.log("entro");
@@ -109,36 +113,46 @@ const register2 = () => {
         <div className="flex flex-col text-1xl m-6 gap-6 ">
           <p>Cargar fotos</p>
           <div id="divfile">
+            <button
+              onClick={deleteimage}
+              className={imagenes ? "bg-black absolute" : "hidden"}
+            >
+              <Cruz />
+            </button>
             <IoAddCircleOutline
-              id={imagenes ? "img2" : "imgnoexiste"}
-              className="text-4xl mt-24 m-auto 	"
+              className={imagenes ? "hidden" : "text-4xl mt-24 m-auto 	"}
             />
             <input
               type="file"
-              id="inputTag"
+              className="absolute inset-0 opacity-0 h-full w-full "
               onChange={(e) => {
                 setimage(e.target.files[0]);
               }}
             ></input>
 
-            <img id={imagenes ? "imgupload" : "img2"} src={imagenes}></img>
+            <img
+              className={imagenes ? "absolute inset-0 h-full" : "hidden"}
+              src={imagenes}
+            ></img>
           </div>
 
           <button onClick={submitImage}>Upload</button>
           <div id="divfile">
             <IoAddCircleOutline
-              id={imagenes2 ? "img2" : "imgnoexiste"}
-              className="text-4xl mt-24 m-auto 	"
+              className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
             />
             <input
               type="file"
-              id="inputTag2"
+              className="absolute inset-0 opacity-0 h-full w-full "
               onChange={(e) => {
                 setimage2(e.target.files[0]);
               }}
             ></input>
 
-            <img id={imagenes2 ? "imgupload2" : "img3"} src={imagenes2}></img>
+            <img
+              className={imagenes2 ? "absolute inset-0 h-full" : "hidden"}
+              src={imagenes2}
+            ></img>
           </div>
 
           <button onClick={submitImage2}>Upload</button>

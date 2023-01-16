@@ -32,33 +32,6 @@ a {
   border-style: solid;
   border-width: 5px;
 }
-#inputTag,
-#inputTag2 {
-  position: absolute;
-  opacity: 0;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  top: 0px;
-
-  height: 100%;
-  width: 100%;
-}
-#imgupload,
-#imgupload2 {
-  position: absolute;
-
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  top: 0px;
-  height: 100%;
-}
-
-#img2,
-#img3 {
-  display: none;
-}
 
 @media (prefers-color-scheme: dark) {
   html {
