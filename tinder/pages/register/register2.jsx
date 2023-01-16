@@ -18,10 +18,11 @@ const register2 = () => {
 
     router.push("/register/register");
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.put("/api/newUser2", {
-      imagenes: imagenes,
+      imagenes: [imagenes, imagenes2],
       email: session.user.email,
     });
   };
@@ -32,9 +33,6 @@ const register2 = () => {
   };
 
   const submitImage = (img) => {
-    console.log(img);
-
-    console.log("entro");
     const data = new FormData();
     if (img === 1) {
       data.append("file", image);
@@ -56,19 +54,6 @@ const register2 = () => {
         }
       });
   };
-  // const submitImage2 = (img) => {
-  //   console.log("entro");
-  //   const data = new FormData();
-  //   data.append("file", image2);
-  //   data.append("upload_preset", "xwz9qlxn");
-  //   data.append("cloud_name", "dnieujc6g");
-  //   fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
-  //     method: "post",
-  //     body: data,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setImagenes2(data.url));
-  // };
 
   useEffect(() => {
     if (image) submitImage(1);

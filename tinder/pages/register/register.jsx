@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { setForm } from "../../store/reducers/formsSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 export default function Register() {
   const { data: session } = useSession();
   const router = useRouter();

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema(
     genre: { type: String },
     searchGenre: { type: String },
     isAdmin: { type: Boolean, default: false },
-    images: { type: String },
+    images: [{ type: String }],
     // profile: [{ type: String, default: false }],
   },
   {

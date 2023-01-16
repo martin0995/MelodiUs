@@ -8,18 +8,16 @@ export default async function newuser(req, res) {
     case "PUT":
       {
         await db.connect();
-        console.log("holaaaaaaaa");
-        console.log("req", req.body);
+
         const email = { email: req.body.email };
-        const userBody = {
-          images: req.body.imagenes,
-        };
-        console.log("email", email);
-        console.log("userBody", userBody);
-        let user = await User.findOneAndUpdate(email, userBody, {
+
+        const images = { images: [req.body.imagenes[0], req.body.imagenes[1]] };
+
+        console.log("userBody", images);
+        let user = await User.findOneAndUpdate(email, images, {
           returnOriginal: false,
         });
-        console.log(user);
+
         await db.disconnect();
         res.status(200).send(user);
       }
