@@ -11,14 +11,20 @@ export default async function newuser(req, res) {
           await db.connect();
           const findUser = await User.find({ email: req.body.email });
           if (findUser[0]) {
+            if (findUser[0].images.length > 0) {
+              await db.disconnect();
+              return res.status(201).send("nada");
+            }
+            console.log(findUser);
             await db.disconnect();
-            return res.status(201).send(findUser);
+            return res.status(200).send(findUser);
           }
+          console.log("llego");
           const { email } = req.body;
           const user = await new User({
             email,
           }).save();
-          console.log("userrr", user);
+
           await db.disconnect();
           res.status(200).send(user);
         } catch (err) {
