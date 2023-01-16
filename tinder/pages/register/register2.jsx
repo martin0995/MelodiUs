@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Cruz from "./cruz.js";
-import Icon from "../Index/Icon.js";
 import { IoAddCircleOutline } from "react-icons/io5";
 import axios from "axios";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 const register2 = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const [image, setimage] = useState(""); // JPG file uploaded
   const [image2, setimage2] = useState(""); // JPG file uploaded
-  const [imagenes, setImagenes] = useState(""); // img URL
-  const [imagenes2, setImagenes2] = useState(""); // img URL
+  const [imagenes, setImagenes] = useState(null); // img URL
+  const [imagenes2, setImagenes2] = useState(null); // img URL
+
   const Nextpage = (event) => {
     event.preventDefault();
 
@@ -27,14 +27,20 @@ const register2 = () => {
   };
   const deleteimage = (event, img) => {
     event.preventDefault();
-    if (img === 1) setImagenes("");
-    if (img === 2) setImagenes2("");
+    if (img === 1) setImagenes(null);
+    if (img === 2) setImagenes2(null);
   };
 
-  const submitImage = () => {
+  const submitImage = (img) => {
+    console.log(img);
+
     console.log("entro");
     const data = new FormData();
-    data.append("file", image);
+    if (img === 1) {
+      data.append("file", image);
+    } else {
+      data.append("file", image2);
+    }
     data.append("upload_preset", "xwz9qlxn");
     data.append("cloud_name", "dnieujc6g");
     fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
@@ -42,26 +48,35 @@ const register2 = () => {
       body: data,
     })
       .then((res) => res.json())
-      .then((data) => setImagenes(data.url));
+      .then((data) => {
+        if (img === 1) {
+          setImagenes(data.url);
+        } else {
+          setImagenes2(data.url);
+        }
+      });
   };
-  const submitImage2 = () => {
-    console.log("entro");
-    const data = new FormData();
-    data.append("file", image2);
-    data.append("upload_preset", "xwz9qlxn");
-    data.append("cloud_name", "dnieujc6g");
-    fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
-      method: "post",
-      body: data,
-    })
-      .then((res) => res.json())
-      .then((data) => setImagenes2(data.url));
-  };
+  // const submitImage2 = (img) => {
+  //   console.log("entro");
+  //   const data = new FormData();
+  //   data.append("file", image2);
+  //   data.append("upload_preset", "xwz9qlxn");
+  //   data.append("cloud_name", "dnieujc6g");
+  //   fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
+  //     method: "post",
+  //     body: data,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setImagenes2(data.url));
+  // };
 
   useEffect(() => {
-    if (image) submitImage();
-    if (image2) submitImage2();
-  }, [image, image2]);
+    if (image) submitImage(1);
+  }, [image]);
+
+  useEffect(() => {
+    if (image2) submitImage(2);
+  }, [image2]);
 
   return (
     <div className="bg-white text-black h-screen">
