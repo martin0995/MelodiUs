@@ -19,12 +19,14 @@ const register2 = () => {
     router.push("/register/register");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios.put("/api/newUser2", {
+    await axios.put("/api/newUser2", {
       imagenes: [imagenes, imagenes2],
       email: session.user.email,
     });
+
+    router.push("/register/register3");
   };
   const deleteimage = (event, img) => {
     event.preventDefault();
