@@ -58,7 +58,9 @@ const register3 = () => {
     }
   }
 
-  useEffect(() => {}, [artists]);
+  const buscador = () => {
+    console.log(artists.artists.items);
+  };
 
   return (
     <div className="bg-white text-black h-screen">
@@ -90,17 +92,26 @@ const register3 = () => {
         <div>
           {artists.artists
             ? artists.artists.items.slice(0, 5).map((artist) => {
-                console.log(artist);
-                <div>
-                  <h1>HOLAAAA</h1>
-                  <p>{artist.name}</p>
-                </div>;
+                return (
+                  <div>
+                    <img></img>
+                    <p>{artist.name}</p>
+                  </div>
+                );
               })
             : ""}
         </div>
       ) : (
         ""
       )}
+
+      <button
+        className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
+        type="submit"
+        onClick={buscador}
+      >
+        Artists
+      </button>
 
       <div className="flex min-h-screen">
         <button
