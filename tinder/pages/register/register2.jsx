@@ -9,11 +9,10 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const register2 = () => {
   const { data: session } = useSession();
   const router = useRouter();
-  const [accessToken, setAccessToken] = useState();
-  const [image, setimage] = useState("");
-  const [image2, setimage2] = useState("");
-  const [imagenes, setImagenes] = useState("");
-  const [imagenes2, setImagenes2] = useState("");
+  const [image, setimage] = useState(""); // JPG file uploaded
+  const [image2, setimage2] = useState(""); // JPG file uploaded
+  const [imagenes, setImagenes] = useState(""); // img URL
+  const [imagenes2, setImagenes2] = useState(""); // img URL
   const Nextpage = (event) => {
     event.preventDefault();
 
@@ -26,10 +25,12 @@ const register2 = () => {
       email: session.user.email,
     });
   };
-  const deleteimage = (event) => {
+  const deleteimage = (event, img) => {
     event.preventDefault();
-    console.log(event);
+    if (img === 1) setImagenes("");
+    if (img === 2) setImagenes2("");
   };
+
   const submitImage = () => {
     console.log("entro");
     const data = new FormData();
@@ -79,13 +80,13 @@ const register2 = () => {
           <p>Cargar fotos</p>
           <div id="divfile">
             <button
-              onClick={deleteimage}
-              className={imagenes ? "bg-black absolute" : "hidden"}
+              onClick={(e) => deleteimage(e, 1)}
+              className={imagenes ? "absolute z-10" : "hidden"}
             >
               <Cruz />
             </button>
             <IoAddCircleOutline
-              className={imagenes ? "hidden" : "text-4xl mt-24 m-auto 	"}
+              className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
             />
             <input
               type="file"
@@ -96,12 +97,18 @@ const register2 = () => {
             ></input>
 
             <img
-              className={imagenes ? "absolute inset-0 h-full" : "hidden"}
+              className={imagenes ? "inset-0 h-full" : "hidden"}
               src={imagenes}
             ></img>
           </div>
 
           <div id="divfile">
+            <button
+              onClick={(e) => deleteimage(e, 2)}
+              className={imagenes2 ? "absolute z-10" : "hidden"}
+            >
+              <Cruz />
+            </button>
             <IoAddCircleOutline
               className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
             />
@@ -114,7 +121,7 @@ const register2 = () => {
             ></input>
 
             <img
-              className={imagenes2 ? "absolute inset-0 h-full" : "hidden"}
+              className={imagenes2 ? "inset-0 h-full" : "hidden"}
               src={imagenes2}
             ></img>
           </div>
