@@ -130,7 +130,7 @@ const register2 = () => {
         </div>
         <div className="flex flex-col text-2xl m-6 ">
           <button
-            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
+            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto "
             type="submit"
           >
             Continuar

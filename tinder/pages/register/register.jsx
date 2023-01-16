@@ -10,7 +10,6 @@ import { useSession } from "next-auth/react";
 export default function Register() {
   const { data: session } = useSession();
   const router = useRouter();
-
   const [genero, setinputGenero] = useState("");
   const [buscargenero, setinputBuscarGenero] = useState("");
 

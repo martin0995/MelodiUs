@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import handleInput from "../../reactHooks/handleInput";
 
 const register3 = () => {
   const { data: session } = useSession();
@@ -9,6 +10,8 @@ const register3 = () => {
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
   const router = useRouter();
   const [accessToken, setAccessToken] = useState();
+  const searchedArtist = handleInput();
+  const [artists, setArtists] = useState([]);
 
   const Nextpage = (event) => {
     event.preventDefault();
@@ -37,7 +40,6 @@ const register3 = () => {
 
   async function search() {
     if (accessToken) {
-      console.log("que ondaa", accessToken);
       let artistParameters = {
         method: "GET",
         headers: {
@@ -46,13 +48,17 @@ const register3 = () => {
         },
       };
       let artistID = await fetch(
-        "https://api.spotify.com/v1/search?q=" + "taylor" + "&type=artist",
+        "https://api.spotify.com/v1/search?q=" +
+          searchedArtist.value +
+          "&type=artist",
         artistParameters
       )
         .then((result) => result.json())
-        .then((data) => console.log(data));
+        .then((data) => setArtists(data));
     }
   }
+
+  useEffect(() => {}, [artists]);
 
   return (
     <div className="bg-white text-black h-screen">
@@ -67,17 +73,38 @@ const register3 = () => {
         </div>
       </div>
 
-      <div className="flex flex-col text-2xl m-6 ">
+      <div className="flex flex-col text-2xl m-6">
         <div className="flex flex-col gap-1">
           <p>Agrega artista de spotify</p>
           <input
             className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
             type="text"
             placeholder="Ingresar artista..."
+            {...searchedArtist}
           ></input>
         </div>
+        <button onClick={search}>Buscar</button>
+      </div>
+
+      {searchedArtist.value ? (
+        <div>
+          {artists.artists
+            ? artists.artists.items.slice(0, 5).map((artist) => {
+                console.log(artist);
+                <div>
+                  <h1>HOLAAAA</h1>
+                  <p>{artist.name}</p>
+                </div>;
+              })
+            : ""}
+        </div>
+      ) : (
+        ""
+      )}
+
+      <div className="flex min-h-screen">
         <button
-          className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
+          className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
           type="submit"
         >
           Enviar datos
