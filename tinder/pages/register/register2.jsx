@@ -4,6 +4,7 @@ import Cruz from "./cruz.js";
 import { IoAddCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Icon from "../Index/Icon.js";
 
 const register2 = () => {
   const { data: session } = useSession();
@@ -73,10 +74,12 @@ const register2 = () => {
             Volver atras
           </button>
         </div>
-        <div className="p-2 h-8 flex mx-auto gap-1">
+        <div className="p-2 h-8 flex gap-1 ml-2">
+          <Icon />
           <h6> tinderMusic</h6>
         </div>
       </div>
+
       <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
         <div className="flex flex-col text-1xl m-6 gap-6 ">
           <p>Cargar fotos</p>
