@@ -11,15 +11,13 @@ export default async function newuser(req, res) {
         await db.connect();
 
         const email = { email: req.body.email };
-        const artist = { artist: [req.body.artist[0]] };
+        const artist = { artist: req.body.artist };
         const findUser = await User.find(email);
         const userid = findUser._id;
 
         console.log("ARTISTTTT", artist);
 
-        const profile = await new Profile({
-          artist,
-        }).save();
+        const profile = await new Profile(artist).save();
 
         console.log("profile", profile);
 
