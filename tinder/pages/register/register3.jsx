@@ -7,6 +7,7 @@ import Icon from "../Index/Icon";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const register3 = () => {
   const { data: session } = useSession();
@@ -18,6 +19,7 @@ const register3 = () => {
   const [artists, setArtists] = useState([]);
   const [savedArtist, setsavedArtist] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
@@ -94,7 +96,18 @@ const register3 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.put("/api/newUser3", { artist: savedArtist });
+    await axios.put("/api/newUser", {
+      email: session.user.email,
+      name: user.name,
+      birthday: user.birthday,
+      genre: user.genre,
+      searchGenre: user.searchGenre,
+    });
+
+    await axios.put("/api/newUser3", {
+      artist: savedArtist,
+      email: session.user.email,
+    });
 
     router.push("/logged/home");
   };

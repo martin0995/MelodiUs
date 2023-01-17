@@ -9,15 +9,16 @@ export default async function newuser(req, res) {
     case "PUT":
       {
         await db.connect();
-
+        console.log(req.body);
         const email = { email: req.body.email };
         const artist = { artist: req.body.artist };
         const findUser = await User.find(email);
-        const userid = findUser._id;
+        const userid = findUser[0]._id;
 
         const profile = await new Profile(artist).save();
 
-        await profile.set("userid", userid);
+        await profile.set("postedBy", userid);
+        await profile.save();
 
         await db.disconnect();
         res.status(200).send(profile);
@@ -28,7 +29,7 @@ export default async function newuser(req, res) {
       {
         await db.connect();
 
-        const profileid = await Profile.find({}).populate("userid");
+        const profileid = await Profile.find().populate("postedBy");
 
         await db.disconnect();
         res.status(200).send(profileid);

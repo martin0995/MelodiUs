@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+const User = require("./user");
 
 const profileSchema = new mongoose.Schema(
   {
-    userid: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     artist: [{ type: String, default: false }],
   },
   {

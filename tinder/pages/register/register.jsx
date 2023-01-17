@@ -46,13 +46,13 @@ export default function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.put("/api/newUser", {
-      email: session.user.email,
-      name: nombre,
-      birthday: fecha,
-      genre: genero,
-      searchGenre: buscargenero,
-    });
+    // axios.put("/api/newUser", {
+    //   email: session.user.email,
+    //   name: nombre,
+    //   birthday: fecha,
+    //   genre: genero,
+    //   searchGenre: buscargenero,
+    // });
 
     const loggedUser = {
       name: nombre,
