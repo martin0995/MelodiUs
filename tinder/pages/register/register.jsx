@@ -4,87 +4,48 @@ import Icon from "../Index/Icon.js";
 import handleInput from "../../reactHooks/handleInput";
 import { useRouter } from "next/router";
 import { setForm } from "../../store/reducers/formsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { login } from "../../store/reducers/userSlice";
+
 export default function Register() {
+  const user = useSelector((state) => state.user);
   const { data: session } = useSession();
   const router = useRouter();
-  const [genero, setinputGenero] = useState("");
-  const [buscargenero, setinputBuscarGenero] = useState("");
-
-  //tu genero//
-  const generohombre = useRef("generohombre");
-  const generomujer = useRef("generomujer");
-  const otro = useRef("otro");
-  //genero buscado//
-  const generohombres = useRef("generoSearchhombres");
-  const generomujeres = useRef("generoSearchmujeres");
-  const ambos = useRef("ambos");
-  const nombre = handleInput();
-  const fecha = handleInput();
+  const [genero, setinputGenero] = useState(user.genre);
+  const [buscargenero, setinputBuscarGenero] = useState(user.searchGenre);
   const dispatch = useDispatch();
-  let rojito = "bg-rojito text-white text-base  w-48 rounded-full p-3";
+  const [nombre, setNombre] = useState(user.name);
+  const [fecha, setFecha] = useState(user.birthday);
+
+  // ESTILO (ROJO / VERDE):
+  let rojito = "bg-verdedos text-white text-base  w-48 rounded-full p-3";
+
   let verde =
     "bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3";
 
   const handleGenreButton = (event) => {
     event.preventDefault();
-
-    const elemento = document.getElementById(event.target.id);
-
-    if (elemento.getAttribute("class") === verde) {
-      elemento.setAttribute("class", rojito);
-    } else {
-      elemento.setAttribute("class", verde);
-    }
-
     setinputGenero(event.target.value);
   };
+
   const handleSearchGenre = (event) => {
     event.preventDefault();
-    const elemento = document.getElementById(event.target.id);
-
-    if (elemento.getAttribute("class") === verde) {
-      elemento.setAttribute("class", rojito);
-    } else {
-      elemento.setAttribute("class", verde);
-    }
-
     setinputBuscarGenero(event.target.value);
+
+    // const elemento = document.getElementById(event.target.id);
+
+    // if (elemento.getAttribute("class") === verde) {
+    //   elemento.setAttribute("class", rojito);
+    // } else {
+    //   elemento.setAttribute("class", verde);
+    // }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //tu genero
-    let generohombredata = generohombre.current.className;
-    let generomujerdata = generomujer.current.className;
-    let generootrodata = otro.current.className;
-    let arraygenero = [generohombredata, generomujerdata, generootrodata]
-      .map((value) => value == rojito)
-      .filter(Boolean).length;
-    if (arraygenero > 1) return alert("no podes seleccionar mas de un genero ");
-    if (arraygenero == 0) return alert("tienes que seleccionar tu genero");
-
-    //generos buscados
-    let generohombresdata = generohombres.current.className;
-    let generomujeresdata = generomujeres.current.className;
-    let generoambos = ambos.current.className;
-
-    if (
-      generoambos == rojito &&
-      (generohombresdata == rojito || generomujeresdata == rojito)
-    ) {
-      return alert("no podes seleccionar ambos y algo mas ");
-    }
-    if (
-      generoambos == verde &&
-      generohombredata == verde &&
-      generomujeresdata == verde
-    )
-      return alert("tienes que seleccionar el/los generos que buscas");
-    console.log("buscar", buscargenero);
     axios.put("/api/newUser", {
       email: session.user.email,
       name: nombre,
@@ -92,7 +53,27 @@ export default function Register() {
       genre: genero,
       searchGenre: buscargenero,
     });
+
+    const loggedUser = {
+      name: nombre,
+      email: session.user.email,
+      birthday: fecha,
+      genre: genero,
+      searchGenre: buscargenero,
+      isAdmin: "",
+    };
+
+    dispatch(login(loggedUser));
+
     router.push("/register/register2");
+  };
+
+  const handleNombre = (e) => {
+    setNombre(e.target.value);
+  };
+
+  const handleDate = (e) => {
+    setFecha(e.target.value);
   };
 
   // search();
@@ -100,7 +81,7 @@ export default function Register() {
   return (
     <div className="bg-white text-black h-screen">
       <div className="flex flex-row text-verdedos">
-        <div className="fixed text-black">
+        <div className="text-black">
           <button className="p-2">
             <Cruz />
           </button>
@@ -118,8 +99,9 @@ export default function Register() {
             <input
               className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
               type="text"
-              {...nombre}
+              onChange={handleNombre}
               placeholder="Ingresa tu nombre.."
+              value={nombre}
             ></input>
             <p className="text-sm ml-2">Así es como se verá en tu perfil</p>
           </div>
@@ -132,7 +114,8 @@ export default function Register() {
             <input
               className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
               type="date"
-              {...fecha}
+              onChange={handleDate}
+              value={fecha}
             ></input>
           </div>
 
@@ -141,28 +124,25 @@ export default function Register() {
             <div className="flex flex-row gap-6">
               <button
                 id="genero-hombre"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={genero === "hombre" ? rojito : verde}
                 onClick={handleGenreButton}
                 value="hombre"
-                ref={generohombre}
               >
                 Hombre
               </button>
               <button
                 id="genero-mujer"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={genero === "mujer" ? rojito : verde}
                 onClick={handleGenreButton}
                 value="mujer"
-                ref={generomujer}
               >
                 Mujer
               </button>
               <button
                 id="genero-otro"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={genero === "otro" ? rojito : verde}
                 onClick={handleGenreButton}
                 value="otro"
-                ref={otro}
               >
                 Otro
               </button>
@@ -174,28 +154,25 @@ export default function Register() {
             <div className="flex flex-row gap-6">
               <button
                 id="mostrar-hombres"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={buscargenero === "hombres" ? rojito : verde}
                 onClick={handleSearchGenre}
                 value="hombres"
-                ref={generohombres}
               >
                 Hombres
               </button>
               <button
                 id="mostrar-mujeres"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={buscargenero === "mujeres" ? rojito : verde}
                 onClick={handleSearchGenre}
                 value="mujeres"
-                ref={generomujeres}
               >
                 Mujeres
               </button>
               <button
                 id="mostrar-ambos"
-                className="bg-verdecito text-white text-base border-b-4 border-verdedos w-48 rounded-full p-3"
+                className={buscargenero === "ambos" ? rojito : verde}
                 onClick={handleSearchGenre}
                 value="ambos"
-                ref={ambos}
               >
                 Ambos
               </button>
