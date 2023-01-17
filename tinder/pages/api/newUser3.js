@@ -15,16 +15,23 @@ export default async function newuser(req, res) {
         const findUser = await User.find(email);
         const userid = findUser._id;
 
-        console.log("ARTISTTTT", artist);
-
         const profile = await new Profile(artist).save();
-
-        console.log("profile", profile);
 
         await profile.set("userid", userid);
 
         await db.disconnect();
         res.status(200).send(profile);
+      }
+      break;
+
+    case "GET":
+      {
+        await db.connect();
+
+        const profileid = await Profile.find({}).populate("userid");
+
+        await db.disconnect();
+        res.status(200).send(profileid);
       }
       break;
 
