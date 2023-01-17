@@ -5,6 +5,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
+import { BiArrowBack } from "react-icons/bi";
 
 const register2 = () => {
   const { data: session } = useSession();
@@ -70,11 +71,11 @@ const register2 = () => {
     <div className="bg-white text-black h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
-          <button className="p-2" onClick={Nextpage}>
-            Volver atras
+          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+            <BiArrowBack />
           </button>
         </div>
-        <div className="p-2 h-8 flex gap-1 ml-2">
+        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
           <Icon />
           <h6> tinderMusic</h6>
         </div>

@@ -6,6 +6,7 @@ import handleInput from "../../reactHooks/handleInput";
 import Icon from "../Index/Icon";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
+import { BiArrowBack } from "react-icons/bi";
 
 const register3 = () => {
   const { data: session } = useSession();
@@ -94,11 +95,11 @@ const register3 = () => {
     <div className="bg-white text-black h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
-          <button className="p-2" onClick={Nextpage}>
-            Volver atras
+          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+            <BiArrowBack />
           </button>
         </div>
-        <div className="p-2 h-8 flex gap-1 ml-2">
+        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
           <Icon />
           <h6> tinderMusic</h6>
         </div>
@@ -137,11 +138,7 @@ const register3 = () => {
                                   alt="Neil image"
                                 />
                               ) : (
-                                <img
-                                  className="w-8 h-8 rounded-full"
-                                  src=""
-                                  alt="Neil image"
-                                />
+                                <Icon />
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
