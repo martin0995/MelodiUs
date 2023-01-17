@@ -91,6 +91,14 @@ const register3 = () => {
     }
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios.put("/api/newUser3", { artist: savedArtist });
+
+    router.push("/logged/home");
+  };
+
   return (
     <div className="bg-white text-black h-screen">
       <div className="flex flex-row text-verdedos">
@@ -184,6 +192,7 @@ const register3 = () => {
         <button
           className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
           type="submit"
+          onClick={handleSubmit}
         >
           Finalizar
         </button>

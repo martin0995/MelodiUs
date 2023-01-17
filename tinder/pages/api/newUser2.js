@@ -10,10 +10,8 @@ export default async function newuser(req, res) {
         await db.connect();
 
         const email = { email: req.body.email };
-
         const images = { images: [req.body.imagenes[0], req.body.imagenes[1]] };
 
-        console.log("userBody", images);
         let user = await User.findOneAndUpdate(email, images, {
           returnOriginal: false,
         });
