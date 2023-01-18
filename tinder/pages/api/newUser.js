@@ -15,11 +15,11 @@ export default async function newuser(req, res) {
               await db.disconnect();
               return res.status(201).send("nada");
             }
-            console.log(findUser);
+
             await db.disconnect();
             return res.status(200).send(findUser);
           }
-          console.log("llego");
+
           const { email } = req.body;
           const user = await new User({
             email,
@@ -40,9 +40,7 @@ export default async function newuser(req, res) {
           const users = await User.find();
           await db.disconnect();
           res.status(200).send(users);
-        } catch (error) {
-          console.log(users);
-        }
+        } catch (error) {}
       }
       break;
 
@@ -56,12 +54,11 @@ export default async function newuser(req, res) {
           genre: req.body.genre,
           searchGenre: req.body.searchGenre,
         };
-        console.log("email", email);
-        console.log("userBody", userBody);
+
         let user = await User.findOneAndUpdate(email, userBody, {
           returnOriginal: false,
         });
-        console.log(user);
+
         await db.disconnect();
         res.status(200).send(user);
       }
