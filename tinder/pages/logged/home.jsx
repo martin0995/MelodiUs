@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
@@ -10,6 +10,9 @@ const home = () => {
   const [users, setUsers] = useState({});
   const [photo, setPhoto] = useState(0);
   const [person, setPerson] = useState(0);
+  const [userId, setuserId] = useState("");
+
+  console.log("USERSSS", users);
 
   const getImage = async () => {
     const response = await axios.get("/api/newUser");
@@ -18,17 +21,26 @@ const home = () => {
 
   useEffect(() => {
     getImage();
-  }, []);
+
+    if (status === "authenticated") {
+      axios
+        .post("/api/newUser2", { email: session.user.email })
+        .then((data) => setuserId(data.data._id));
+    }
+  }, [session]);
 
   const handlePhoto = () => {
     if (photo === 0) setPhoto(1);
     if (photo === 1) setPhoto(0);
   };
 
-  const hanldeLike = (boolean) => {
+  const hanldeLike = async (boolean) => {
     if (person < users.data.length - 1) {
-
-      
+      const connection = await axios.post("/api/connections", {
+        connectionBy: userId,
+        like: boolean,
+        referencia: users.data[person],
+      });
 
       setPerson(person + 1);
       setPhoto(0);
