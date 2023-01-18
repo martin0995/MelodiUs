@@ -3,6 +3,8 @@ import { useSession, signOut } from "next-auth/react";
 import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
+import Image from "next/image";
+
 const home = () => {
   const { data: session, status } = useSession();
 
@@ -32,12 +34,29 @@ const home = () => {
           {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
         </div>
         <div className="m-auto relative  border-4 border-solid w-11/12 h-heightdiv mt-2">
-          {users.data
+          {/* {users.data
             ? users.data[0].images.map((image) => {
-                console.log(image);
-                return <img className={"inset-0 h-full"} src={image} />;
+                return (
+                  <Image
+                    src={image}
+                    alt="Users pictures"
+                    width={500}
+                    height={700}
+                    // className="inset-0 h-full"
+                    objectFit="cover"
+                  />
+                );
               })
-            : "null"}
+            : "null"} */}
+
+          <Image
+            src={users.data[0].images[0]}
+            alt="Users pictures"
+            width={500}
+            height={700}
+            // className="inset-0 h-full"
+            objectFit="cover"
+          />
         </div>
         <Navbar></Navbar>
       </div>
