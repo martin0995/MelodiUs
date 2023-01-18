@@ -35,19 +35,14 @@ export default async function newuser(req, res) {
       break;
     case "GET":
       {
-        // try {
-        //   console.log("reqparams", req.query);
-        //   const findUser = await User.find({ email: req.params.email });
-        //   console.log("finduser2", findUser);
-        //   if (findUser[0]) {
-        //     console.log(findUser);
-        //     console.log("El usuario ya existe3");
-        //     return res.status(200).send(findUser);
-        //   }
-        //   res.status(404).send("No existe usuario");
-        // } catch (error) {
-        //   console.log(error);
-        // }
+        try {
+          await db.connect();
+          const users = await User.find();
+          await db.disconnect();
+          res.status(200).send(users);
+        } catch (error) {
+          console.log(users);
+        }
       }
       break;
 

@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import Cruz from "./cruz.js";
 import Icon from "../Index/Icon.js";
-import handleInput from "../../reactHooks/handleInput";
 import { useRouter } from "next/router";
-import { setForm } from "../../store/reducers/formsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+
 import { useSession } from "next-auth/react";
 import { login } from "../../store/reducers/userSlice";
 
