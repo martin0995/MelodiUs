@@ -33,8 +33,6 @@ export default async function newuser(req, res) {
             chat: "",
           });
 
-          console.log("MATCHHH", match);
-
           await match.set("user1", connectionBy);
           await match.set("user2", referencia);
           await match.save();

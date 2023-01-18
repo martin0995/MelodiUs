@@ -15,14 +15,14 @@ const home = () => {
   const [userId, setuserId] = useState("");
 
   const getImage = async () => {
-    const response = await axios.get("/api/newUser");
+    const response = await axios.get(`/api/userId/${session.user.email}`);
     setUsers(response);
   };
 
   useEffect(() => {
-    getImage();
-
     if (status === "authenticated") {
+      getImage();
+
       axios
         .post("/api/newUser2", { email: session.user.email })
         .then((data) => setuserId(data.data._id));
