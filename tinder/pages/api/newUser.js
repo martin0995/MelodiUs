@@ -8,17 +8,23 @@ export default async function newuser(req, res) {
     case "POST":
       {
         try {
-          console.log(req.body);
-          //  console.log(req.body);
           await db.connect();
-          const { name, password, email, isAdmin } = req.body;
-
+          const findUser = await User.find({ email: req.body.email });
+          if (findUser[0]) {
+            if (findUser[0].images.length > 0) {
+              await db.disconnect();
+              return res.status(201).send("nada");
+            }
+            console.log(findUser);
+            await db.disconnect();
+            return res.status(200).send(findUser);
+          }
+          console.log("llego");
+          const { email } = req.body;
           const user = await new User({
-            name,
-            password,
             email,
-            isAdmin,
           }).save();
+
           await db.disconnect();
           res.status(200).send(user);
         } catch (err) {
@@ -26,16 +32,38 @@ export default async function newuser(req, res) {
         }
       }
 
-      // Creación de usuario
-
       break;
     case "GET":
       {
+        try {
+          await db.connect();
+          const users = await User.find();
+          await db.disconnect();
+          res.status(200).send(users);
+        } catch (error) {
+          console.log(users);
+        }
       }
       break;
 
     case "PUT":
       {
+        await db.connect();
+        const email = { email: req.body.email };
+        const userBody = {
+          name: req.body.name.value,
+          birthday: req.body.birthday.value,
+          genre: req.body.genre,
+          searchGenre: req.body.searchGenre,
+        };
+        console.log("email", email);
+        console.log("userBody", userBody);
+        let user = await User.findOneAndUpdate(email, userBody, {
+          returnOriginal: false,
+        });
+        console.log(user);
+        await db.disconnect();
+        res.status(200).send(user);
       }
       break;
 

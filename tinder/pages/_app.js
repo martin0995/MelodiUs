@@ -1,9 +1,16 @@
 import "../styles/globals.css";
+import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import { store } from "../store/store";
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps, session }) {
   return (
-    <div className="bg-yellow-300	 h-screen">
-      <Component {...pageProps} />
-    </div>
+    <SessionProvider session={session}>
+      <Provider store={store}>
+        <div className="">
+          <Component {...pageProps} />
+        </div>
+      </Provider>
+    </SessionProvider>
   );
 }

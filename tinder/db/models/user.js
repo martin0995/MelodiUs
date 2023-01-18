@@ -2,10 +2,14 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    isAdmin: { type: Boolean, required: true, default: false },
+    birthday: { type: Date },
+    genre: { type: String },
+    searchGenre: { type: String },
+    isAdmin: { type: Boolean, default: false },
+    images: [{ type: String }],
+    // profile: [{ type: String, default: false }],
   },
   {
     timestamps: true,
