@@ -35,11 +35,11 @@ const home = () => {
   };
 
   const hanldeLike = async (boolean) => {
-    if (person < users.data.length - 1) {
+    if (person < users.data.length) {
       const connection = await axios.post("/api/connections", {
         connectionBy: userId,
         like: boolean,
-        referencia: users.data[person],
+        referencia: users.data[person]._id,
       });
 
       setPerson(person + 1);

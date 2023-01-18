@@ -11,13 +11,13 @@ export default async function newuser(req, res) {
     case "POST":
       {
         await db.connect();
-        console.log(req.body);
         const { connectionBy, like, referencia } = req.body;
 
-        const connection = await new Connections(like).save();
-
-        await connection.set("connectionBy", connectionBy);
-        await connection.set("referencia", referencia);
+        const connection = await new Connections({
+          like: like,
+          connectionBy: connectionBy,
+          referencia: referencia,
+        }).save();
 
         await connection.save();
         await db.disconnect();
@@ -29,9 +29,7 @@ export default async function newuser(req, res) {
       {
         await db.connect();
 
-        const connection = await Connections.find()
-          .populate("connectionBy")
-          .populate("referencia");
+        const connection = await Connections.find();
 
         await db.disconnect();
         res.status(200).send(connection);

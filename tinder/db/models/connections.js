@@ -5,7 +5,7 @@ const connectionsSchema = new mongoose.Schema(
   {
     connectionBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Usuario que da like
     referencia: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Usuario al que le doy like
-    like: [{ type: Boolean }], // Si es like o dislike
+    like: { type: Boolean }, // Si es like o dislike
   },
   {
     timestamps: true,

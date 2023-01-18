@@ -33,11 +33,12 @@ export default async function newuser(req, res) {
       }
 
       break;
-    case "GET":
+    case "GET": //para obtener todos los usuarios
       {
         try {
           await db.connect();
-          const users = await User.find();
+
+          const users = await User.find().populate("postedBy");
           await db.disconnect();
           res.status(200).send(users);
         } catch (error) {}

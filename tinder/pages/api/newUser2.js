@@ -34,6 +34,19 @@ export default async function newuser(req, res) {
         } catch (error) {}
       }
       break;
+    case "GET": // identificar tu usuario
+      {
+        try {
+          await db.connect();
+          const email = { email: req.body.email };
+
+          const users = await User.findOne(email);
+
+          await db.disconnect();
+          res.status(200).send(users);
+        } catch (error) {}
+      }
+      break;
 
     default:
       res.send("Otro método");

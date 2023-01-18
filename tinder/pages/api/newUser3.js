@@ -13,12 +13,12 @@ export default async function newuser(req, res) {
         const email = { email: req.body.email };
         const artist = { artist: req.body.artist };
         const findUser = await User.find(email);
-        const userid = findUser[0]._id;
 
         const profile = await new Profile(artist).save();
 
-        await profile.set("postedBy", userid);
-        await profile.save();
+        await findUser[0].set("postedBy", profile._id);
+        await findUser[0].save();
+        console.log("que ondaaa");
 
         await db.disconnect();
         res.status(200).send(profile);
@@ -27,12 +27,6 @@ export default async function newuser(req, res) {
 
     case "GET":
       {
-        await db.connect();
-
-        const profileid = await Profile.find().populate("postedBy");
-
-        await db.disconnect();
-        res.status(200).send(profileid);
       }
       break;
 
