@@ -30,8 +30,10 @@ const home = () => {
   }, [session]);
 
   const handlePhoto = () => {
-    if (photo === 0) setPhoto(1);
-    if (photo === 1) setPhoto(0);
+    if (users.data[person].images[1]) {
+      if (photo === 0) setPhoto(1);
+      if (photo === 1) setPhoto(0);
+    }
   };
 
   const hanldeLike = async (boolean) => {
@@ -42,10 +44,11 @@ const home = () => {
         referencia: users.data[person]._id,
       });
 
+      if (person + 1 >= users.data.length) {
+        return alert("Lo sentimos, no hay personas en tu area.");
+      }
       setPerson(person + 1);
       setPhoto(0);
-    } else {
-      alert("Lo sentimos, no hay personas en tu area.");
     }
   };
 
