@@ -7,8 +7,9 @@ import Image from "next/image";
 
 const home = () => {
   const { data: session, status } = useSession();
-
   const [users, setUsers] = useState({});
+  const [photo, setPhoto] = useState(0);
+  const [person, setPerson] = useState(0);
 
   const getImage = async () => {
     const response = await axios.get("/api/newUser");
@@ -19,9 +20,19 @@ const home = () => {
   }, []);
   if (users) {
     if (users.data) {
-      console.log(users.data[0]);
+      console.log(users.data);
     }
   }
+
+  const handlePhoto = () => {
+    if (photo === 0) setPhoto(1);
+    if (photo === 1) setPhoto(0);
+  };
+
+  const hanldeLike = () => {
+    setPerson(person + 1);
+    setPhoto(0);
+  };
 
   if (status === "authenticated") {
     return (
@@ -48,15 +59,32 @@ const home = () => {
                 );
               })
             : "null"} */}
-
-          <Image
-            src={users.data[0].images[0]}
-            alt="Users pictures"
-            width={500}
-            height={700}
-            // className="inset-0 h-full"
-            objectFit="cover"
-          />
+          {users.data ? (
+            <Image
+              src={users.data[person].images[photo]}
+              alt="Users pictures"
+              width={500}
+              height={700}
+              className="aspect-square"
+              objectFit="cover"
+            />
+          ) : (
+            ""
+          )}
+          <div className="flex flew-row justify-around">
+            <button
+              className="border-2 rounded-full w-1/5"
+              onClick={handlePhoto}
+            >
+              No
+            </button>
+            <button
+              className="border-2 rounded-full w-1/5"
+              onClick={hanldeLike}
+            >
+              NEXT
+            </button>
+          </div>
         </div>
         <Navbar></Navbar>
       </div>
