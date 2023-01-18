@@ -15,23 +15,26 @@ const home = () => {
     const response = await axios.get("/api/newUser");
     setUsers(response);
   };
+
   useEffect(() => {
     getImage();
   }, []);
-  if (users) {
-    if (users.data) {
-      console.log(users.data);
-    }
-  }
 
   const handlePhoto = () => {
     if (photo === 0) setPhoto(1);
     if (photo === 1) setPhoto(0);
   };
 
-  const hanldeLike = () => {
-    setPerson(person + 1);
-    setPhoto(0);
+  const hanldeLike = (boolean) => {
+    if (person < users.data.length - 1) {
+
+      
+
+      setPerson(person + 1);
+      setPhoto(0);
+    } else {
+      alert("Lo sentimos, no hay personas en tu area.");
+    }
   };
 
   if (status === "authenticated") {
@@ -45,20 +48,6 @@ const home = () => {
           {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
         </div>
         <div className="m-auto relative  border-4 border-solid w-11/12 h-heightdiv mt-2">
-          {/* {users.data
-            ? users.data[0].images.map((image) => {
-                return (
-                  <Image
-                    src={image}
-                    alt="Users pictures"
-                    width={500}
-                    height={700}
-                    // className="inset-0 h-full"
-                    objectFit="cover"
-                  />
-                );
-              })
-            : "null"} */}
           {users.data ? (
             <Image
               src={users.data[person].images[photo]}
@@ -76,13 +65,19 @@ const home = () => {
               className="border-2 rounded-full w-1/5"
               onClick={handlePhoto}
             >
-              No
+              Foto
             </button>
             <button
               className="border-2 rounded-full w-1/5"
-              onClick={hanldeLike}
+              onClick={() => hanldeLike(false)}
             >
-              NEXT
+              X
+            </button>
+            <button
+              className="border-2 rounded-full w-1/5"
+              onClick={() => hanldeLike(true)}
+            >
+              CORAZON
             </button>
           </div>
         </div>
