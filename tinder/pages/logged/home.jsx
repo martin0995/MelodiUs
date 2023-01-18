@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
+import axios from "axios";
 const home = () => {
   const { data: session, status } = useSession();
+
+  const [users, setUsers] = useState({});
+
+  const getImage = async () => {
+    const response = await axios.get("/api/newUser");
+    setUsers(response);
+  };
+  useEffect(() => {
+    getImage();
+  }, []);
+  if (users) {
+    if (users.data) {
+      console.log(users.data[0]);
+    }
+  }
 
   if (status === "authenticated") {
     return (
@@ -15,8 +31,13 @@ const home = () => {
           </div>
           {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
         </div>
-        <div className="m-auto relative p-2.5 border-4 border-solid w-11/12 h-heightdiv mt-2">
-          <img className={"inset-0 h-full"}></img>
+        <div className="m-auto relative  border-4 border-solid w-11/12 h-heightdiv mt-2">
+          {users.data
+            ? users.data[0].images.map((image) => {
+                console.log(image);
+                return <img className={"inset-0 h-full"} src={image} />;
+              })
+            : "null"}
         </div>
         <Navbar></Navbar>
       </div>
