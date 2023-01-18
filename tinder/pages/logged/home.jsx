@@ -4,6 +4,8 @@ import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
 import Image from "next/image";
+import { AiFillHeart } from "react-icons/ai";
+import { ImCross } from "react-icons/im";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -11,8 +13,6 @@ const home = () => {
   const [photo, setPhoto] = useState(0);
   const [person, setPerson] = useState(0);
   const [userId, setuserId] = useState("");
-
-  console.log("USERSSS", users);
 
   const getImage = async () => {
     const response = await axios.get("/api/newUser");
@@ -83,13 +83,13 @@ const home = () => {
               className="border-2 rounded-full w-1/5"
               onClick={() => hanldeLike(false)}
             >
-              X
+              <ImCross />
             </button>
             <button
               className="border-2 rounded-full w-1/5"
               onClick={() => hanldeLike(true)}
             >
-              CORAZON
+              <AiFillHeart />
             </button>
           </div>
         </div>

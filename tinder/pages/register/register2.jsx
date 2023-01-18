@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
 
+
 const register2 = () => {
   const { data: session } = useSession();
   const router = useRouter();

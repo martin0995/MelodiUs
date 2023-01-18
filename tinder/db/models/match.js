@@ -5,7 +5,7 @@ const matchSchema = new mongoose.Schema(
   {
     user1: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     user2: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    chat: [{ type: String }],
+    chat: { type: String },
   },
   {
     timestamps: true,
