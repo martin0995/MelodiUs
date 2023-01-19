@@ -22,11 +22,12 @@ export default async function newuser(req, res) {
           const user = await User.findOne({ email: email1 });
 
           // Encuentro si la otra persona me dio like:
-          const findConnections = await Connections.find({
-            connectionBy: user._id,
-          });
+          // const findConnections = await Connections.find({
+          //   connectionBy: user._id,
+          // });
 
-          await delete findConnections[0].connectionBy;
+          // await delete findConnections[0].connectionBy;
+          const findConnections = await Connections.find();
 
           console.log(findConnections);
 

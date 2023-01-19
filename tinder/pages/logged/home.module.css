@@ -1,0 +1,7 @@
+.perspectiveBack {
+  transform: perspective(600px) translateZ(-100px);
+}
+
+.photoContainer {
+  height: calc(100vh - 240px);
+}
