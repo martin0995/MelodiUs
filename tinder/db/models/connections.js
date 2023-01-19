@@ -3,8 +3,8 @@ const User = require("./user");
 
 const connectionsSchema = new mongoose.Schema(
   {
-    connectionBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Usuario que da like
-    referencia: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Usuario al que le doy like
+    connectionBy: { type: String, ref: "User" }, // Usuario que da like
+    referencia: { type: String, ref: "User" }, // Usuario al que le doy like
     like: { type: Boolean }, // Si es like o dislike
   },
   {

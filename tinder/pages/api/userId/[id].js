@@ -20,20 +20,24 @@ export default async function newuser(req, res) {
 
           // Encuentro a mi usuario:
           const user = await User.findOne({ email: email1 });
+          console.log("santi", user._id);
 
           // Encuentro si la otra persona me dio like:
-          // const findConnections = await Connections.find({
-          //   connectionBy: user._id,
-          // });
 
-          // await delete findConnections[0].connectionBy;
-          const findConnections = await Connections.find();
+          const findConnections = await Connections.find({
+            connectionBy: user._id,
+          }).select("-_id referencia");
 
-          console.log(findConnections);
+          // los filtro
+          let usersfilter = users.filter(
+            (i) => !findConnections.filter((y) => y.referencia == i._id).length
+          );
 
           await db.disconnect();
-          res.status(200).send(users);
-        } catch (error) {}
+          res.status(200).send(usersfilter);
+        } catch (error) {
+          console.log(error);
+        }
       }
       break;
 
