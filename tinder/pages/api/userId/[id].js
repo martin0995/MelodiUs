@@ -19,11 +19,15 @@ export default async function newuser(req, res) {
             "postedBy"
           );
 
-          console.log(users);
+          // Camabiamos propiedad de objetos dentro de un array (birthday):
+          users = users.map((person) => {
+            const resultFinal = Object.assign({}, person);
+            resultFinal._doc.birthday = ageCalculator(person.birthday);
+            return resultFinal._doc;
+          });
 
           // Encuentro a mi usuario:
           const user = await User.findOne({ email: email1 });
-          console.log("santi", user._id);
 
           // Tengo toos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
