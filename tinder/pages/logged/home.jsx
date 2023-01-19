@@ -7,12 +7,15 @@ import Image from "next/image";
 import { AiFillHeart } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
 import styles from "./home.module.css";
+import noUsers from "../../components/noUsers";
+
 const home = () => {
   const { data: session, status } = useSession();
   const [users, setUsers] = useState({});
   const [photo, setPhoto] = useState(0);
   const [person, setPerson] = useState(0);
   const [userId, setuserId] = useState("");
+  const [noPerson, setNoPerson] = useState(false);
 
   const getImage = async () => {
     const response = await axios.get(`/api/userId/${session.user.email}`);
@@ -27,7 +30,7 @@ const home = () => {
         .post("/api/newUser2", { email: session.user.email })
         .then((data) => setuserId(data.data._id));
     }
-  }, [session]);
+  }, [session, noPerson]);
 
   const handlePhoto = () => {
     if (users.data[person].images[1]) {
@@ -44,7 +47,10 @@ const home = () => {
         referencia: users.data[person]._id,
       });
 
+      console.log("CONNECTION", connection);
+
       if (person + 1 >= users.data.length) {
+        setNoPerson(true);
         return alert("Lo sentimos, no hay personas en tu area.");
       }
       setPerson(person + 1);
@@ -69,32 +75,38 @@ const home = () => {
             {users.data ? (
               <>
                 <div className="relative w-[120%] h-full -left-[10%]">
-                  <Image
-                    src={users.data[person].images[photo]}
-                    alt="Users pictures"
-                    fill
-                    className={`object-cover object-center absolute -z-10 ${styles.perspectiveBack}`}
-                  />
-                </div>
-                <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around">
-                  <button
-                    className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                    onClick={handlePhoto}
-                  >
-                    Foto
-                  </button>
-                  <button
-                    className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                    onClick={() => hanldeLike(false)}
-                  >
-                    <ImCross />
-                  </button>
-                  <button
-                    className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                    onClick={() => hanldeLike(true)}
-                  >
-                    <AiFillHeart />
-                  </button>
+                  {users.data.length > 0 ? (
+                    <div>
+                      <Image
+                        src={users.data[person].images[photo]}
+                        alt="Users pictures"
+                        fill
+                        className={`object-cover object-center absolute -z-10 ${styles.perspectiveBack}`}
+                      />
+                      <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around">
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          onClick={handlePhoto}
+                        >
+                          Foto
+                        </button>
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          onClick={() => hanldeLike(false)}
+                        >
+                          <ImCross />
+                        </button>
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          onClick={() => hanldeLike(true)}
+                        >
+                          <AiFillHeart />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <noUsers />
+                  )}
                 </div>
               </>
             ) : (

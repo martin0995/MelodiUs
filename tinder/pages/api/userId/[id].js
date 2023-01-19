@@ -22,8 +22,7 @@ export default async function newuser(req, res) {
           const user = await User.findOne({ email: email1 });
           console.log("santi", user._id);
 
-          // Encuentro si la otra persona me dio like:
-
+          // Tengo toos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
             connectionBy: user._id,
           }).select("-_id referencia");
