@@ -29,18 +29,23 @@ export default async function newuser(req, res) {
           // Encuentro a mi usuario:
           const user = await User.findOne({ email: email1 });
 
-          // Tengo toos los IDs de las personas que les di like:
+          // Tengo todos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
             connectionBy: user._id,
           }).select("-_id referencia");
 
-          // los filtro
+          // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
           );
 
+          // Filtro de GENERO:
+          const usersfilter2 = usersfilter.filter((u) => {
+            return u.genre + "s" == user.searchGenre;
+          });
+
           await db.disconnect();
-          res.status(200).send(usersfilter);
+          res.status(200).send(usersfilter2);
         } catch (error) {
           console.log(error);
         }

@@ -40,25 +40,28 @@ const home = () => {
   };
 
   const hanldeLike = async (boolean) => {
-    if (person < users.data.length) {
-      
-      // Se genera el like y/o match:
-      const connection = await axios.post("/api/connections", {
-        connectionBy: userId,
-        like: boolean,
-        referencia: users.data[person]._id,
-      });
+    try {
+      if (person < users.data.length) {
+        // Se genera el like y/o match:
+        const connection = await axios.post("/api/connections", {
+          connectionBy: userId,
+          like: boolean,
+          referencia: users.data[person]._id,
+        });
 
-      // Distinguir Array de Objeto. Alerta de MATCH:
-      if (connection.data.user1) alert("Has conseguido un MATCH!");
+        // Distinguir Array de Objeto. Alerta de MATCH:
+        if (connection.data.user1) alert("Has conseguido un MATCH!");
 
-      // No hay mas personas en el area:
-      if (person + 1 >= users.data.length) {
-        setNoPerson(true);
-        return alert("Lo sentimos, no hay personas en tu area.");
+        // No hay mas personas en el area:
+        if (person + 1 >= users.data.length) {
+          setNoPerson(true);
+          return alert("Lo sentimos, no hay personas en tu area.");
+        }
+        setPerson(person + 1);
+        setPhoto(0);
       }
-      setPerson(person + 1);
-      setPhoto(0);
+    } catch (error) {
+      console.log(error);
     }
   };
 
