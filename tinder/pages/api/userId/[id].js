@@ -1,6 +1,7 @@
 import User from "../../../db/models/user";
 import db from "../../../db/mongodb";
 import Connections from "../../../db/models/connections";
+import ageCalculator from "../../../reactHooks/ageCalculator";
 
 export default async function newuser(req, res) {
   const { method, body } = req;
@@ -14,27 +15,63 @@ export default async function newuser(req, res) {
           const email1 = req.query.id;
 
           // Todos los usuarios menos el mio:
-          const users = await User.find({ email: { $ne: email1 } }).populate(
+          let users = await User.find({ email: { $ne: email1 } }).populate(
             "postedBy"
           );
 
+          // Camabiamos propiedad de objetos dentro de un array (birthday):
+          users = users.map((person) => {
+            const resultFinal = Object.assign({}, person);
+            resultFinal._doc.birthday = ageCalculator(person.birthday);
+            return resultFinal._doc;
+          });
+
           // Encuentro a mi usuario:
           const user = await User.findOne({ email: email1 });
-          console.log("santi", user._id);
 
-          // Encuentro si la otra persona me dio like:
-
+          // Tengo todos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
             connectionBy: user._id,
           }).select("-_id referencia");
 
-          // los filtro
+          console.log("find", findConnections);
+
+          // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
           );
 
+          // Filtro de GENERO:
+          const usersfilter2 = usersfilter.filter((u) => {
+            if (user.searchGenre == "mujeres")
+              return (
+                u.genre + "es" == user.searchGenre &&
+                (user.genre + "es" == u.searchGenre ||
+                  user.genre + "s" == u.searchGenre)
+              );
+            if (user.searchGenre == "hombres")
+              return (
+                user.searchGenre == u.genre + "s" &&
+                (user.genre + "es" == u.searchGenre ||
+                  user.genre + "s" == u.searchGenre)
+              );
+            return usersfilter;
+          });
+
+          // const usersfilter2 = usersfilter.filter((todosUsuarios) => {
+          //   if (user.genre == "hombre" && user.searchGenre == "mujeres")
+          //     return todosUsuarios.genre + "es" == user.searchGenre;
+          //   if (user.genre == "hombre" && user.searchGenre == "hombres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   if (user.genre == "mujer" && user.searchGenre == "hombres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   if (user.genre == "mujer" && user.searchGenre == "mujeres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   return usersfilter;
+          // });
+
           await db.disconnect();
-          res.status(200).send(usersfilter);
+          res.status(200).send(usersfilter2);
         } catch (error) {
           console.log(error);
         }
