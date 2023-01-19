@@ -27,8 +27,10 @@ export default async function newuser(req, res) {
           connectionBy: referencia,
         });
 
+        console.log(findLike);
+
         // Creo el match con la otra persona:
-        if (findLike.length) {
+        if (like == true && findLike.length) {
           const match = await new Match({
             chat: "",
           });

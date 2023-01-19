@@ -46,15 +46,29 @@ export default async function newuser(req, res) {
             if (user.searchGenre == "mujeres")
               return (
                 u.genre + "es" == user.searchGenre &&
-                user.genre + "s" == u.searchGenre
+                (user.genre + "es" == u.searchGenre ||
+                  user.genre + "s" == u.searchGenre)
               );
             if (user.searchGenre == "hombres")
               return (
-                u.genre + "s" == user.searchGenre &&
-                user.genre + "es" == u.searchGenre
+                user.searchGenre == u.genre + "s" &&
+                (user.genre + "es" == u.searchGenre ||
+                  user.genre + "s" == u.searchGenre)
               );
+            return usersfilter;
           });
-          console.log("userfilter2", usersfilter2);
+
+          // const usersfilter2 = usersfilter.filter((todosUsuarios) => {
+          //   if (user.genre == "hombre" && user.searchGenre == "mujeres")
+          //     return todosUsuarios.genre + "es" == user.searchGenre;
+          //   if (user.genre == "hombre" && user.searchGenre == "hombres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   if (user.genre == "mujer" && user.searchGenre == "hombres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   if (user.genre == "mujer" && user.searchGenre == "mujeres")
+          //     return user.searchGenre == todosUsuarios.genre + "s";
+          //   return usersfilter;
+          // });
 
           await db.disconnect();
           res.status(200).send(usersfilter2);
