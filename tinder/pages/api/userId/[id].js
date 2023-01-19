@@ -1,6 +1,7 @@
 import User from "../../../db/models/user";
 import db from "../../../db/mongodb";
 import Connections from "../../../db/models/connections";
+import ageCalculator from "../../../reactHooks/ageCalculator";
 
 export default async function newuser(req, res) {
   const { method, body } = req;
@@ -14,9 +15,11 @@ export default async function newuser(req, res) {
           const email1 = req.query.id;
 
           // Todos los usuarios menos el mio:
-          const users = await User.find({ email: { $ne: email1 } }).populate(
+          let users = await User.find({ email: { $ne: email1 } }).populate(
             "postedBy"
           );
+
+          console.log(users);
 
           // Encuentro a mi usuario:
           const user = await User.findOne({ email: email1 });
