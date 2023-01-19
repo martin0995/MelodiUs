@@ -15,7 +15,7 @@ module.exports = {
         verdedos: "#007f5f",
       },
       height: {
-        heightdiv: "47rem",
+        heightdiv: "40rem",
       },
     },
   },

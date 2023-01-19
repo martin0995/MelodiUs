@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+const Profile = require("./profile");
 
 const userSchema = new mongoose.Schema(
   {
@@ -9,6 +10,8 @@ const userSchema = new mongoose.Schema(
     searchGenre: { type: String },
     isAdmin: { type: Boolean, default: false },
     images: [{ type: String }],
+    postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
+
     // profile: [{ type: String, default: false }],
   },
   {

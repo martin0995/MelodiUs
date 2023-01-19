@@ -3,7 +3,6 @@ import Cruz from "./cruz.js";
 import Icon from "../Index/Icon.js";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-
 import { useSession } from "next-auth/react";
 import { login } from "../../store/reducers/userSlice";
 
