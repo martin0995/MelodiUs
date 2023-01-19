@@ -27,7 +27,9 @@ export default async function newuser(req, res) {
           });
 
           // Encuentro a mi usuario:
-          const user = await User.findOne({ email: email1 });
+          const user = await User.findOne({ email: email1 }).populate(
+            "postedBy"
+          );
 
           // Tengo todos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
@@ -58,20 +60,19 @@ export default async function newuser(req, res) {
             return usersfilter;
           });
 
-          // const usersfilter2 = usersfilter.filter((todosUsuarios) => {
-          //   if (user.genre == "hombre" && user.searchGenre == "mujeres")
-          //     return todosUsuarios.genre + "es" == user.searchGenre;
-          //   if (user.genre == "hombre" && user.searchGenre == "hombres")
-          //     return user.searchGenre == todosUsuarios.genre + "s";
-          //   if (user.genre == "mujer" && user.searchGenre == "hombres")
-          //     return user.searchGenre == todosUsuarios.genre + "s";
-          //   if (user.genre == "mujer" && user.searchGenre == "mujeres")
-          //     return user.searchGenre == todosUsuarios.genre + "s";
-          //   return usersfilter;
-          // });
+          // Filtro Artistas (MUSICA), tienen que coincidir dos artistas. Comparo 2 Arrays:
+          let usersfilter3 = [];
+          usersfilter2.map((usuario) => {
+            return [
+              usuario.postedBy.artist.some(
+                (r) => user.postedBy.artist.indexOf(r) >= 1
+              ),
+              usersfilter3.push(usuario),
+            ];
+          });
 
           await db.disconnect();
-          res.status(200).send(usersfilter2);
+          res.status(200).send(usersfilter3);
         } catch (error) {
           console.log(error);
         }
