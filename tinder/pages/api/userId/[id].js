@@ -34,6 +34,8 @@ export default async function newuser(req, res) {
             connectionBy: user._id,
           }).select("-_id referencia");
 
+          console.log("find", findConnections);
+
           // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
@@ -41,8 +43,18 @@ export default async function newuser(req, res) {
 
           // Filtro de GENERO:
           const usersfilter2 = usersfilter.filter((u) => {
-            return u.genre + "s" == user.searchGenre;
+            if (user.searchGenre == "mujeres")
+              return (
+                u.genre + "es" == user.searchGenre &&
+                user.genre + "s" == u.searchGenre
+              );
+            if (user.searchGenre == "hombres")
+              return (
+                u.genre + "s" == user.searchGenre &&
+                user.genre + "es" == u.searchGenre
+              );
           });
+          console.log("userfilter2", usersfilter2);
 
           await db.disconnect();
           res.status(200).send(usersfilter2);
