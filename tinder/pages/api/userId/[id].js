@@ -61,18 +61,48 @@ export default async function newuser(req, res) {
           });
 
           // Filtro Artistas (MUSICA), tienen que coincidir dos artistas. Comparo 2 Arrays:
+          // let usersfilter3 = [];
+          // usersfilter2.map((usuario) => {
+          //   const some = usuario.postedBy.artist.map((r) => {
+          //     let contador = 0;
+          //     console.log("r", r);
+          //     console.log("user", user.postedBy.artist);
+          //     if (user.postedBy.artist.includes(r)) {
+          //       contador = contador + 1;
+          //       console.log("si", r);
+          //       console.log("contador", contador);
+          //     }
+          //     console.log(contador);
+          //   });
+          //   console.log("q", some);
+          // });
           let usersfilter3 = [];
-          usersfilter2.map((usuario) => {
-            return [
-              usuario.postedBy.artist.some(
-                (r) => user.postedBy.artist.indexOf(r) >= 1
-              ),
-              usersfilter3.push(usuario),
-            ];
-          });
+          let matchartist = [];
+          for (let i = 0; i < usersfilter2.length; i++) {
+            let valor = 0;
+            let artistasmatch = [];
+            for (let j = 0; j < usersfilter2[i].postedBy.artist.length; j++) {
+              console.log(usersfilter2[i].postedBy.artist[j]);
+
+              if (
+                user.postedBy.artist.includes(
+                  usersfilter2[i].postedBy.artist[j]
+                )
+              ) {
+                valor = valor + 1;
+                artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
+                if (valor == 2) {
+                  usersfilter3.push(usersfilter2[i]);
+                  usersfilter3[i]["similarartist"] = artistasmatch;
+                }
+              }
+              // console.log("ccontableS", valor);
+            }
+          }
+          console.log("uuuuuuuuuu", usersfilter3);
 
           await db.disconnect();
-          res.status(200).send(usersfilter3);
+          res.status(200).send(usersfilter2);
         } catch (error) {
           console.log(error);
         }
