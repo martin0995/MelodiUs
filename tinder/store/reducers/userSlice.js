@@ -7,6 +7,7 @@ const initialState = {
   genre: "",
   searchGenre: "",
   isAdmin: "",
+  images: [],
 };
 
 export const userSlice = createSlice({
