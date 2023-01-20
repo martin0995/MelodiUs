@@ -77,7 +77,7 @@ export default async function newuser(req, res) {
           //   console.log("q", some);
           // });
           let usersfilter3 = [];
-          let matchartist = [];
+
           for (let i = 0; i < usersfilter2.length; i++) {
             let valor = 0;
             let artistasmatch = [];
@@ -102,7 +102,7 @@ export default async function newuser(req, res) {
           console.log("uuuuuuuuuu", usersfilter3);
 
           await db.disconnect();
-          res.status(200).send(usersfilter2);
+          res.status(200).send(usersfilter3);
         } catch (error) {
           console.log(error);
         }
