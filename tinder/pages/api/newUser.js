@@ -33,24 +33,18 @@ export default async function newuser(req, res) {
       }
 
       break;
-    case "GET":
-      {
-        try {
-          await db.connect();
-          const users = await User.find();
-          await db.disconnect();
-          res.status(200).send(users);
-        } catch (error) {}
-      }
-      break;
 
     case "PUT":
       {
         await db.connect();
         const email = { email: req.body.email };
+
+        console.log("REQ BODYY", req.body);
+        console.log("BIRTHDAYY", req.body.birthday);
+
         const userBody = {
-          name: req.body.name.value,
-          birthday: req.body.birthday.value,
+          name: req.body.name,
+          birthday: req.body.birthday,
           genre: req.body.genre,
           searchGenre: req.body.searchGenre,
         };

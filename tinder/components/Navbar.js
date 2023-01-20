@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 
 const Navbar = () => {
   return (
-    <div className="flex flex-row justify-around mt-2 text-verdedos">
+    <div className="w-full py-3 flex flex-row justify-around mt-2 text-verdedos">
       <div>
         <HiOutlineMusicNote className="text-2xl" />
       </div>
