@@ -53,7 +53,8 @@ const home = () => {
 
         // No hay mas personas en el area:
         if (person + 1 >= users.data.length) {
-          setNoPerson(!person);
+          setNoPerson(!noPerson);
+
           return alert("Lo sentimos, no hay personas en tu area.");
         }
         setPerson(person + 1);

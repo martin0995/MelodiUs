@@ -33,7 +33,7 @@ export default async function newuser(req, res) {
 
           // Tengo todos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
-            connectionBy: user.id,
+            connectionBy: user._id,
           }).select("-_id referencia");
 
           console.log("find", findConnections);
@@ -83,7 +83,7 @@ export default async function newuser(req, res) {
               ) {
                 valor = valor + 1;
                 artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
-                if (valor == 2) {
+                if (valor == 1) {
                   usersfilter3.push(usersfilter2[i]);
                   usersfilter3[i]["similarartist"] = artistasmatch;
                 }
