@@ -28,6 +28,7 @@ const Navbar = () => {
         });
 
         const userRedux = {
+          id: usuario.data._id,
           name: usuario.data.name,
           email: usuario.data.email,
           birthday: ageCalculator(usuario.data.birthday),

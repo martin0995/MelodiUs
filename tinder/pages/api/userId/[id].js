@@ -33,7 +33,7 @@ export default async function newuser(req, res) {
 
           // Tengo todos los IDs de las personas que les di like:
           const findConnections = await Connections.find({
-            connectionBy: user._id,
+            connectionBy: user.id,
           }).select("-_id referencia");
 
           console.log("find", findConnections);

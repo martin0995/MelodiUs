@@ -29,7 +29,7 @@ const home = () => {
       getImage();
       setuserId(userRedux);
     }
-  }, [session, noPerson]);
+  }, [session, noPerson, userRedux]);
 
   const handlePhoto = () => {
     if (users.data[person].images[1]) {
@@ -37,13 +37,13 @@ const home = () => {
       if (photo === 1) setPhoto(0);
     }
   };
-
+  console.log("userss", userId);
   const hanldeLike = async (boolean) => {
     try {
       if (person < users.data.length) {
         // Se genera el like y/o match:
         const connection = await axios.post("/api/connections", {
-          connectionBy: userId._id,
+          connectionBy: userId.id,
           like: boolean,
           referencia: users.data[person]._id,
         });
