@@ -61,15 +61,35 @@ export default async function newuser(req, res) {
           });
 
           // Filtro Artistas (MUSICA), tienen que coincidir dos artistas. Comparo 2 Arrays:
+          // let usersfilter3 = [];
+          // usersfilter2.map((usuario) => {
+          //   return usuario.postedBy.artist.some((r) => {
+          //     if (user.postedBy.artist.indexOf(r) >= 1) {
+          //       usersfilter3.push(usuario);
+          //     }
+          //   });
+          // });
+
           let usersfilter3 = [];
-          usersfilter2.map((usuario) => {
-            return usuario.postedBy.artist.some((r) => {
-              if (user.postedBy.artist.indexOf(r) >= 1) {
-                usersfilter3.push(usuario);
+          let matchartist = [];
+          for (let i = 0; i < usersfilter2.length; i++) {
+            let valor = 0;
+            let artistasmatch = [];
+            for (let j = 0; j < usersfilter2[i].postedBy.artist.length; j++) {
+              if (
+                user.postedBy.artist.includes(
+                  usersfilter2[i].postedBy.artist[j]
+                )
+              ) {
+                valor = valor + 1;
+                artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
+                if (valor == 1) {
+                  usersfilter3.push(usersfilter2[i]);
+                  usersfilter3[i]["similarartist"] = artistasmatch;
+                }
               }
-            });
-          });
-          console.log("user", usersfilter3);
+            }
+          }
 
           await db.disconnect();
           res.status(200).send(usersfilter3);
