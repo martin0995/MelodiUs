@@ -14,12 +14,15 @@ const userProfile = () => {
   const { data: session, status } = useSession();
   const [image, setimage] = useState(""); // JPG file uploaded
   const [image2, setimage2] = useState(""); // JPG file uploaded
-  const [imagenes, setImagenes] = useState(user.images[0]); // img URL
-  const [imagenes2, setImagenes2] = useState(user.images[1]);
+  const [imagenes, setImagenes] = useState(null); // img URL
+  const [imagenes2, setImagenes2] = useState(null);
   const ref1 = useRef();
   const ref2 = useRef();
 
-  useEffect(() => {}, [session]);
+  useEffect(() => {
+    setImagenes(user.images[0]);
+    setImagenes2(user.images[1]);
+  }, [session, user.images[0]]);
 
   const deleteimage = (event, img) => {
     event.preventDefault();
