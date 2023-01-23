@@ -26,7 +26,6 @@ const Navbar = () => {
         const usuario = await axios.post("/api/newUser2", {
           email: session.user.email,
         });
-        console.log("CHAU", usuario);
 
         const userRedux = {
           id: usuario.data._id,
@@ -65,7 +64,7 @@ const Navbar = () => {
           {" "}
           <CgProfile
             className="text-2xl"
-            onClick={() => handleSection("/logged/userProfile")}
+            onClick={() => handleSection("/logged/userProfile/profile")}
           />
         </div>
       </div>

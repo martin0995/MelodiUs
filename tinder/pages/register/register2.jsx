@@ -36,6 +36,7 @@ const register2 = () => {
 
     router.push("/register/register4");
   };
+
   const deleteimage = (event, img) => {
     event.preventDefault();
     if (img === 1) {
@@ -70,7 +71,6 @@ const register2 = () => {
   };
 
   useEffect(() => {
-    console.log("entr0");
     if (image) submitImage(1);
   }, [image]);
 

@@ -44,7 +44,6 @@ const register3 = () => {
   }, [searchedMovies.value]);
 
   const selectMovies = (movie) => {
-    console.log(movie);
     // Limit up to 7 artists to choose
     if (savedMovies.length < 6) {
       if (savedMovies.includes(movie)) {
