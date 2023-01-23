@@ -53,15 +53,15 @@ const register3 = () => {
   useEffect(() => {}, [savedArtist, deleted]);
 
   const selectArtist = (artist) => {
-    // Limit up to 7 artists to choose
-    if (savedArtist.length < 7) {
+    // Limit up to 5 artists to choose
+    if (savedArtist.length < 6) {
       if (savedArtist.includes(artist)) {
         return alert(`Ya tenes agregado a ${artist}`);
       }
 
       setsavedArtist([...savedArtist, artist]);
     } else {
-      alert("No se puede agregar mas de 7 artistas");
+      alert("No se puede agregar mas de 5 artistas");
     }
   };
 
@@ -93,6 +93,10 @@ const register3 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (savedArtist.length !== 5) {
+      return alert("Por favor, seleccionar 5 artistas.");
+    }
 
     await axios.put("/api/newUser", {
       email: session.user.email,

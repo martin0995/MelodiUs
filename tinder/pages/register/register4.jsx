@@ -49,14 +49,14 @@ const register3 = () => {
   const selectMovies = (movie) => {
     console.log(movie);
     // Limit up to 7 artists to choose
-    if (savedMovies.length < 7) {
+    if (savedMovies.length < 6) {
       if (savedMovies.includes(movie)) {
         return alert(`Ya tenes agregado a ${movie}`);
       }
 
       setsavedMovies([...savedMovies, movie]);
     } else {
-      alert("No se puede agregar mas de 7 artistas");
+      alert("No se puede agregar mas de 5 artistas");
     }
   };
 
@@ -68,6 +68,11 @@ const register3 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (savedMovies.length !== 5) {
+      return alert("Por favor, seleccionar 5 peliculas.");
+    }
+
     const loggedUser = {
       movies: savedMovies,
     };

@@ -24,6 +24,11 @@ const register2 = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!imagenes || !imagenes2) {
+      return alert("Por favor, agregar dos fotos");
+    }
+
     await axios.put("/api/newUser2", {
       imagenes: [imagenes, imagenes2],
       email: session.user.email,
