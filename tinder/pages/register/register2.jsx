@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Cruz from "./cruz.js";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -14,7 +14,8 @@ const register2 = () => {
   const [image2, setimage2] = useState(""); // JPG file uploaded
   const [imagenes, setImagenes] = useState(null); // img URL
   const [imagenes2, setImagenes2] = useState(null); // img URL
-
+  const ref1 = useRef();
+  const ref2 = useRef();
   const Nextpage = (event) => {
     event.preventDefault();
 
@@ -28,14 +29,16 @@ const register2 = () => {
       email: session.user.email,
     });
 
-    router.push("/register/register3");
+    router.push("/register/register4");
   };
   const deleteimage = (event, img) => {
     event.preventDefault();
     if (img === 1) {
-      setImagenes(null), setimage("");
+      setImagenes(null), (ref1.current.value = "");
     }
-    if (img === 2) setImagenes2(null);
+    if (img === 2) {
+      setImagenes2(null), (ref2.current.value = "");
+    }
   };
 
   const submitImage = (img) => {
@@ -103,6 +106,7 @@ const register2 = () => {
               onChange={(e) => {
                 setimage(e.target.files[0]);
               }}
+              ref={ref1}
             ></input>
 
             <img
@@ -127,6 +131,7 @@ const register2 = () => {
               onChange={(e) => {
                 setimage2(e.target.files[0]);
               }}
+              ref={ref2}
             ></input>
 
             <img
