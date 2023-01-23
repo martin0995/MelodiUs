@@ -13,14 +13,11 @@ import { login } from "../../store/reducers/userSlice";
 const register3 = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch();
-
   const router = useRouter();
-
   const searchedMovies = handleInput();
   const [movies, setMovies] = useState([]);
   const [savedMovies, setsavedMovies] = useState([]);
   const [deleted, setDeleted] = useState(false);
-
   const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
@@ -74,6 +71,11 @@ const register3 = () => {
     }
 
     const loggedUser = {
+      email: session.user.email,
+      name: user.name,
+      birthday: user.birthday,
+      genre: user.genre,
+      searchGenre: user.searchGenre,
       movies: savedMovies,
     };
     dispatch(login(loggedUser));

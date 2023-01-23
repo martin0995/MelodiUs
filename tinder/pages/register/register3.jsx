@@ -105,7 +105,6 @@ const register3 = () => {
       genre: user.genre,
       searchGenre: user.searchGenre,
     });
-    console.log(user);
     await axios.put("/api/newUser3", {
       artist: savedArtist,
       email: session.user.email,

@@ -26,6 +26,7 @@ const Navbar = () => {
         const usuario = await axios.post("/api/newUser2", {
           email: session.user.email,
         });
+        console.log("CHAU", usuario);
 
         const userRedux = {
           id: usuario.data._id,
@@ -40,7 +41,6 @@ const Navbar = () => {
 
         dispatch(login(userRedux));
       };
-      console.log("CHAU");
 
       searchUser();
     }
