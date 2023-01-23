@@ -11,96 +11,61 @@ import { useSelector } from "react-redux";
 
 const register3 = () => {
   const { data: session } = useSession();
-  let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
-  let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
+
   const router = useRouter();
-  const [accessToken, setAccessToken] = useState();
-  const searchedArtist = handleInput();
-  const [artists, setArtists] = useState([]);
-  const [savedArtist, setsavedArtist] = useState([]);
+
+  const searchedMovies = handleInput();
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setsavedMovies] = useState([]);
   const [deleted, setDeleted] = useState(false);
+  const [inputpelicula, setinputpelicula] = useState("");
   const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
 
-    router.push("/register/register2");
+    router.push("/register/register3");
   };
 
   useEffect(() => {
-    let authParameters = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:
-        "grant_type=client_credentials&client_id=" +
-        SPOTIFY_CLIENT_ID +
-        "&client_secret=" +
-        SPOTIFY_CLIENT_SECRET,
-    };
-    fetch("https://accounts.spotify.com/api/token", authParameters)
-      .then((result) => result.json())
-      .then((data) => setAccessToken(data.access_token));
-  }, []);
+    try {
+      if (searchedMovies.value) {
+        const timer = setTimeout(() => {
+          axios
+            .get(
+              `https://api.themoviedb.org/3/search/movie?api_key=19810e339e7024271bcad7d3a8767450&query=${searchedMovies.value}`
+            )
+            .then((response) => response.data)
+            .then((peliculas) => setMovies(peliculas.results));
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [searchedMovies.value]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      search();
-    }, 500);
-  }, [searchedArtist.value]);
-
-  useEffect(() => {}, [savedArtist, deleted]);
-
-  const selectArtist = (artist) => {
+  const selectMovies = (movie) => {
+    console.log(movie);
     // Limit up to 7 artists to choose
-    if (savedArtist.length < 7) {
-      if (savedArtist.includes(artist)) {
-        return alert(`Ya tenes agregado a ${artist}`);
+    if (savedMovies.length < 7) {
+      if (savedMovies.includes(movie)) {
+        return alert(`Ya tenes agregado a ${movie}`);
       }
 
-      setsavedArtist([...savedArtist, artist]);
+      setsavedMovies([...savedMovies, movie]);
     } else {
       alert("No se puede agregar mas de 7 artistas");
     }
   };
 
-  const deleteArtist = (artist) => {
-    const index = savedArtist.indexOf(artist);
-    savedArtist.splice(index, 1);
+  const deleteArtist = (movie) => {
+    const index = savedMovies.indexOf(movie);
+    savedMovies.splice(index, 1);
     setDeleted(!deleted);
   };
 
-  async function search() {
-    if (accessToken) {
-      let artistParameters = {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + accessToken,
-        },
-      };
-      let artistID = await fetch(
-        "https://api.spotify.com/v1/search?q=" +
-          searchedArtist.value +
-          "&type=artist",
-        artistParameters
-      )
-        .then((result) => result.json())
-        .then((data) => setArtists(data));
-    }
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    await axios.put("/api/newUser", {
-      email: session.user.email,
-      name: user.name,
-      birthday: user.birthday,
-      genre: user.genre,
-      searchGenre: user.searchGenre,
-    });
 
     await axios.put("/api/newUser3", {
       artist: savedArtist,
@@ -126,20 +91,20 @@ const register3 = () => {
 
       <div className="flex flex-col text-2xl m-6">
         <div className="flex flex-col gap-1 items-center">
-          <p>Agrega artista de spotify</p>
+          <p>Agrega pelicula</p>
           <input
             className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
             type="text"
             placeholder="Ingresar artista..."
-            {...searchedArtist}
+            {...searchedMovies}
           ></input>
         </div>
       </div>
 
-      {searchedArtist.value ? (
+      {searchedMovies.value ? (
         <div>
-          {artists.artists
-            ? artists.artists.items.slice(0, 5).map((artist) => {
+          {movies
+            ? movies.slice(0, 5).map((movie) => {
                 return (
                   <div className="w-full max-w-md p-1 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <div className="flow-root">
@@ -150,22 +115,18 @@ const register3 = () => {
                         <li className="py-3 sm:py-4">
                           <div className="flex items-center space-x-4">
                             <div className="flex-shrink-0 ml-5">
-                              {artist.images[0] ? (
-                                <img
-                                  className="w-8 h-8 rounded-full"
-                                  src={artist.images[0].url}
-                                  alt="Neil image"
-                                />
-                              ) : (
-                                <Icon />
-                              )}
+                              <img
+                                className="w-8 h-8 rounded-full"
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                alt="Neil image"
+                              />
                             </div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                {artist.name}
+                                {movie.title}
                               </p>
                             </div>
-                            <div onClick={() => selectArtist(artist.name)}>
+                            <div onClick={() => selectMovies(movie.title)}>
                               <IoAddCircleOutline className="mr-4 text-2xl" />
                             </div>
                           </div>
@@ -182,24 +143,20 @@ const register3 = () => {
       )}
 
       <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
-        {savedArtist.map((artist) => {
+        {savedMovies.map((movie) => {
           return (
             <div
               className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
-              onClick={() => deleteArtist(artist)}
+              onClick={() => deleteArtist(movie)}
             >
               <AiOutlineClose />
-              <p>{artist}</p>
+              <p>{movie}</p>
             </div>
           );
         })}
       </div>
 
-      <div
-        className={
-          artists.artists ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"
-        }
-      >
+      <div className={movies ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"}>
         <button
           className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
           type="submit"
