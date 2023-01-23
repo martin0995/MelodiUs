@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
 
-
 const register2 = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -33,7 +32,9 @@ const register2 = () => {
   };
   const deleteimage = (event, img) => {
     event.preventDefault();
-    if (img === 1) setImagenes(null);
+    if (img === 1) {
+      setImagenes(null), setimage("");
+    }
     if (img === 2) setImagenes2(null);
   };
 
@@ -61,6 +62,7 @@ const register2 = () => {
   };
 
   useEffect(() => {
+    console.log("entr0");
     if (image) submitImage(1);
   }, [image]);
 

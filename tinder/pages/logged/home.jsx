@@ -26,18 +26,19 @@ const home = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
+      console.log("holaaa");
       getImage();
       setuserId(userRedux);
     }
-  }, [session, noPerson, userRedux]);
+  }, [noPerson, userRedux.id]);
 
   const handlePhoto = () => {
-    if (users.data[person].images[1]) {
-      if (photo === 0) setPhoto(1);
-      if (photo === 1) setPhoto(0);
+    if (photo === 0) setPhoto(1);
+    else {
+      setPhoto(0);
     }
   };
-  console.log("userss", userId);
+
   const hanldeLike = async (boolean) => {
     try {
       if (person < users.data.length) {

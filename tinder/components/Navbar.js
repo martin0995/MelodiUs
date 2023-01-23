@@ -44,7 +44,7 @@ const Navbar = () => {
 
       searchUser();
     }
-  }, [session]);
+  }, [session.user.email]);
 
   if (status === "authenticated") {
     return (
