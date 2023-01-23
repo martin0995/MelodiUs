@@ -15,22 +15,52 @@ const userProfile = () => {
   const [image2, setimage2] = useState(""); // JPG file uploaded
   const [imagenes, setImagenes] = useState(null); // img URL
   const [imagenes2, setImagenes2] = useState(null);
-  const ref1 = useRef();
-  const ref2 = useRef();
+  const ref3 = useRef();
+  const ref4 = useRef();
 
   useEffect(() => {
     setImagenes(user.images[0]);
     setImagenes2(user.images[1]);
   }, [user.images[0]]);
 
+  useEffect(() => {
+    if (image) submitImage(1);
+  }, [image]);
+
+  useEffect(() => {
+    if (image2) submitImage(2);
+  }, [image2]);
+
   const deleteimage = (event, img) => {
     event.preventDefault();
     if (img === 1) {
-      setImagenes(null), (ref1.current.value = "");
+      setImagenes(null), (ref3.current.value = "");
     }
     if (img === 2) {
-      setImagenes2(null), (ref2.current.value = "");
+      setImagenes2(null), (ref4.current.value = "");
     }
+  };
+  const submitImage = (img) => {
+    const data = new FormData();
+    if (img === 1) {
+      data.append("file", image);
+    } else {
+      data.append("file", image2);
+    }
+    data.append("upload_preset", "xwz9qlxn");
+    data.append("cloud_name", "dnieujc6g");
+    fetch("https://api.cloudinary.com/v1_1/dnieujc6g/image/upload", {
+      method: "post",
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (img === 1) {
+          setImagenes(data.url);
+        } else {
+          setImagenes2(data.url);
+        }
+      });
   };
 
   const handleSubmit = async (event) => {
@@ -73,7 +103,7 @@ const userProfile = () => {
                 onChange={(e) => {
                   setimage(e.target.files[0]);
                 }}
-                ref={ref1}
+                ref={ref3}
               ></input>
 
               <img
@@ -98,7 +128,7 @@ const userProfile = () => {
                 onChange={(e) => {
                   setimage2(e.target.files[0]);
                 }}
-                ref={ref2}
+                ref={ref4}
               ></input>
 
               <img
