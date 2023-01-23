@@ -7,10 +7,12 @@ import Icon from "../Index/Icon";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/reducers/userSlice";
 
 const register3 = () => {
   const { data: session } = useSession();
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -18,13 +20,13 @@ const register3 = () => {
   const [movies, setMovies] = useState([]);
   const [savedMovies, setsavedMovies] = useState([]);
   const [deleted, setDeleted] = useState(false);
-  const [inputpelicula, setinputpelicula] = useState("");
+
   const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
 
-    router.push("/register/register3");
+    router.push("/register/register2");
   };
 
   useEffect(() => {
@@ -66,13 +68,17 @@ const register3 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const loggedUser = {
+      movies: savedMovies,
+    };
+    dispatch(login(loggedUser));
 
-    await axios.put("/api/newUser3", {
-      artist: savedArtist,
-      email: session.user.email,
-    });
+    // await axios.put("/api/newUser3", {
+    //   movies: savedMovies,
+    //   email: session.user.email,
+    // });
 
-    router.push("/logged/home");
+    router.push("/register/register3");
   };
 
   return (
