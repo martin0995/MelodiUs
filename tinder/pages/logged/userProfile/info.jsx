@@ -10,7 +10,6 @@ import { BiArrowBack } from "react-icons/bi";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   const { data: session, status } = useSession();
   const [image, setimage] = useState(""); // JPG file uploaded
   const [image2, setimage2] = useState(""); // JPG file uploaded
@@ -22,7 +21,7 @@ const userProfile = () => {
   useEffect(() => {
     setImagenes(user.images[0]);
     setImagenes2(user.images[1]);
-  }, [session, user.images[0]]);
+  }, [user.images[0]]);
 
   const deleteimage = (event, img) => {
     event.preventDefault();
@@ -50,9 +49,14 @@ const userProfile = () => {
   if (status === "authenticated") {
     return (
       <div className="bg-white text-black h-screen">
+        <div className="flex text-verdedos  items-center ">
+          <div className="p-2 h-8 flex mx-auto gap-1 ">
+            <Icon />
+            <h6> tinderMusic</h6>
+          </div>
+        </div>
         <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
-          <div className="flex flex-col text-1xl m-6 gap-6 ">
-            <p>Cargar fotos</p>
+          <div className="flex flex-col m-6 gap-6 ">
             <div id="divfile">
               <button
                 onClick={(e) => deleteimage(e, 1)}
