@@ -7,22 +7,47 @@ import styles from "./userProfile.module.css";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import axios from "axios";
+import handleInput from "../../../reactHooks/handleInput";
+import { CiEdit } from "react-icons/ci";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [info, setInfo] = useState(false);
+  const description = handleInput();
 
   const handleClick = (path) => {
     router.push(`/logged/userProfile/${path}`);
   };
 
-  useEffect(() => {}, [session]);
+  const handleInfo = () => {
+    setInfo(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userDb = await axios.put("/api/settings", {
+        email: user.email,
+        description: description.value,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setInfo(false);
+  };
+
+  useEffect(() => {}, [session, info]);
 
   if (status === "authenticated") {
     return (
       <div className="flex flex-col text-white justify-between h-screen  w-full items-center pt-6 bg-black">
-        <div className="flex text-verdedos  items-center ">
+        <div className="flex text-verdecito  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 ">
             <Icon />
             <h6> tinderMusic</h6>
@@ -40,14 +65,49 @@ const userProfile = () => {
             {user.name}, {user.birthday}
           </p>
         </div>
-        <div className="flex flex-row justify-between w-4/5  h-2/5 ">
+
+        <div className="flex flex-col justify-center items-center w-screen">
+          {user.description && info === false ? (
+            <div>
+              <p>{user.description}</p>
+              <CiEdit onClick={handleInfo} />
+            </div>
+          ) : info ? (
+            <form
+              className="flex flex-col items-center gap-4"
+              onSubmit={handleSubmit}
+            >
+              <input
+                className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+                type="text"
+                placeholder="Sobre mí.."
+                {...description}
+              ></input>
+              <button
+                className="border-2 rounded-full p-3 flex items-center justify-center text-md w-2/5 bg-verdecito"
+                type="submit"
+              >
+                Guardar
+              </button>
+            </form>
+          ) : (
+            <button
+              className="border-2 rounded-full p-3 flex items-center justify-center text-xl w-2/5 bg-verdecito"
+              onClick={handleInfo}
+            >
+              Sobre mí
+            </button>
+          )}
+        </div>
+
+        <div className="flex flex-row justify-between w-4/5 h-1/5">
           <button
-            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-1/5"
+            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5"
             onClick={() => handleClick("info")}
           >
             Perfil
           </button>
-          <button className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-1/5">
+          <button className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5">
             Ajustes
           </button>
         </div>

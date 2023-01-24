@@ -38,6 +38,7 @@ const Navbar = () => {
           images: usuario.data.images,
           movies: usuario.data.postedBy.movies,
           artists: usuario.data.postedBy.artist,
+          description: usuario.data.description,
         };
 
         dispatch(login(userRedux));
