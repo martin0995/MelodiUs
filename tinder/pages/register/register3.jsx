@@ -134,7 +134,7 @@ const register3 = () => {
   };
 
   return (
-    <div className="bg-white text-black h-screen">
+    <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
           <button className="p-2 text-2xl ml-2" onClick={Nextpage}>

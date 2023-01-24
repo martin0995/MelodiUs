@@ -68,7 +68,7 @@ export default function Register() {
   // search();
 
   return (
-    <div className="bg-white text-black h-screen">
+    <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
           <button className="p-2">

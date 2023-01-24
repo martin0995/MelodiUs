@@ -40,7 +40,7 @@ const userProfile = () => {
             {user.name}, {user.birthday}
           </p>
         </div>
-        <div className="flex flex-row justify-between w-4/5  h-2/5">
+        <div className="flex flex-row justify-between w-4/5  h-2/5 ">
           <button
             className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-1/5"
             onClick={() => handleClick("info")}
@@ -52,7 +52,7 @@ const userProfile = () => {
           </button>
         </div>
 
-        <Navbar className="fixed"></Navbar>
+        <Navbar></Navbar>
       </div>
     );
   }
