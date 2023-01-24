@@ -27,7 +27,7 @@ export default async function newuser(req, res) {
           await db.connect();
           const email = { email: req.body.email };
 
-          const users = await User.findOne(email);
+          const users = await User.findOne(email).populate("postedBy");
 
           await db.disconnect();
           res.status(200).send(users);

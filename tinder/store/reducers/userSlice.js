@@ -10,6 +10,7 @@ const initialState = {
   isAdmin: "",
   images: [],
   movies: [],
+  artists: [],
 };
 
 export const userSlice = createSlice({

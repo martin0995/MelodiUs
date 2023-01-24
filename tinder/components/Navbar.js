@@ -36,6 +36,8 @@ const Navbar = () => {
           searchGenre: usuario.data.searchGenre,
           isAdmin: false,
           images: usuario.data.images,
+          movies: usuario.data.postedBy.movies,
+          artists: usuario.data.postedBy.artist,
         };
 
         dispatch(login(userRedux));

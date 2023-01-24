@@ -10,6 +10,8 @@ import { BiArrowBack } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const register3 = () => {
+  const user = useSelector((state) => state.user);
+  const art = [...user.artists];
   const { data: session } = useSession();
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
@@ -17,9 +19,8 @@ const register3 = () => {
   const [accessToken, setAccessToken] = useState();
   const searchedArtist = handleInput();
   const [artists, setArtists] = useState([]);
-  const [savedArtist, setsavedArtist] = useState([]);
+  const [savedArtist, setsavedArtist] = useState(art || []);
   const [deleted, setDeleted] = useState(false);
-  const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
@@ -54,14 +55,13 @@ const register3 = () => {
 
   const selectArtist = (artist) => {
     // Limit up to 5 artists to choose
-    if (savedArtist.length < 6) {
+    if (savedArtist.length < 5) {
       if (savedArtist.includes(artist)) {
         return alert(`Ya tenes agregado a ${artist}`);
       }
-
       setsavedArtist([...savedArtist, artist]);
     } else {
-      alert("No se puede agregar mas de 5 artistas");
+      return alert("No se puede agregar mas de 5 artistas");
     }
   };
 
@@ -98,20 +98,29 @@ const register3 = () => {
       return alert("Por favor, seleccionar 5 artistas.");
     }
 
-    await axios.put("/api/newUser", {
-      email: session.user.email,
-      name: user.name,
-      birthday: user.birthday,
-      genre: user.genre,
-      searchGenre: user.searchGenre,
-    });
-    await axios.put("/api/newUser3", {
-      artist: savedArtist,
-      email: session.user.email,
-      movies: user.movies,
-    });
+    if (user.artists[0]) {
+      await axios.put("/api/newUser3", {
+        artist: savedArtist,
+        email: session.user.email,
+      });
 
-    router.push("/logged/home");
+      router.push("/logged/userProfile/info");
+    } else {
+      await axios.put("/api/newUser", {
+        email: session.user.email,
+        name: user.name,
+        birthday: user.birthday,
+        genre: user.genre,
+        searchGenre: user.searchGenre,
+      });
+      await axios.put("/api/newUser3", {
+        artist: savedArtist,
+        email: session.user.email,
+        movies: user.movies,
+      });
+
+      router.push("/logged/home");
+    }
   };
 
   return (

@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import Cruz from "../../register/Cruz";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { BiArrowBack } from "react-icons/bi";
+import ArtistSelection from "../../../components/ArtistSelection";
+import MoviesSelection from "../../../components/MoviesSelection";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
@@ -78,15 +80,22 @@ const userProfile = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="bg-white text-black h-screen">
-        <div className="flex text-verdedos  items-center ">
-          <div className="p-2 h-8 flex mx-auto gap-1 ">
+      <div className="flex flex-col justify-between bg-black text-white h-screen">
+        <div className="flex text-green-500  items-center ">
+          <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
             <h6> tinderMusic</h6>
           </div>
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
-          <div className="flex flex-col m-6 gap-6 ">
+
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col text-xl gap-6 w-full max-w-md"
+        >
+          <div className="flex flex-col mt-6 mb-6 gap-6 p-4">
+            <h5 className="text-xl font-bold leading-none dark:text-whitetext-xl font-bold leading-none dark:text-white">
+              Editar fotos
+            </h5>
             <div id="divfile">
               <button
                 onClick={(e) => deleteimage(e, 1)}
@@ -139,7 +148,14 @@ const userProfile = () => {
           </div>
         </form>
 
-        <Navbar></Navbar>
+        <div>
+          <ArtistSelection />
+        </div>
+        <div>
+          <MoviesSelection />
+        </div>
+
+        <Navbar className="fixed"></Navbar>
       </div>
     );
   }
