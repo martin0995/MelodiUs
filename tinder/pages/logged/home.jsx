@@ -68,63 +68,61 @@ const home = () => {
 
   if (status === "authenticated") {
     return (
-      <div>
-        <div className="text-black h-screen flex flex-grow flex-shrink-0 flex-col w-full items-center justify-end pt-6">
-          <div className="flex gap-x-3 text-verdedos flex-grow flex-shrink-0 items-center mb-6">
-            <div className="p-2 h-8 flex mx-auto gap-1">
-              <Icon />
-              <h6> tinderMusic</h6>
-            </div>
-            {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
+      <div className="h-screen flex flex-grow flex-shrink-0 flex-col w-full items-center justify-end pt-6 bg-black">
+        <div className="flex gap-x-3 text-verdedos flex-grow flex-shrink-0 items-center mb-6">
+          <div className="p-2 h-8 flex mx-auto gap-1">
+            <Icon />
+            <h6> tinderMusic</h6>
           </div>
-          <div className="block h-full w-full flex items-center justify-center">
-            <div
-              className={`m-auto relative  overflow-hidden border-4 border-solid w-11/12 mt-2 ${styles.photoContainer}`}
-            >
-              {users.data ? (
-                <>
-                  <div className="relative w-[120%] h-full -left-[10%]">
-                    {users.data.length > 0 ? (
-                      <div>
-                        <Image
-                          src={users.data[person].images[photo]}
-                          alt="Users pictures"
-                          fill
-                          className={`object-cover object-center absolute -z-10 ${styles.perspectiveBack}`}
-                        />
-                        <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around">
-                          <button
-                            className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                            onClick={handlePhoto}
-                          >
-                            Foto
-                          </button>
-                          <button
-                            className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                            onClick={() => hanldeLike(false)}
-                          >
-                            <ImCross />
-                          </button>
-                          <button
-                            className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
-                            onClick={() => hanldeLike(true)}
-                          >
-                            <AiFillHeart />
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <noUsers />
-                    )}
-                  </div>
-                </>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          <Navbar></Navbar>
+          {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
         </div>
+        <div className="block h-full w-full flex items-center justify-center">
+          <div
+            className={`m-auto relative  overflow-hidden border-4 border-solid w-11/12 mt-2 ${styles.photoContainer}`}
+          >
+            {users.data ? (
+              <>
+                <div className="relative w-[120%] h-full -left-[10%]">
+                  {users.data.length > 0 ? (
+                    <div>
+                      <Image
+                        src={users.data[person].images[photo]}
+                        alt="Users pictures"
+                        fill
+                        className={`object-cover object-center absolute -z-10 ${styles.perspectiveBack}`}
+                      />
+                      <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around text-white">
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          onClick={handlePhoto}
+                        >
+                          Foto
+                        </button>
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center "
+                          onClick={() => hanldeLike(false)}
+                        >
+                          <ImCross />
+                        </button>
+                        <button
+                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          onClick={() => hanldeLike(true)}
+                        >
+                          <AiFillHeart />
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <noUsers />
+                  )}
+                </div>
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+        <Navbar></Navbar>
       </div>
     );
   }

@@ -21,7 +21,7 @@ const userProfile = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="text-black justify-between h-screen flex flex-col w-full items-center pt-6">
+      <div className="text-white justify-between h-screen flex flex-col w-full items-center pt-6 bg-black">
         <div className="flex text-verdedos  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 ">
             <Icon />
