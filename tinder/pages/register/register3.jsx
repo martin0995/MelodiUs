@@ -11,8 +11,14 @@ import { useSelector } from "react-redux";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
-  const art = [...user.artists];
+
+  if (user.artists) {
+    var art = [...user.artists];
+    var redux = true;
+  }
+
   const { data: session } = useSession();
+
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
   const router = useRouter();
@@ -24,8 +30,11 @@ const register3 = () => {
 
   const Nextpage = (event) => {
     event.preventDefault();
-
-    router.push("/register/register2");
+    if (redux) {
+      router.push("/logged/userProfile/info");
+    } else if (!redux) {
+      router.push("/register/register2");
+    }
   };
 
   useEffect(() => {
@@ -98,14 +107,15 @@ const register3 = () => {
       return alert("Por favor, seleccionar 5 artistas.");
     }
 
-    if (user.artists[0]) {
+    if (redux) {
       await axios.put("/api/newUser3", {
         artist: savedArtist,
         email: session.user.email,
+        movies: user.movies,
       });
 
       router.push("/logged/userProfile/info");
-    } else {
+    } else if (!redux) {
       await axios.put("/api/newUser", {
         email: session.user.email,
         name: user.name,
