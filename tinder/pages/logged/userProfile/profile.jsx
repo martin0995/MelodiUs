@@ -21,7 +21,7 @@ const userProfile = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="text-white justify-between h-screen flex flex-col w-full items-center pt-6 bg-black">
+      <div className="flex flex-col text-white justify-between h-screen  w-full items-center pt-6 bg-black">
         <div className="flex text-verdedos  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 ">
             <Icon />
@@ -40,19 +40,19 @@ const userProfile = () => {
             {user.name}, {user.birthday}
           </p>
         </div>
-        <div className="flex flex-row justify-between w-4/5">
+        <div className="flex flex-row justify-between w-4/5  h-2/5">
           <button
-            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl"
+            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-1/5"
             onClick={() => handleClick("info")}
           >
             Perfil
           </button>
-          <button className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl">
+          <button className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-1/5">
             Ajustes
           </button>
         </div>
 
-        <Navbar></Navbar>
+        <Navbar className="fixed"></Navbar>
       </div>
     );
   }

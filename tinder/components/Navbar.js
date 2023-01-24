@@ -49,7 +49,7 @@ const Navbar = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="w-full py-3 flex flex-row justify-around mt-2 text-verdedos">
+      <div className="w-full py-3 flex flex-row justify-around mt-2 text-verdedos fixed bottom-0 z-30 bg-black">
         <div>
           <HiOutlineMusicNote
             className="text-2xl"
