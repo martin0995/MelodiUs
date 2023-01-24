@@ -9,22 +9,26 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/reducers/userSlice";
 import handleInput from "../../../reactHooks/handleInput";
 import { CiEdit } from "react-icons/ci";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
+  const dispatch = useDispatch();
   const router = useRouter();
   const [info, setInfo] = useState(false);
   const description = handleInput();
-
+  const [valor, setValor] = useState(user.description);
+  console.log(user);
   const handleClick = (path) => {
     router.push(`/logged/userProfile/${path}`);
   };
 
   const handleInfo = () => {
-    setInfo(true);
+    setInfo(!info);
   };
 
   const handleSubmit = async (e) => {
@@ -35,14 +39,19 @@ const userProfile = () => {
         email: user.email,
         description: description.value,
       });
+      console.log(userDb);
+      setValor(userDb.data.description);
     } catch (error) {
       console.log(error);
     }
-
-    setInfo(false);
+    setInfo(!info);
   };
 
-  useEffect(() => {}, [session, info]);
+    useEffect(() => {
+
+
+    }, [session, valor, info]);
+  }
 
   if (status === "authenticated") {
     return (
@@ -61,15 +70,19 @@ const userProfile = () => {
             height={200}
             className={`rounded-full ${styles.photoContainer}`}
           />
-          <p className="text-3xl text-center mx-auto mt-2">
-            {user.name}, {user.birthday}
-          </p>
+          {user.description ? (
+            <p className="text-3xl text-center mx-auto mt-2">
+              {user.name}, {user.birthday}
+            </p>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="flex flex-col justify-center items-center w-screen">
-          {user.description && info === false ? (
+          {user.description && !info ? (
             <div>
-              <p>{user.description}</p>
+              <p>{valor}</p>
               <CiEdit onClick={handleInfo} />
             </div>
           ) : info ? (
