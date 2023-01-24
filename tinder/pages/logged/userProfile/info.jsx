@@ -151,7 +151,7 @@ const userProfile = () => {
         <div>
           <ArtistSelection />
         </div>
-        <div className>
+        <div className="pb-8">
           <MoviesSelection />
         </div>
 
