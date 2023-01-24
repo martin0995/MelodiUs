@@ -22,7 +22,7 @@ const register3 = () => {
   const router = useRouter();
   const searchedMovies = handleInput();
   const [movies, setMovies] = useState([]);
-  const [savedMovies, setsavedMovies] = useState(movieredux || null);
+  const [savedMovies, setsavedMovies] = useState(movieredux || []);
   const [deleted, setDeleted] = useState(false);
 
   const Nextpage = (event) => {
@@ -107,7 +107,7 @@ const register3 = () => {
     <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
-          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+          <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
             <BiArrowBack />
           </button>
         </div>
@@ -134,8 +134,8 @@ const register3 = () => {
           {movies
             ? movies.slice(0, 5).map((movie) => {
                 return (
-                  <div className="w-full max-w-md p-1 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root">
+                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flow-root bg-gray-800">
                       <ul
                         role="list"
                         className="divide-y divide-gray-200 dark:divide-gray-700"
@@ -149,13 +149,13 @@ const register3 = () => {
                                 alt="Neil image"
                               />
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            <div className="flex-1 min-w-0 text-white">
+                              <p className="text-sm font-medium truncate">
                                 {movie.title}
                               </p>
                             </div>
                             <div onClick={() => selectMovies(movie.title)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl" />
+                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
                             </div>
                           </div>
                         </li>
@@ -190,7 +190,7 @@ const register3 = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Finalizar
+          Continuar
         </button>
       </div>
     </div>

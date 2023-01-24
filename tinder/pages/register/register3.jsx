@@ -164,8 +164,8 @@ const register3 = () => {
           {artists.artists
             ? artists.artists.items.slice(0, 5).map((artist) => {
                 return (
-                  <div className="w-full max-w-md p-1 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root">
+                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flow-root bg-gray-800">
                       <ul
                         role="list"
                         className="divide-y divide-gray-200 dark:divide-gray-700"
@@ -183,13 +183,13 @@ const register3 = () => {
                                 <Icon />
                               )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            <div className="flex-1 min-w-0 text-white">
+                              <p className="text-sm font-medium truncate">
                                 {artist.name}
                               </p>
                             </div>
                             <div onClick={() => selectArtist(artist.name)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl" />
+                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
                             </div>
                           </div>
                         </li>
@@ -228,7 +228,7 @@ const register3 = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Finalizar
+          Continuar
         </button>
       </div>
     </div>
