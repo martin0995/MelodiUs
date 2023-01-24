@@ -82,16 +82,16 @@ const home = () => {
           >
             {users.data ? (
               <>
-                <div className="relative w-[120%] h-full -left-[10%]">
+                <div className="flex relative w-screen h-full -left-[10%]">
                   {users.data.length > 0 ? (
                     <div>
                       <Image
                         src={users.data[person].images[photo]}
                         alt="Users pictures"
                         fill
-                        className={`object-cover object-center absolute -z-10 ${styles.perspectiveBack}`}
+                        className={`object-cover object-center absolute z-10 ${styles.perspectiveBack}`}
                       />
-                      <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around text-white">
+                      <div className="w-full absolute bottom-10 z-10 flex flew-row justify-around justify-center text-white w-4/5">
                         <button
                           className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
                           onClick={handlePhoto}
@@ -108,7 +108,7 @@ const home = () => {
                           className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
                           onClick={() => hanldeLike(true)}
                         >
-                          <AiFillHeart />
+                          <AiFillHeart className="text-red-600" />
                         </button>
                       </div>
                     </div>
