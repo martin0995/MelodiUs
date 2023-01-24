@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { MdMovie } from "react-icons/md";
+import Link from "next/link";
 
 const MoviesSelection = () => {
   const user = useSelector((state) => state.user);
@@ -11,12 +12,12 @@ const MoviesSelection = () => {
         <h5 className="text-xl font-bold leading-none dark:text-white">
           Películas
         </h5>
-        <a
-          href="#"
+        <Link
+          href="/register/register4"
           className="text-md font-medium text-green-500 hover:underline dark:text-green-500"
         >
           Editar
-        </a>
+        </Link>
       </div>
       <div className="flow-root">
         <ul role="list">

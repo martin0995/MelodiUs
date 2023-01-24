@@ -11,19 +11,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/reducers/userSlice";
 
 const register3 = () => {
+  const user = useSelector((state) => state.user);
   const { data: session } = useSession();
+
+  if (user.movies) {
+    var movieredux = [...user.movies];
+    var redux = true;
+  }
   const dispatch = useDispatch();
   const router = useRouter();
   const searchedMovies = handleInput();
   const [movies, setMovies] = useState([]);
-  const [savedMovies, setsavedMovies] = useState([]);
+  const [savedMovies, setsavedMovies] = useState(movieredux || null);
   const [deleted, setDeleted] = useState(false);
-  const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
-
-    router.push("/register/register2");
+    if (redux) {
+      router.push("/logged/userProfile/info");
+    } else if (!redux) {
+      router.push("/register/register2");
+    }
   };
 
   useEffect(() => {
@@ -45,7 +53,7 @@ const register3 = () => {
 
   const selectMovies = (movie) => {
     // Limit up to 7 artists to choose
-    if (savedMovies.length < 6) {
+    if (savedMovies.length < 5) {
       if (savedMovies.includes(movie)) {
         return alert(`Ya tenes agregado a ${movie}`);
       }
@@ -67,6 +75,14 @@ const register3 = () => {
 
     if (savedMovies.length !== 5) {
       return alert("Por favor, seleccionar 5 peliculas.");
+    }
+    if (redux) {
+      await axios.put("/api/newUser3", {
+        artist: user.artists,
+        email: session.user.email,
+        movies: savedMovies,
+      });
+      return router.push("/logged/userProfile/info");
     }
 
     const loggedUser = {
