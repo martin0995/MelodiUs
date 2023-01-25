@@ -22,7 +22,6 @@ const userProfile = () => {
   const [info, setInfo] = useState(false);
   const description = handleInput();
   const [valor, setValor] = useState(user.description);
-  console.log(user);
   const handleClick = (path) => {
     router.push(`/logged/userProfile/${path}`);
   };
@@ -39,7 +38,6 @@ const userProfile = () => {
         email: user.email,
         description: description.value,
       });
-      console.log(userDb);
       setValor(userDb.data.description);
     } catch (error) {
       console.log(error);
@@ -76,11 +74,15 @@ const userProfile = () => {
           </p>
         </div>
 
-        <div className="flex flex-col justify-center items-center w-screen">
+        <div className="flex flex-col justify-center items-center w-screen mb-20">
           {user.description && !info ? (
-            <div>
-              <p>{valor}</p>
-              <CiEdit onClick={handleInfo} />
+            <div className="flex flex-col justify-center w-3/4 gap-2">
+              <div className="flex justify-end items-end">
+                <CiEdit onClick={handleInfo} className="text-3xl" />
+              </div>
+              <div className="flex flex-col justify-center border-2 rounded-md border-verdecito p-2">
+                <p className="text-xl font-mono md:text-center">{valor}</p>
+              </div>
             </div>
           ) : info ? (
             <form
