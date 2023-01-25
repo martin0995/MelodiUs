@@ -8,6 +8,7 @@ import { signOut } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Preferences from "../../../components/Preferences";
 
 const settings = () => {
   const user = useSelector((state) => state.user);
@@ -40,7 +41,7 @@ const settings = () => {
           <UserSettings />
         </div>
         <div>
-          <UserSettings />
+          <Preferences />
         </div>
         <div className=" mt-4 text-center ">
           {" "}

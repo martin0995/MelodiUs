@@ -119,11 +119,11 @@ const register3 = () => {
 
       <div className="flex flex-col text-2xl m-6">
         <div className="flex flex-col gap-1 items-center">
-          <p>Agrega pelicula</p>
+          <p>Agrega película</p>
           <input
             className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
             type="text"
-            placeholder="Ingresar artista..."
+            placeholder="Ingresar película..."
             {...searchedMovies}
           ></input>
         </div>
