@@ -47,11 +47,11 @@ const userProfile = () => {
     setInfo(!info);
   };
 
-    useEffect(() => {
+  useEffect(() => {
+    setValor(user.description);
+  }, [user]);
 
-
-    }, [session, valor, info]);
-  }
+  useEffect(() => {}, [session, valor, info]);
 
   if (status === "authenticated") {
     return (
@@ -70,13 +70,10 @@ const userProfile = () => {
             height={200}
             className={`rounded-full ${styles.photoContainer}`}
           />
-          {user.description ? (
-            <p className="text-3xl text-center mx-auto mt-2">
-              {user.name}, {user.birthday}
-            </p>
-          ) : (
-            ""
-          )}
+
+          <p className="text-3xl text-center mx-auto mt-2">
+            {user.name}, {user.birthday}
+          </p>
         </div>
 
         <div className="flex flex-col justify-center items-center w-screen">
