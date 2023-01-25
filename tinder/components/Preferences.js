@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import MultiRangeSlider from "./MultiRangeSlider";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const Preferences = () => {
   const user = useSelector((state) => state.user);
+  const { data: session, status } = useSession();
+
+  const [minVal, setMinVal] = useState(18);
+  const [maxVal, setMaxVal] = useState(40);
+  const updatePreferences = () => {
+    let ageRange = [minVal, maxVal];
+    axios.put("/api/settings", {
+      ageRange: ageRange,
+      email: session.user.email,
+    });
+  };
 
   return (
     <div className="w-full max-w-md p-4 bg-black border border-gray-200 shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 text-white">
+      <div className="text-center">
+        {" "}
+        <button
+          onClick={updatePreferences}
+          className="bg-verdecito text-white text-base border-b-4 border-verdedos w-2/6 rounded-full p-3"
+        >
+          Actualizar
+        </button>
+      </div>
       <div className="flex items-center justify-between">
         <h5 className="text-xl font-bold leading-none dark:text-white">
           Ubicación
@@ -40,9 +62,7 @@ const Preferences = () => {
                 <MultiRangeSlider
                   min={18}
                   max={100}
-                  onChange={({ min, max }) =>
-                    console.log(`min = ${min}, max = ${max}`)
-                  }
+                  onChange={({ min, max }) => {}}
                 />
               </div>
             </div>
@@ -61,9 +81,10 @@ const Preferences = () => {
               <MultiRangeSlider
                 min={18}
                 max={100}
-                onChange={({ min, max }) =>
-                  console.log(`min = ${min}, max = ${max}`)
-                }
+                onChange={({ min, max }) => {
+                  setMinVal(min);
+                  setMaxVal(max);
+                }}
               />
             </div>
           </li>

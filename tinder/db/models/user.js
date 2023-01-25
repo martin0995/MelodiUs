@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
     genre: { type: String },
     searchGenre: { type: String },
     description: { type: String },
+    ageRange: [{ type: Number }],
     isAdmin: { type: Boolean, default: false },
     images: [{ type: String, required: true }],
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },

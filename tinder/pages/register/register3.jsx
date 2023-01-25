@@ -122,6 +122,7 @@ const register3 = () => {
         birthday: user.birthday,
         genre: user.genre,
         searchGenre: user.searchGenre,
+        ageRange: [18, 40],
       });
       await axios.put("/api/newUser3", {
         artist: savedArtist,

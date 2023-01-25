@@ -14,7 +14,9 @@ export default async function newuser(req, res) {
         const email = { email: req.body.email };
         const description = {
           description: req.body.description,
+          ageRange: req.body.ageRange,
         };
+        console.log(description);
 
         let user = await User.findOneAndUpdate(email, description, {
           returnOriginal: false,
