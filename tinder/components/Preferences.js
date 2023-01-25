@@ -8,9 +8,11 @@ import { useSession } from "next-auth/react";
 const Preferences = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
-
   const [minVal, setMinVal] = useState(18);
   const [maxVal, setMaxVal] = useState(40);
+
+  const city = {}
+
   const updatePreferences = () => {
     let ageRange = [minVal, maxVal];
     axios.put("/api/settings", {
