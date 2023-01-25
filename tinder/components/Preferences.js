@@ -27,12 +27,12 @@ const Preferences = () => {
           </li>
         </ul>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-4">
         <h5 className="text-xl font-bold leading-none dark:text-white">
           Preferencia de distancia
         </h5>
       </div>
-      <div className="flow-root">
+      <div className="flow-root mt-4">
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="">
@@ -49,21 +49,22 @@ const Preferences = () => {
           </li>
         </ul>
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-4">
         <h5 className="text-xl font-bold leading-none dark:text-white">
           Preferencia de edad
         </h5>
       </div>
-      <div className="flow-root">
+      <div className="flex items-center flow-root mt-4 bg-gray-800 p-4">
         <ul role="list">
           <li className="py-1 sm:py-4">
-            <div className="flex items-center bg-gray-800 rounded-md h-10">
-              <div class="flex-shrink-0 ml-2 text-green-500"></div>
-              <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
-                  40
-                </p>
-              </div>
+            <div className="flex flex-1 min-w-0 justify-center">
+              <MultiRangeSlider
+                min={18}
+                max={100}
+                onChange={({ min, max }) =>
+                  console.log(`min = ${min}, max = ${max}`)
+                }
+              />
             </div>
           </li>
         </ul>

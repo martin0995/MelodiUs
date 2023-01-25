@@ -67,6 +67,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
           maxValRef.current = value;
         }}
         className={`${styles.thumb} z-4`}
+        style={{ zIndex: minVal > max - 100 && "6" }}
       />
 
       <div className={`${styles.slider}`}>
