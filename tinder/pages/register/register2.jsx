@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Cruz from "./cruz.js";
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
 
-
 const register2 = () => {
   const { data: session } = useSession();
   const router = useRouter();
@@ -15,7 +14,8 @@ const register2 = () => {
   const [image2, setimage2] = useState(""); // JPG file uploaded
   const [imagenes, setImagenes] = useState(null); // img URL
   const [imagenes2, setImagenes2] = useState(null); // img URL
-
+  const ref1 = useRef();
+  const ref2 = useRef();
   const Nextpage = (event) => {
     event.preventDefault();
 
@@ -24,17 +24,27 @@ const register2 = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!imagenes || !imagenes2) {
+      return alert("Por favor, agregar dos fotos");
+    }
+
     await axios.put("/api/newUser2", {
       imagenes: [imagenes, imagenes2],
       email: session.user.email,
     });
 
-    router.push("/register/register3");
+    router.push("/register/register4");
   };
+
   const deleteimage = (event, img) => {
     event.preventDefault();
-    if (img === 1) setImagenes(null);
-    if (img === 2) setImagenes2(null);
+    if (img === 1) {
+      setImagenes(null), (ref1.current.value = "");
+    }
+    if (img === 2) {
+      setImagenes2(null), (ref2.current.value = "");
+    }
   };
 
   const submitImage = (img) => {
@@ -69,10 +79,10 @@ const register2 = () => {
   }, [image2]);
 
   return (
-    <div className="bg-white text-black h-screen">
+    <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
-          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+          <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
             <BiArrowBack />
           </button>
         </div>
@@ -101,6 +111,7 @@ const register2 = () => {
               onChange={(e) => {
                 setimage(e.target.files[0]);
               }}
+              ref={ref1}
             ></input>
 
             <img
@@ -125,6 +136,7 @@ const register2 = () => {
               onChange={(e) => {
                 setimage2(e.target.files[0]);
               }}
+              ref={ref2}
             ></input>
 
             <img

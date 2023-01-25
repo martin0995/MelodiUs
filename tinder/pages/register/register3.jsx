@@ -10,21 +10,31 @@ import { BiArrowBack } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 const register3 = () => {
+  const user = useSelector((state) => state.user);
+
+  if (user.artists) {
+    var art = [...user.artists];
+    var redux = true;
+  }
+
   const { data: session } = useSession();
+
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
   const router = useRouter();
   const [accessToken, setAccessToken] = useState();
   const searchedArtist = handleInput();
   const [artists, setArtists] = useState([]);
-  const [savedArtist, setsavedArtist] = useState([]);
+  const [savedArtist, setsavedArtist] = useState(art || []);
   const [deleted, setDeleted] = useState(false);
-  const user = useSelector((state) => state.user);
 
   const Nextpage = (event) => {
     event.preventDefault();
-
-    router.push("/register/register2");
+    if (redux) {
+      router.push("/logged/userProfile/info");
+    } else if (!redux) {
+      router.push("/register/register2");
+    }
   };
 
   useEffect(() => {
@@ -42,8 +52,6 @@ const register3 = () => {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
-
-    search();
   }, []);
 
   useEffect(() => {
@@ -55,15 +63,14 @@ const register3 = () => {
   useEffect(() => {}, [savedArtist, deleted]);
 
   const selectArtist = (artist) => {
-    // Limit up to 7 artists to choose
-    if (savedArtist.length < 7) {
+    // Limit up to 5 artists to choose
+    if (savedArtist.length < 5) {
       if (savedArtist.includes(artist)) {
         return alert(`Ya tenes agregado a ${artist}`);
       }
-
       setsavedArtist([...savedArtist, artist]);
     } else {
-      alert("No se puede agregar mas de 7 artistas");
+      return alert("No se puede agregar mas de 5 artistas");
     }
   };
 
@@ -96,24 +103,38 @@ const register3 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios.put("/api/newUser", {
-      email: session.user.email,
-      name: user.name,
-      birthday: user.birthday,
-      genre: user.genre,
-      searchGenre: user.searchGenre,
-    });
+    if (savedArtist.length !== 5) {
+      return alert("Por favor, seleccionar 5 artistas.");
+    }
 
-    await axios.put("/api/newUser3", {
-      artist: savedArtist,
-      email: session.user.email,
-    });
+    if (redux) {
+      await axios.put("/api/newUser3", {
+        artist: savedArtist,
+        email: session.user.email,
+        movies: user.movies,
+      });
 
-    router.push("/logged/home");
+      router.push("/logged/userProfile/info");
+    } else if (!redux) {
+      await axios.put("/api/newUser", {
+        email: session.user.email,
+        name: user.name,
+        birthday: user.birthday,
+        genre: user.genre,
+        searchGenre: user.searchGenre,
+      });
+      await axios.put("/api/newUser3", {
+        artist: savedArtist,
+        email: session.user.email,
+        movies: user.movies,
+      });
+
+      router.push("/logged/home");
+    }
   };
 
   return (
-    <div className="bg-white text-black h-screen">
+    <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
         <div className="text-black">
           <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
@@ -143,8 +164,8 @@ const register3 = () => {
           {artists.artists
             ? artists.artists.items.slice(0, 5).map((artist) => {
                 return (
-                  <div className="w-full max-w-md p-1 bg-white border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root">
+                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flow-root bg-gray-800">
                       <ul
                         role="list"
                         className="divide-y divide-gray-200 dark:divide-gray-700"
@@ -162,13 +183,13 @@ const register3 = () => {
                                 <Icon />
                               )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            <div className="flex-1 min-w-0 text-white">
+                              <p className="text-sm font-medium truncate">
                                 {artist.name}
                               </p>
                             </div>
                             <div onClick={() => selectArtist(artist.name)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl" />
+                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
                             </div>
                           </div>
                         </li>
@@ -207,7 +228,7 @@ const register3 = () => {
           type="submit"
           onClick={handleSubmit}
         >
-          Finalizar
+          Continuar
         </button>
       </div>
     </div>

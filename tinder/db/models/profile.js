@@ -5,6 +5,7 @@ const profileSchema = new mongoose.Schema(
   {
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     artist: [{ type: String, default: false }],
+    movies: [{ type: String, default: false }],
   },
   {
     timestamps: true,
