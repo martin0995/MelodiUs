@@ -72,8 +72,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
       <div className={`${styles.slider}`}>
         <div className={`${styles.slider__track}`} />
         <div ref={range} className={`${styles.slider__range}`} />
-        <div className="ml-6px">{minVal}</div>
-        <div className="-mr-4px">{maxVal}</div>
+        <div className="flex ">
+          <div className="ml-6px mt-3">{minVal}</div>
+          <div className=" ml-40 mt-3 ">{maxVal}</div>
+        </div>
       </div>
     </div>
   );

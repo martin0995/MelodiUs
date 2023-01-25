@@ -18,8 +18,6 @@ export default function Register() {
   const [fecha, setFecha] = useState(user.birthday);
   const data = router.query;
 
-  console.log("dataaaaaaa", data.settings);
-
   //condicion para saber si estamen en register o desde settings
 
   // ESTILO (ROJO / VERDE):
