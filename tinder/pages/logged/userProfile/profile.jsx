@@ -119,7 +119,10 @@ const userProfile = () => {
           >
             Perfil
           </button>
-          <button className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5">
+          <button
+            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5"
+            onClick={() => handleClick("settings")}
+          >
             Ajustes
           </button>
         </div>
