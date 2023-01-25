@@ -54,11 +54,11 @@ const Preferences = () => {
           Preferencia de distancia
         </h5>
       </div>
-      <div className="flow-root mt-4">
+      <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="">
-              <div className="flex flex-1 min-w-0 justify-center">
+              <div className="flex flex-1 min-w-0 justify-center mt-4">
                 <MultiRangeSlider
                   min={18}
                   max={100}
@@ -74,7 +74,7 @@ const Preferences = () => {
           Preferencia de edad
         </h5>
       </div>
-      <div className="flex items-center flow-root mt-4 bg-gray-800 ">
+      <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="flex flex-1 min-w-0 justify-center mt-4">
