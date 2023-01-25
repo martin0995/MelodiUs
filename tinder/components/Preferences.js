@@ -54,10 +54,10 @@ const Preferences = () => {
           Preferencia de edad
         </h5>
       </div>
-      <div className="flex items-center flow-root mt-4 bg-gray-800 p-4">
+      <div className="flex items-center flow-root mt-4 bg-gray-800 ">
         <ul role="list">
           <li className="py-1 sm:py-4">
-            <div className="flex flex-1 min-w-0 justify-center">
+            <div className="flex flex-1 min-w-0 justify-center mt-4">
               <MultiRangeSlider
                 min={18}
                 max={100}
