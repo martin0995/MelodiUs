@@ -47,15 +47,17 @@ export default async function newuser(req, res) {
           const usersfilter2 = usersfilter.filter((u) => {
             if (user.searchGenre == "mujeres")
               return (
-                u.genre + "es" == user.searchGenre &&
+                u.genre == "mujer" &&
                 (user.genre + "es" == u.searchGenre ||
-                  user.genre + "s" == u.searchGenre)
+                  user.genre + "s" == u.searchGenre ||
+                  u.searchGenre == "ambos")
               );
             if (user.searchGenre == "hombres")
               return (
                 user.searchGenre == u.genre + "s" &&
                 (user.genre + "es" == u.searchGenre ||
-                  user.genre + "s" == u.searchGenre)
+                  user.genre + "s" == u.searchGenre ||
+                  u.searchGenre == "ambos")
               );
             return usersfilter;
           });
