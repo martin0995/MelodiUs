@@ -11,7 +11,6 @@ export default async function newuser(req, res) {
 
         const email = { email: req.body.email };
         const images = { images: [req.body.imagenes[0], req.body.imagenes[1]] };
-
         let user = await User.findOneAndUpdate(email, images, {
           returnOriginal: false,
         });
@@ -27,7 +26,7 @@ export default async function newuser(req, res) {
           await db.connect();
           const email = { email: req.body.email };
 
-          const users = await User.findOne(email);
+          const users = await User.findOne(email).populate("postedBy");
 
           await db.disconnect();
           res.status(200).send(users);
@@ -39,7 +38,6 @@ export default async function newuser(req, res) {
         try {
           await db.connect();
           const email = { email: req.body.email };
-
           const users = await User.findOne(email);
 
           await db.disconnect();

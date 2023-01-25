@@ -36,19 +36,21 @@ const Navbar = () => {
           searchGenre: usuario.data.searchGenre,
           isAdmin: false,
           images: usuario.data.images,
+          movies: usuario.data.postedBy.movies,
+          artists: usuario.data.postedBy.artist,
+          description: usuario.data.description,
         };
 
         dispatch(login(userRedux));
       };
-      console.log("CHAU");
 
       searchUser();
     }
-  }, [session]);
+  }, [session.user.email]);
 
   if (status === "authenticated") {
     return (
-      <div className="w-full py-3 flex flex-row justify-around mt-2 text-verdedos">
+      <div className="w-full py-3 flex flex-row  justify-around mt-2 text-verdedos fixed bottom-0 z-30 bg-black">
         <div>
           <HiOutlineMusicNote
             className="text-2xl"
@@ -65,7 +67,7 @@ const Navbar = () => {
           {" "}
           <CgProfile
             className="text-2xl"
-            onClick={() => handleSection("/logged/userProfile")}
+            onClick={() => handleSection("/logged/userProfile/profile")}
           />
         </div>
       </div>

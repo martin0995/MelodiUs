@@ -10,22 +10,20 @@ export default async function newuser(req, res) {
       {
         await db.connect();
         console.log("reqqqq", req.body);
+
         const email = { email: req.body.email };
-        const artistAndMovies = {
-          artist: req.body.artist,
-          movies: req.body.movies,
+        const description = {
+          description: req.body.description,
         };
 
-        const findUser = await User.find(email);
+        let user = await User.findOneAndUpdate(email, description, {
+          returnOriginal: false,
+        });
 
-        const profile = await new Profile(artistAndMovies).save();
-
-        await findUser[0].set("postedBy", profile._id);
-        await findUser[0].save();
-        console.log("que ondaaa");
+        console.log("USERTERMINAL:", user);
 
         await db.disconnect();
-        res.status(200).send(profile);
+        res.status(200).send(user);
       }
       break;
 
