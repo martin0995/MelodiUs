@@ -106,10 +106,8 @@ export default async function newuser(req, res) {
           }
           //Filtro Edad
           const usersfilter4 = usersfilter3.filter((otrousuario) => {
-            const edad = ageCalculator(otrousuario.birthday);
-            if (user.ageRange[0] <= edad <= user.ageRange[1]) {
-              return otrousuario;
-            }
+            const edad = otrousuario.birthday;
+            return edad >= user.ageRange[0] && edad <= user.ageRange[1];
           });
 
           // let usersfilter3 = [];
