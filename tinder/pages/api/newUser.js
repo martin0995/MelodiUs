@@ -59,6 +59,22 @@ export default async function newuser(req, res) {
       }
       break;
 
+    case "DELETE":
+      {
+        await db.connect();
+        console.log("reqqqqq", req.query);
+        const email = { email: req.body.email };
+
+        try {
+          const userdelete = await User.deleteOne({ email });
+          console.log(userdelete);
+          await db.disconnect();
+          res.send("se elimino");
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      break;
     default:
       res.send("Otro método");
       break;
