@@ -16,11 +16,9 @@ export default function Register() {
   const dispatch = useDispatch();
   const [nombre, setNombre] = useState(user.name);
   const [fecha, setFecha] = useState(user.birthday);
+  const data = router.query;
 
   //condicion para saber si estamen en register o desde settings
-  if (user.artists) {
-    var redux = true;
-  }
 
   // ESTILO (ROJO / VERDE):
   let rojito = "bg-verdedos text-white text-base  w-48 rounded-full p-3";
@@ -48,7 +46,8 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (redux) {
+
+    if (data.settings == "true") {
       await axios.put("/api/newUser", {
         email: session.user.email,
         name: nombre,
@@ -71,7 +70,7 @@ export default function Register() {
 
     dispatch(login(loggedUser));
 
-    router.push("/register/register2");
+    return router.push("/register/register2");
   };
 
   const handleNombre = (e) => {

@@ -11,7 +11,10 @@ const UserSettings = () => {
           Nombre
         </h5>
         <Link
-          href="/register/register"
+          href={{
+            pathname: "/register/register",
+            query: { settings: true }, // the data
+          }}
           className="text-md font-medium text-green-500 hover:underline dark:text-green-500"
         >
           Editar

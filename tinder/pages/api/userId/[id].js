@@ -62,15 +62,7 @@ export default async function newuser(req, res) {
             return usersfilter;
           });
 
-          // Filtro Artistas (MUSICA), tienen que coincidir dos artistas. Comparo 2 Arrays:
-          // let usersfilter3 = [];
-          // usersfilter2.map((usuario) => {
-          //   return usuario.postedBy.artist.some((r) => {
-          //     if (user.postedBy.artist.indexOf(r) >= 1) {
-          //       usersfilter3.push(usuario);
-          //     }
-          //   });
-          // });
+          // Filtro Artistas (MUSICA), y Filtro Peliculas  tienen que coincidir dos artistas. Comparo 2 Arrays:
 
           let usersfilter3 = [];
           for (let i = 0; i < usersfilter2.length; i++) {
@@ -112,9 +104,23 @@ export default async function newuser(req, res) {
               }
             }
           }
+          //Filtro Edad
+          const usersfilter4 = usersfilter3.filter((otrousuario) => {
+            const edad = otrousuario.birthday;
+            return edad >= user.ageRange[0] && edad <= user.ageRange[1];
+          });
+
+          // let usersfilter3 = [];
+          // usersfilter2.map((usuario) => {
+          //   return usuario.postedBy.artist.some((r) => {
+          //     if (user.postedBy.artist.indexOf(r) >= 1) {
+          //       usersfilter3.push(usuario);
+          //     }
+          //   });
+          // });
 
           await db.disconnect();
-          res.status(200).send(usersfilter3);
+          res.status(200).send(usersfilter4);
         } catch (error) {
           console.log(error);
         }

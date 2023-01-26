@@ -27,6 +27,7 @@ const register3 = () => {
   const [artists, setArtists] = useState([]);
   const [savedArtist, setsavedArtist] = useState(art || []);
   const [deleted, setDeleted] = useState(false);
+  const [location, setLocation] = useState({});
 
   const Nextpage = (event) => {
     event.preventDefault();
@@ -52,6 +53,14 @@ const register3 = () => {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
+
+    if ("geolocation" in navigator) {
+      // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude, longitude } = coords;
+        setLocation({ latitude, longitude });
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -122,6 +131,8 @@ const register3 = () => {
         birthday: user.birthday,
         genre: user.genre,
         searchGenre: user.searchGenre,
+        ageRange: [18, 40],
+        location: location,
       });
       await axios.put("/api/newUser3", {
         artist: savedArtist,
