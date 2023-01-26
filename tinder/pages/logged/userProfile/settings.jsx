@@ -2,25 +2,33 @@ import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../../../components/Navbar";
 import Icon from "../../Index/Icon";
 import { useSession } from "next-auth/react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import UserSettings from "../../../components/UserSettings";
 import { signOut } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Preferences from "../../../components/Preferences";
+import { login } from "../../../store/reducers/userSlice";
 
 const settings = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const handleLogout = async () => {
     signOut();
   };
+
   const handleDelete = async () => {
     try {
       const usuariodelete = axios.delete(`/api/userId/${session.user.email}`, {
         email: session.user.email,
       });
+
+      dispatch(login({}));
+
       return router.push("/");
     } catch (error) {
       console.log(error);
@@ -40,7 +48,7 @@ const settings = () => {
           <UserSettings />
         </div>
         <div>
-          <UserSettings />
+          <Preferences />
         </div>
         <div className=" mt-4 text-center ">
           {" "}
