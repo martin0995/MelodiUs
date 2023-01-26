@@ -73,12 +73,12 @@ const userProfile = () => {
             <p className="text-3xl text-center mr-2 mt-2">
               {user.name}, {user.birthday}
             </p>
-            <FcApproval className="icon" className="text-2xl" />
+            <FcApproval className="text-2xl" />
           </div>
         </div>
 
         <div className="flex flex-col justify-center items-center w-screen mb-20">
-          {user.description && !info ? (
+          {valor && !info ? (
             <div className="flex flex-col justify-center w-3/4 gap-2">
               <div className="flex justify-end items-end">
                 <CiEdit onClick={handleInfo} className="text-3xl" />
