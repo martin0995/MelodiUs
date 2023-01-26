@@ -13,7 +13,7 @@ const ArtChoice = () => {
         />
         <label
           for="inline-radio"
-          class="ml-2 text-sm font-medium text-white dark:text-gray-300"
+          class="ml-2 text-md font-medium text-white dark:text-gray-300"
         >
           0
         </label>
@@ -28,7 +28,7 @@ const ArtChoice = () => {
         />
         <label
           for="inline-2-radio"
-          class="ml-2 text-sm font-medium text-white dark:text-gray-300"
+          class="ml-2 text-md font-medium text-white dark:text-gray-300"
         >
           1
         </label>
@@ -43,7 +43,7 @@ const ArtChoice = () => {
         />
         <label
           for="inline-checked-radio"
-          class="ml-2 text-sm font-medium text-white dark:text-gray-300"
+          class="ml-2 text-md font-medium text-white dark:text-gray-300"
         >
           2
         </label>
@@ -59,7 +59,7 @@ const ArtChoice = () => {
         />
         <label
           for="inline-disabled-radio"
-          class="ml-2 text-sm font-medium text-white dark:text-gray-500"
+          class="ml-2 text-md font-medium text-white dark:text-gray-500"
         >
           3
         </label>
