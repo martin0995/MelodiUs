@@ -13,6 +13,7 @@ import { login } from "../../store/reducers/userSlice";
 const register3 = () => {
   const user = useSelector((state) => state.user);
   const { data: session } = useSession();
+  console.log("holaa");
 
   if (user.movies) {
     var movieredux = [...user.movies];
