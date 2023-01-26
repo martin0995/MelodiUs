@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 const Preferences = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
-  const [minVal, setMinVal] = useState(user.ageRange[0]);
-  const [maxVal, setMaxVal] = useState(user.ageRange[1]);
+  const [minVal, setMinVal] = useState(18);
+  const [maxVal, setMaxVal] = useState(40);
 
   const updatePreferences = () => {
     let ageRange = [minVal, maxVal];
@@ -58,13 +58,7 @@ const Preferences = () => {
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="">
-              <div className="flex flex-1 min-w-0 justify-center mt-4">
-                <MultiRangeSlider
-                  min={18}
-                  max={100}
-                  onChange={({ min, max }) => {}}
-                />
-              </div>
+              <div className="flex flex-1 min-w-0 justify-center mt-4"></div>
             </div>
           </li>
         </ul>

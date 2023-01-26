@@ -16,6 +16,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
     (value) => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
+  useEffect(() => {
+    setMinVal(user.ageRange[0]);
+    setMaxVal(user.ageRange[1]);
+  }, [user]);
 
   // Set width of the range to decrease from the left side
   useEffect(() => {
@@ -31,7 +35,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
   // Set width of the range to decrease from the right side
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
+    const maxPercent = getPercent(user.ageRange[1]);
 
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
