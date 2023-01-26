@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./multiRangeSlider.module.css";
+import { useSelector } from "react-redux";
 
 const MultiRangeSlider = ({ min, max, onChange }) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+  const user = useSelector((state) => state.user);
+  const [minVal, setMinVal] = useState(user.ageRange[0]);
+  const [maxVal, setMaxVal] = useState(user.ageRange[1]);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef(null);

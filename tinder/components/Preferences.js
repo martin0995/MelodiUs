@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 const Preferences = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
-  const [minVal, setMinVal] = useState(18);
-  const [maxVal, setMaxVal] = useState(40);
+  const [minVal, setMinVal] = useState(user.ageRange[0]);
+  const [maxVal, setMaxVal] = useState(user.ageRange[1]);
 
   const updatePreferences = () => {
     let ageRange = [minVal, maxVal];
