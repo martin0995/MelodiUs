@@ -3,33 +3,15 @@ import Navbar from "../../components/Navbar";
 import Icon from "../Index/Icon";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import useGeolocation from "../../reactHooks/useGeolocation";
 
 const chat = () => {
   const { data: session, status } = useSession();
-  const [mensen, setMensen] = useState([]);
-  const [location, setLocation] = useState();
-
-  // const fetchApiData = async (location) => {
-  //   const res = await fetch(
-  //     `https://openmensa.org/api/v2/canteens?near[lat]=${location.latitude}&near[lng]=${location.longitude}&near[dist]=50000`
-  //   );
-  //   const data = await res.json();
-  //   setMensen(data);
-  // };
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      // Retrieve latitude & longitude coordinates from `navigator.geolocation` Web API
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const { latitude, longitude } = coords;
-        setLocation({ latitude, longitude });
-      });
-    }
-  }, []);
+  const { location, place } = useGeolocation();
 
   const hanldeLocation = async () => {
-    // await fetchApiData(location);
     console.log("LOCATION", location);
+    console.log("PLACE", place);
   };
 
   if (status === "authenticated") {
