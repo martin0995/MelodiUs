@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../../store/reducers/userSlice";
 import handleInput from "../../../reactHooks/handleInput";
 import { CiEdit } from "react-icons/ci";
+import { FcApproval } from "react-icons/fc";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
@@ -68,10 +69,12 @@ const userProfile = () => {
             height={200}
             className={`rounded-full ${styles.photoContainer}`}
           />
-
-          <p className="text-3xl text-center mx-auto mt-2">
-            {user.name}, {user.birthday}
-          </p>
+          <div className="flex flex-row justify-center items-center w-full">
+            <p className="text-3xl text-center mr-2 mt-2">
+              {user.name}, {user.birthday}
+            </p>
+            <FcApproval className="icon" className="text-2xl" />
+          </div>
         </div>
 
         <div className="flex flex-col justify-center items-center w-screen mb-20">

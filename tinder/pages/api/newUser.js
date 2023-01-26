@@ -49,6 +49,7 @@ export default async function newuser(req, res) {
           searchGenre: req.body.searchGenre,
           description: req.body.description,
           ageRange: req.body.ageRange,
+          location: req.body.location,
         };
 
         let user = await User.findOneAndUpdate(email, userBody, {
