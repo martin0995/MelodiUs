@@ -2,6 +2,7 @@ import User from "../../../db/models/user";
 import db from "../../../db/mongodb";
 import Connections from "../../../db/models/connections";
 import ageCalculator from "../../../reactHooks/ageCalculator";
+import getDistance from "../../../reactHooks/useDistance";
 
 export default async function newuser(req, res) {
   const { method, body } = req;
@@ -119,8 +120,22 @@ export default async function newuser(req, res) {
           //   });
           // });
 
+          // Filtro de Distancia:
+          const usersfilter5 = usersfilter4.filter((usuario) => {
+            const distancia = getDistance(
+              user.location.latitude,
+              user.location.longitude,
+              usuario.location.latitude,
+              usuario.location.longitude,
+              "K"
+            );
+            console.log("DISTANCIA>>", distancia);
+
+            return distancia <= 1000;
+          });
+
           await db.disconnect();
-          res.status(200).send(usersfilter4);
+          res.status(200).send(usersfilter5);
         } catch (error) {
           console.log(error);
         }

@@ -11,10 +11,11 @@ const userSchema = new mongoose.Schema(
     description: { type: String },
     ageRange: [{ type: Number }],
     location: { latitude: Number, longitude: Number },
-    city: {type: String},
+    city: { type: String },
     isAdmin: { type: Boolean, default: false },
     images: [{ type: String, required: true }],
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
+    distance: { type: Number },
 
     // profile: [{ type: String, default: false }],
   },
