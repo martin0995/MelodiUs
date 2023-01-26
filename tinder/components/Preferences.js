@@ -5,6 +5,7 @@ import MultiRangeSlider from "./MultiRangeSlider";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import styles from "./multiRangeSlider.module.css";
+import ArtChoice from "./ArtChoice";
 
 const Preferences = () => {
   const user = useSelector((state) => state.user);
@@ -24,7 +25,7 @@ const Preferences = () => {
 
   const handleToggle = (e) => {
     setToggle(e.target.checked);
-    if (!toggle) {
+    if (!e.target.checked) {
       setValueDistance(30);
     }
   };
@@ -43,6 +44,8 @@ const Preferences = () => {
           distance: valueDistance,
           email: session.user.email,
         });
+
+    return alert("Se ha actualizado correctamente");
   };
 
   return (
@@ -97,8 +100,13 @@ const Preferences = () => {
                     list="markers"
                   />
                 </div>
+
                 <div className="mt-1">
-                  <p className="text-white text-center">{valueDistance}</p>
+                  {valueDistance > 1000 ? (
+                    <p className="text-white text-center">Global</p>
+                  ) : (
+                    <p className="text-white text-center">{valueDistance}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-row gap-2 justify-end w-full">
