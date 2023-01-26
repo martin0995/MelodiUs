@@ -169,6 +169,34 @@ const Preferences = () => {
           </li>
         </ul>
       </div>
+      <div className="flex items-center justify-between mt-4">
+        <h5 className="text-xl font-bold leading-none dark:text-white">
+          Preferencias de artistas
+        </h5>
+      </div>
+      <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
+        <ul role="list">
+          <li className="py-1 sm:py-4">
+            <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
+              <ArtChoice />
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div className="flex items-center justify-between mt-4">
+        <h5 className="text-xl font-bold leading-none dark:text-white">
+          Preferencias de películas
+        </h5>
+      </div>
+      <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
+        <ul role="list">
+          <li className="py-1 sm:py-4">
+            <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
+              <ArtChoice />
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
