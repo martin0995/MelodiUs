@@ -11,8 +11,6 @@ const Preferences = () => {
   const [minVal, setMinVal] = useState(18);
   const [maxVal, setMaxVal] = useState(40);
 
-  const city = {}
-
   const updatePreferences = () => {
     let ageRange = [minVal, maxVal];
     axios.put("/api/settings", {
@@ -44,7 +42,7 @@ const Preferences = () => {
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
                 <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
-                  Neuquen
+                  {user.city}
                 </p>
               </div>
             </div>

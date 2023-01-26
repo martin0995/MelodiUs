@@ -41,6 +41,7 @@ const Navbar = () => {
           description: usuario.data.description,
           ageRange: usuario.data.ageRange,
           location: usuario.data.location,
+          city: usuario.data.city,
         };
 
         dispatch(login(userRedux));
