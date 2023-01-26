@@ -120,6 +120,11 @@ export default async function newuser(req, res) {
           //   });
           // });
 
+          if (user.distance == 5000) {
+            await db.disconnect();
+            return res.status(200).send(usersfilter4);
+          }
+
           // Filtro de Distancia:
           const usersfilter5 = usersfilter4.filter((usuario) => {
             const distancia = getDistance(
@@ -129,9 +134,8 @@ export default async function newuser(req, res) {
               usuario.location.longitude,
               "K"
             );
-            console.log("DISTANCIA>>", distancia);
 
-            return distancia <= 1000;
+            return distancia <= user.distance;
           });
 
           await db.disconnect();
