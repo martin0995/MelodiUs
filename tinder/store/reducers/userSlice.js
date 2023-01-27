@@ -12,6 +12,8 @@ const initialState = {
   movies: [],
   artists: [],
   ageRange: [],
+  artistSelection: 0,
+  movieSelection: 0,
 };
 
 export const userSlice = createSlice({

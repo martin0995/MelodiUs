@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema(
     images: [{ type: String, required: true }],
     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
     distance: { type: Number },
+    artistPreference: { type: Number },
+    moviePreference: { type: Number },
 
     // profile: [{ type: String, default: false }],
   },

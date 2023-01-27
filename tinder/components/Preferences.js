@@ -15,9 +15,23 @@ const Preferences = () => {
   const [maxVal, setMaxVal] = useState(40);
   const [valueDistance, setValueDistance] = useState(user.distance);
   const [toggle, setToggle] = useState(false);
+  const [artistSelection, setArtistSelection] = useState(user.artistSelection);
+  const [movieSelection, setMovieSelection] = useState(user.movieSelection);
+
+  // Guardando seleccion de artistas:
+  const setArtist = (selection) => {
+    setArtistSelection(selection);
+  };
+
+  // Guardando seleccion de peliculas:
+  const setMovie = (selection) => {
+    setMovieSelection(selection);
+  };
 
   useEffect(() => {
     setValueDistance(user.distance);
+    setArtistSelection(user.artistSelection);
+    setMovieSelection(user.movieSelection);
   }, [user]);
 
   const hanldeDistance = (e) => {
@@ -39,11 +53,15 @@ const Preferences = () => {
           ageRange: ageRange,
           distance: 5000,
           email: session.user.email,
+          artistPreference: artistSelection,
+          moviePreference: movieSelection,
         })
       : axios.put("/api/settings", {
           ageRange: ageRange,
           distance: valueDistance,
           email: session.user.email,
+          artistPreference: artistSelection,
+          moviePreference: movieSelection,
         });
 
     return alert("Se ha actualizado correctamente");
@@ -179,7 +197,7 @@ const Preferences = () => {
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
-              <ArtistChoice />
+              <ArtistChoice setArtist={setArtist} artist={artistSelection} />
             </div>
           </li>
         </ul>
@@ -193,7 +211,7 @@ const Preferences = () => {
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
-              <MovieChoice />
+              <MovieChoice setMovie={setMovie} movie={movieSelection} />
             </div>
           </li>
         </ul>

@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 
-const ArtistChoice = () => {
-  const [value, setValue] = useState(1);
-
+const ArtistChoice = ({ setArtist, artist }) => {
   const hanldeSelection = (selection) => {
-    setValue(selection);
-
-    
+    setArtist(selection);
   };
 
   return (
     <div class="flex">
       <div class="flex items-center mr-4">
-        {value == 0 ? (
+        {artist == 0 ? (
           <input
             checked
             id="inline-radio"
@@ -44,7 +40,7 @@ const ArtistChoice = () => {
         </label>
       </div>
       <div class="flex items-center mr-4">
-        {value == 1 ? (
+        {artist == 1 ? (
           <input
             checked
             id="inline-2-radio"
@@ -76,7 +72,7 @@ const ArtistChoice = () => {
         </label>
       </div>
       <div class="flex items-center mr-4">
-        {value == 2 ? (
+        {artist == 2 ? (
           <input
             checked
             id="inline-checked-radio"

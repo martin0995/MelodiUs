@@ -82,7 +82,7 @@ export default async function newuser(req, res) {
                 valorArtist = valorArtist + 1;
                 artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
 
-                if (valorArtist == 1) {
+                if (valorArtist == user.artistPreference) {
                   usersfilter3.push(usersfilter2[i]);
                   pusheado = true;
                   usersfilter3[i]["similarartist"] = artistasmatch;
@@ -96,7 +96,7 @@ export default async function newuser(req, res) {
                 valorMovies = valorMovies + 1;
                 moviesmatch.push(usersfilter2[i].postedBy.movies[j]);
 
-                if (valorMovies == 1) {
+                if (valorMovies == user.moviePreference) {
                   if (pusheado == false) {
                     usersfilter3.push(usersfilter2[i]);
                   }

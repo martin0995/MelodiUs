@@ -1,16 +1,37 @@
 import React from "react";
 
-const MovieChoice = () => {
+const MovieChoice = ({ setMovie, movie }) => {
+  const hanldeSelection = (selection) => {
+    setMovie(selection);
+  };
+
   return (
     <div class="flex">
       <div class="flex items-center mr-4">
-        <input
-          id="inline-radio"
-          type="radio"
-          value=""
-          name="inline-radio-group-1"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
+        {movie == 0 ? (
+          <input
+            checked
+            id="inline-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(0);
+            }}
+          />
+        ) : (
+          <input
+            id="inline-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(0);
+            }}
+          />
+        )}
         <label
           for="inline-radio"
           class="ml-2 text-md font-medium text-white dark:text-gray-300"
@@ -19,13 +40,30 @@ const MovieChoice = () => {
         </label>
       </div>
       <div class="flex items-center mr-4">
-        <input
-          id="inline-2-radio"
-          type="radio"
-          value=""
-          name="inline-radio-group-1"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
+        {movie == 1 ? (
+          <input
+            checked
+            id="inline-2-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(1);
+            }}
+          />
+        ) : (
+          <input
+            id="inline-2-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(1);
+            }}
+          />
+        )}
         <label
           for="inline-2-radio"
           class="ml-2 text-md font-medium text-white dark:text-gray-300"
@@ -34,13 +72,30 @@ const MovieChoice = () => {
         </label>
       </div>
       <div class="flex items-center mr-4">
-        <input
-          id="inline-checked-radio"
-          type="radio"
-          value=""
-          name="inline-radio-group-1"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-        />
+        {movie == 2 ? (
+          <input
+            checked
+            id="inline-checked-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(2);
+            }}
+          />
+        ) : (
+          <input
+            id="inline-checked-radio"
+            type="radio"
+            value=""
+            name="inline-radio-group-1"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            onClick={() => {
+              hanldeSelection(2);
+            }}
+          />
+        )}
         <label
           for="inline-checked-radio"
           class="ml-2 text-md font-medium text-white dark:text-gray-300"
