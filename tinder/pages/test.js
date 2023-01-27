@@ -9,16 +9,20 @@ import { useRouter } from "next/router";
 
 export default function test({ children }) {
   const { data: session, status } = useSession();
-  const router = useRouter();
+
   const dispatch = useDispatch();
-  console.log("raro", session);
+
+  // const setL = (language) => {
+  //   setValueFather(1);
+  // };
+
   useEffect(() => {
+    console.log("javier dispatch");
     if (status === "authenticated") {
       const searchUser = async () => {
         const usuario = await axios.post("/api/newUser2", {
           email: session.user.email,
         });
-        console.log(usuario);
 
         const userRedux = {
           id: usuario.data._id,
@@ -45,14 +49,13 @@ export default function test({ children }) {
       };
       searchUser();
     }
-  }, []);
-  if (status === "authenticated") {
-    console.log("children", children);
-    return (
-      <div>
-        {children}
-        <Navbar></Navbar>
-      </div>
-    );
-  }
+  }, [status]);
+
+  return (
+    <div>
+      {children}
+
+      <Navbar></Navbar>
+    </div>
+  );
 }

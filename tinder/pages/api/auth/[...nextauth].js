@@ -9,13 +9,4 @@ export default NextAuth({
     }),
   ],
   secret: process.env.JWT_SECRET,
-  // callbacks: {
-  //   redirect: async (url, baseUrl) => {
-  //     console.log("url", url);
-  //     if (url === "/api/auth/signout") {
-  //       return Promise.resolve("/register/register");
-  //     }
-  //     return Promise.resolve("/login");
-  //   },
-  // },
 });
