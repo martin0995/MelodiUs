@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ageCalculator from "../reactHooks/ageCalculator";
-import { login } from "../store/reducers/userSlice";
+import { login, update } from "../store/reducers/userSlice";
 import axios from "axios";
 
 const Navbar = () => {
@@ -26,6 +26,7 @@ const Navbar = () => {
         const usuario = await axios.post("/api/newUser2", {
           email: session.user.email,
         });
+        console.log(usuario);
 
         const userRedux = {
           id: usuario.data._id,
@@ -48,6 +49,7 @@ const Navbar = () => {
         };
 
         dispatch(login(userRedux));
+        dispatch(update({ key: "artistSelection", payload: "1" }));
       };
 
       searchUser();
