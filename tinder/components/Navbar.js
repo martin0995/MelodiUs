@@ -20,42 +20,6 @@ const Navbar = () => {
     router.push(`${path}`);
   };
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      const searchUser = async () => {
-        const usuario = await axios.post("/api/newUser2", {
-          email: session.user.email,
-        });
-        console.log(usuario);
-
-        const userRedux = {
-          id: usuario.data._id,
-          name: usuario.data.name,
-          email: usuario.data.email,
-          birthday: ageCalculator(usuario.data.birthday),
-          genre: usuario.data.genre,
-          searchGenre: usuario.data.searchGenre,
-          isAdmin: false,
-          images: usuario.data.images,
-          movies: usuario.data.postedBy.movies,
-          artists: usuario.data.postedBy.artist,
-          description: usuario.data.description,
-          ageRange: usuario.data.ageRange,
-          location: usuario.data.location,
-          city: usuario.data.city,
-          distance: usuario.data.distance,
-          artistSelection: usuario.data.artistPreference,
-          movieSelection: usuario.data.moviePreference,
-        };
-
-        dispatch(login(userRedux));
-        dispatch(update({ key: "artistSelection", payload: "1" }));
-      };
-
-      searchUser();
-    }
-  }, [session.user.email]);
-
   if (status === "authenticated") {
     return (
       <div className="w-full py-3 flex flex-row  justify-around mt-2 text-verdedos fixed bottom-0 z-30 bg-black">

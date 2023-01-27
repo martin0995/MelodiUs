@@ -8,7 +8,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
 import styles from "./home.module.css";
 import noUsers from "../../components/noUsers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useGeolocation from "../../reactHooks/useGeolocation";
 
 const home = () => {
@@ -20,6 +20,7 @@ const home = () => {
   const [noPerson, setNoPerson] = useState(false);
   const userRedux = useSelector((state) => state.user);
   const { location, place } = useGeolocation();
+  const dispatch = useDispatch();
 
   const getImage = async () => {
     const response = await axios.get(`/api/userId/${session.user.email}`);
@@ -36,6 +37,10 @@ const home = () => {
         },
         city: place,
       });
+      // async function obtenerUsuario() {
+      //   await dispatch(usuarioData(session.user.email));
+      // }
+      // obtenerUsuario();
     }
   }, [place]);
 
@@ -133,7 +138,6 @@ const home = () => {
             )}
           </div>
         </div>
-        <Navbar></Navbar>
       </div>
     );
   }

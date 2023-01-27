@@ -59,7 +59,6 @@ const chat = () => {
             <button onClick={hanldeLocation}>GEOLOCATION</button>
           </div>
         </div>
-        <Navbar></Navbar>
       </div>
     );
   }

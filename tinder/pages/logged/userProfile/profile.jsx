@@ -129,8 +129,6 @@ const userProfile = () => {
             Ajustes
           </button>
         </div>
-
-        <Navbar></Navbar>
       </div>
     );
   }
