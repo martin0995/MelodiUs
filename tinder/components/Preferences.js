@@ -5,7 +5,8 @@ import MultiRangeSlider from "./MultiRangeSlider";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import styles from "./multiRangeSlider.module.css";
-import ArtChoice from "./ArtChoice";
+import ArtistChoice from "./ArtistChoice";
+import MovieChoice from "./MovieChoice";
 
 const Preferences = () => {
   const user = useSelector((state) => state.user);
@@ -171,28 +172,28 @@ const Preferences = () => {
       </div>
       <div className="flex items-center justify-between mt-4">
         <h5 className="text-xl font-bold leading-none dark:text-white">
-          Preferencias de artistas
+          Coincidencia de artistas
         </h5>
       </div>
       <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
-              <ArtChoice />
+              <ArtistChoice />
             </div>
           </li>
         </ul>
       </div>
       <div className="flex items-center justify-between mt-4">
         <h5 className="text-xl font-bold leading-none dark:text-white">
-          Preferencias de películas
+          Coincidencia de películas
         </h5>
       </div>
       <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
         <ul role="list">
           <li className="py-1 sm:py-4">
             <div className="flex flex-1 min-w-0 justify-center p-2 items-center">
-              <ArtChoice />
+              <MovieChoice />
             </div>
           </li>
         </ul>
