@@ -9,6 +9,7 @@ import { ImCross } from "react-icons/im";
 import styles from "./home.module.css";
 import noUsers from "../../components/noUsers";
 import { useSelector } from "react-redux";
+import useGeolocation from "../../reactHooks/useGeolocation";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -18,11 +19,25 @@ const home = () => {
   const [userId, setuserId] = useState(null);
   const [noPerson, setNoPerson] = useState(false);
   const userRedux = useSelector((state) => state.user);
+  const { location, place } = useGeolocation();
 
   const getImage = async () => {
     const response = await axios.get(`/api/userId/${session.user.email}`);
     setUsers(response);
   };
+
+  useEffect(() => {
+    if (status === "authenticated" && place) {
+      axios.put("/api/newUser", {
+        email: session.user.email,
+        location: {
+          latitude: location.coordinates.lat,
+          longitude: location.coordinates.lng,
+        },
+        city: place,
+      });
+    }
+  }, [place]);
 
   useEffect(() => {
     if (status === "authenticated") {

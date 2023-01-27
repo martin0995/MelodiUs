@@ -15,6 +15,9 @@ export default async function newuser(req, res) {
         const description = {
           description: req.body.description,
           ageRange: req.body.ageRange,
+          distance: req.body.distance,
+          artistPreference: req.body.artistPreference,
+          moviePreference: req.body.moviePreference,
         };
         console.log(description);
 

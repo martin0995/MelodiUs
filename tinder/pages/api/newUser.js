@@ -40,7 +40,6 @@ export default async function newuser(req, res) {
         const email = { email: req.body.email };
 
         console.log("REQ BODYY", req.body);
-        console.log("BIRTHDAYY", req.body.birthday);
 
         const userBody = {
           name: req.body.name,
@@ -50,6 +49,7 @@ export default async function newuser(req, res) {
           description: req.body.description,
           ageRange: req.body.ageRange,
           location: req.body.location,
+          city: req.body.city,
         };
 
         let user = await User.findOneAndUpdate(email, userBody, {

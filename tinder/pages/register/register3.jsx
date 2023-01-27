@@ -133,6 +133,9 @@ const register3 = () => {
         searchGenre: user.searchGenre,
         ageRange: [18, 40],
         location: location,
+        distance: 100,
+        artistPreference: 1,
+        moviePreference: 1,
       });
       await axios.put("/api/newUser3", {
         artist: savedArtist,
