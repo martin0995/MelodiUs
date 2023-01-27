@@ -2,6 +2,7 @@ import User from "../../../db/models/user";
 import db from "../../../db/mongodb";
 import Connections from "../../../db/models/connections";
 import ageCalculator from "../../../reactHooks/ageCalculator";
+import getDistance from "../../../reactHooks/useDistance";
 
 export default async function newuser(req, res) {
   const { method, body } = req;
@@ -81,7 +82,7 @@ export default async function newuser(req, res) {
                 valorArtist = valorArtist + 1;
                 artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
 
-                if (valorArtist == 1) {
+                if (valorArtist <= user.artistPreference) {
                   usersfilter3.push(usersfilter2[i]);
                   pusheado = true;
                   usersfilter3[i]["similarartist"] = artistasmatch;
@@ -95,7 +96,7 @@ export default async function newuser(req, res) {
                 valorMovies = valorMovies + 1;
                 moviesmatch.push(usersfilter2[i].postedBy.movies[j]);
 
-                if (valorMovies == 1) {
+                if (valorMovies <= user.moviePreference) {
                   if (pusheado == false) {
                     usersfilter3.push(usersfilter2[i]);
                   }
@@ -119,8 +120,26 @@ export default async function newuser(req, res) {
           //   });
           // });
 
+          if (user.distance == 5000) {
+            await db.disconnect();
+            return res.status(200).send(usersfilter4);
+          }
+
+          // Filtro de Distancia:
+          const usersfilter5 = usersfilter4.filter((usuario) => {
+            const distancia = getDistance(
+              user.location.latitude,
+              user.location.longitude,
+              usuario.location.latitude,
+              usuario.location.longitude,
+              "K"
+            );
+
+            return distancia <= user.distance;
+          });
+
           await db.disconnect();
-          res.status(200).send(usersfilter4);
+          res.status(200).send(usersfilter5);
         } catch (error) {
           console.log(error);
         }

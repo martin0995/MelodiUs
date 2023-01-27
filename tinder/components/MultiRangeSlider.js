@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./multiRangeSlider.module.css";
+import { useSelector } from "react-redux";
 
 const MultiRangeSlider = ({ min, max, onChange }) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+  const user = useSelector((state) => state.user);
+  const [minVal, setMinVal] = useState(user.ageRange[0]);
+  const [maxVal, setMaxVal] = useState(user.ageRange[1]);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef(null);
@@ -14,6 +16,10 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
     (value) => Math.round(((value - min) / (max - min)) * 100),
     [min, max]
   );
+  useEffect(() => {
+    setMinVal(user.ageRange[0]);
+    setMaxVal(user.ageRange[1]);
+  }, [user]);
 
   // Set width of the range to decrease from the left side
   useEffect(() => {
@@ -29,7 +35,7 @@ const MultiRangeSlider = ({ min, max, onChange }) => {
   // Set width of the range to decrease from the right side
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
+    const maxPercent = getPercent(user.ageRange[1]);
 
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
