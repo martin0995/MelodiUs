@@ -16,7 +16,7 @@ export default function Chat() {
 
   useEffect(() => {
     socketInitializer();
-  }, []);
+  }, [message]);
 
   const socketInitializer = async () => {
     // We just call it because we don't need anything else out of it
@@ -25,23 +25,17 @@ export default function Chat() {
     socket = io();
 
     socket.on("newIncomingMessage", (msg) => {
-      setMessages((currentMsg) => [
-        ...currentMsg,
-        { author: msg.author, message: msg.message },
-      ]);
-      console.log(messages);
+      console.log("msg", msg);
+      setMessages([...messages, { author: msg.author, message: msg.message }]);
     });
+    socket.off("newIncomingMessage", message);
   };
 
   const sendMessage = async () => {
     socket.emit("createdMessage", { author: chosenUsername, message });
+    setMessages([...messages, { author: chosenUsername, message }]);
+    console.log("resultado", { author: chosenUsername, message });
 
-    
-
-    setMessages((currentMsg) => [
-      ...currentMsg,
-      { author: chosenUsername, message },
-    ]);
     setMessage("");
   };
 
