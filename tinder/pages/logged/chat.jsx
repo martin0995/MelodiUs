@@ -39,9 +39,11 @@ const chat = () => {
           </h5>
         </div>
 
+
+
         <div className="flex w-full overflow-x-auto gap-2 ml-4">
           {matches?.map((match, i) => {
-            if (!match.chat) {
+            if (!match.chat.length) {
               return <MatchCard match={match} key={i} i={i} />;
             }
           })}
@@ -55,7 +57,7 @@ const chat = () => {
 
         <div className="flex w-full overflow-x-auto gap-2 ml-3">
           {matches?.map((match, i) => {
-            if (match.chat) {
+            if (match.chat.length) {
               return <ChatCard match={match} key={i} i={i} />;
             }
           })}

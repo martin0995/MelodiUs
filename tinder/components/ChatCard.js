@@ -13,10 +13,11 @@ const Chatcard = ({ match }) => {
             />
           </div>
         </div>
-        <div>
+        <div className="flex flex-col text-white">
           <h5 className="text-lg text-white font-medium dark:text-white">
             {match.user.name}
           </h5>
+          <p>{match.chat[match.chat.length - 1].message}</p>
         </div>
       </div>
     </>
