@@ -32,8 +32,6 @@ export default async function newuser(req, res) {
           }
         });
 
-        console.log("FINALMATCH>>>", finalMatch);
-
         await db.disconnect();
         res.status(200).send(finalMatch);
       }
