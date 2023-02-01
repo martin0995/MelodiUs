@@ -4,6 +4,7 @@ import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import MatchCard from "../../components/MatchCard";
 // import { useSelector } from "react-redux";
 
 const chat = () => {
@@ -31,23 +32,9 @@ const chat = () => {
           </div>
         </div>
 
-        <div className="flex flex-row w-full h-1/5">
-          {matches?.map((match) => {
-            return (
-              <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex justify-end px-4 pt-4"></div>
-                <div class="flex flex-col items-center pb-10">
-                  <img
-                    class="w-24 h-24 mb-3 rounded-full shadow-lg"
-                    src={match.user.images[0]}
-                    alt="User Image"
-                  />
-                  <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                    {match.user.name}
-                  </h5>
-                </div>
-              </div>
-            );
+        <div className="flex w-full h-1/6 overflow-x-auto gap-2 ml-3">
+          {matches?.map((match, i) => {
+            return <MatchCard match={match} key={i} i={i} />;
           })}
         </div>
 
