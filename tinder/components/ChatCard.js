@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Chatcard = ({ match }) => {
   return (
-    <Link href="">
+    <Link href={`/chat/${match.id}`}>
       <div className="flex flex-row items-center">
         <div className="flex justify-center w-16 items-center border border-gray-200 mr-4 rounded-lg">
           <div className="flex flex-col h-fit w-fit items-center ">

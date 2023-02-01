@@ -13,7 +13,7 @@ export default async function newuser(req, res) {
         await db.connect();
 
         const email = req.body.email;
-
+        
         const user = await User.findOne({ email: email });
 
         const matches = await Match.find({

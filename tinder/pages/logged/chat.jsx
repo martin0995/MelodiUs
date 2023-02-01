@@ -13,8 +13,6 @@ const chat = () => {
   // const user = useSelector((state) => state.user);
   const [matches, setMatches] = useState([]);
 
-  console.log("MATCHES>>", matches);
-
   useEffect(() => {
     if (status === "authenticated") {
       const matches = axios
