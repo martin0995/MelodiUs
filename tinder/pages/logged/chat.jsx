@@ -3,17 +3,21 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import { useSelector } from "react-redux";
 
 const chat = () => {
   const { data: session, status } = useSession();
   // const user = useSelector((state) => state.user);
+  const [matches, setMatches] = useState([]);
+
+  console.log("MATCHES>>", matches.data);
 
   useEffect(() => {
     if (status === "authenticated") {
-      const matches = axios.post("/api/match", { email: session.user.email });
-      console.log("MATCHES", matches);
+      const matches = axios
+        .post("/api/match", { email: session.user.email })
+        .then((data) => setMatches(data));
     }
   }, [status]);
 

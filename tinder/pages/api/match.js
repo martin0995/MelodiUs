@@ -20,10 +20,22 @@ export default async function newuser(req, res) {
           $or: [{ user1: user._id }, { user2: user._id }],
         }).populate(["user1", "user2"]);
 
-        console.log("MATCHES", matches);
+        let finalMatch = [];
+
+        matches.map((match) => {
+          if (match.user1.email !== user.email) {
+            let obj = { user: match.user1, chat: match.chat, id: match._id };
+            finalMatch.push(obj);
+          } else if (match.user2.email !== user.email) {
+            let obj = { user: match.user2, chat: match.chat, id: match._id };
+            finalMatch.push(obj);
+          }
+        });
+
+        console.log("FINALMATCH>>>", finalMatch);
 
         await db.disconnect();
-        res.status(200).send(matches);
+        res.status(200).send(finalMatch);
       }
       break;
 
