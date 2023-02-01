@@ -32,7 +32,7 @@ const chat = () => {
           </div>
         </div>
 
-        <div className="flex w-full h-1/6 overflow-x-auto gap-2 ml-3">
+        <div className="flex w-full overflow-x-auto gap-2 ml-3">
           {matches?.map((match, i) => {
             return <MatchCard match={match} key={i} i={i} />;
           })}

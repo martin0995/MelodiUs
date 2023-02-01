@@ -3,11 +3,11 @@ import React from "react";
 const MatchCard = ({ match }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex w-28 justify-center items-center border border-gray-200 rounded-full">
+      <div className="flex justify-center items-center border border-gray-200 rounded-full">
         <div className="flex flex-col h-fit w-fit items-center ">
           <img
-            className="w-full h-full rounded-full shadow-lg"
-            src={match.user.images[0]}
+            className="w-28 h-28 rounded-full shadow-lg"
+            src={match.user.images[1]}
             alt="User Image"
           />
         </div>
