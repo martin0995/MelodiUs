@@ -3,7 +3,7 @@ import React from "react";
 const MatchCard = ({ match }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex w-28 h-4/5 justify-center items-center  rounded-full">
+      <div className="flex w-28 justify-center items-center border border-gray-200 rounded-full">
         <div className="flex flex-col h-fit w-fit items-center ">
           <img
             className="w-full h-full rounded-full shadow-lg"
