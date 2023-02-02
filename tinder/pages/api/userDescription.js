@@ -1,5 +1,6 @@
 import User from "../../db/models/user";
 import db from "../../db/mongodb";
+import ageCalculator from "../../reactHooks/ageCalculator";
 
 export default async function newuser(req, res) {
   const { method, body } = req;
