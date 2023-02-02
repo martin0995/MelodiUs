@@ -37,14 +37,10 @@ export default async function newuser(req, res) {
             connectionBy: user._id,
           }).select("-_id referencia");
 
-          console.log("IDs LIKES", findConnections);
-
           // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
           );
-
-          console.log("FILTRO-LIKES", usersfilter);
 
           // Filtro de GENERO:
           const usersfilter2 = usersfilter.filter((u) => {
@@ -65,8 +61,6 @@ export default async function newuser(req, res) {
             return usersfilter;
           });
 
-          console.log("FILTRO GENERO", usersfilter2);
-
           // Filtro Artistas (MUSICA), y Filtro Peliculas  tienen que coincidir dos artistas. Comparo 2 Arrays:
 
           let usersfilter3 = [];
@@ -76,6 +70,7 @@ export default async function newuser(req, res) {
             let artistasmatch = [];
             let moviesmatch = [];
             let pusheado = false;
+            let pusheado2 = false;
 
             for (let j = 0; j < usersfilter2[i].postedBy.artist.length; j++) {
               if (
@@ -87,9 +82,11 @@ export default async function newuser(req, res) {
                 artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
 
                 if (valorArtist <= user.artistPreference) {
-                  usersfilter3.push(usersfilter2[i]);
-                  pusheado = true;
-                  usersfilter3[i]["similarartist"] = artistasmatch;
+                  if (pusheado2 == false) {
+                    usersfilter3.push(usersfilter2[i]);
+                    pusheado = true;
+                    usersfilter3[i]["similarartist"] = artistasmatch;
+                  }
                 }
               }
               if (
@@ -102,6 +99,7 @@ export default async function newuser(req, res) {
 
                 if (valorMovies <= user.moviePreference) {
                   if (pusheado == false) {
+                    pusheado2 = true;
                     usersfilter3.push(usersfilter2[i]);
                   }
                   usersfilter3[i]["similarmovies"] = moviesmatch;
@@ -128,8 +126,6 @@ export default async function newuser(req, res) {
           // });
 
           if (user.distance == 5000) {
-            console.log("RESULTADO FILTRO", usersfilter4);
-
             await db.disconnect();
             return res.status(200).send(usersfilter4);
           }
@@ -146,8 +142,6 @@ export default async function newuser(req, res) {
 
             return distancia <= user.distance;
           });
-
-          console.log("RESULTADO FILTRO", usersfilter5);
 
           await db.disconnect();
           res.status(200).send(usersfilter5);
