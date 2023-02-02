@@ -20,15 +20,17 @@ const chatId = () => {
   console.log("DATA>", match);
 
   useEffect(() => {
-    axios
-      .get(`/api/chat/${data.user}-${session.user.email}`)
-      .then((data) => setMatch(data.data));
-    // .then((data) => console.log(data.data));
+    if (status === "authenticated") {
+      axios
+        .get(`/api/chat/${data.user}-${session.user.email}`)
+        .then((data) => setMatch(data.data));
+    }
+    // .then((data) => console.log(data.data))
   }, [status]);
 
   if (status === "authenticated") {
     return (
-      <div className="bg-black text-white h-screen">
+      <div className="bg-black h-screen">
         <div className="flex flex-row text-verdedos ">
           <div className="text-black">
             <button className="p-2 text-2xl ml-2 text-white" onClick={backPage}>

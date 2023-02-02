@@ -8,6 +8,8 @@ export default async function newuser(req, res) {
   const { method, body } = req;
 
   switch (method) {
+
+    // Trae un match especifico:
     case "GET":
       {
         try {
@@ -24,15 +26,17 @@ export default async function newuser(req, res) {
               user: match[0].user1,
               chat: match[0].chat,
               id: match[0]._id,
+              myUser: match[0].user2.name,
             };
 
             await db.disconnect();
             res.status(200).send(finalMatch);
           } else if (match[0].user2.email !== email) {
             let finalMatch = {
-              user: match[0].user1,
+              user: match[0].user2,
               chat: match[0].chat,
               id: match[0]._id,
+              myUser: match[0].user1.name,
             };
 
             await db.disconnect();

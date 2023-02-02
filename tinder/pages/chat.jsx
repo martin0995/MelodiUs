@@ -1,6 +1,7 @@
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import axios from "axios";
 
 let socket;
 
@@ -9,7 +10,9 @@ export default function Chat({ match }) {
   const [messages, setMessages] = useState([]);
   const { data: session, status } = useSession();
 
-  console.log("MATCH CHAT>>", match);
+  useEffect(() => {
+    setMessages(match.chat);
+  }, []);
 
   useEffect(() => {
     socketInitializer();
@@ -30,9 +33,15 @@ export default function Chat({ match }) {
   };
 
   const sendMessage = async () => {
-    socket.emit("createdMessage", { author: chosenUsername, message });
-    setMessages([...messages, { author: chosenUsername, message }]);
-    console.log("resultado", { author: chosenUsername, message });
+    socket.emit("createdMessage", { author: match.myUser, message });
+    setMessages([...messages, { author: match.myUser, message }]);
+    console.log("resultado", { author: match.myUser, message });
+
+    await axios.put("/api/match", {
+      id: match.id,
+      mensaje: message,
+      author: match.myUser,
+    });
 
     setMessage("");
   };
@@ -49,9 +58,6 @@ export default function Chat({ match }) {
   return (
     <div className="flex items-center p-4 mx-auto min-h-screen justify-center bg-purple-500">
       <main className="gap-4 flex flex-col items-center justify-center w-full h-full">
-        <p className="font-bold text-white text-xl">
-          Your username: {match.user.name}
-        </p>
         <div className="flex flex-col justify-end bg-white h-[20rem] min-w-[33%] rounded-md shadow-md ">
           <div className="h-full last:border-b-0 overflow-y-scroll">
             {messages.map((msg, i) => {

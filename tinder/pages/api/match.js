@@ -8,12 +8,13 @@ export default async function newuser(req, res) {
   const { method, body } = req;
 
   switch (method) {
+    // Traer todos los MATCHES con mi usuario:
     case "POST":
       {
         await db.connect();
 
         const email = req.body.email;
-        
+
         const user = await User.findOne({ email: email });
 
         const matches = await Match.find({
@@ -34,6 +35,32 @@ export default async function newuser(req, res) {
 
         await db.disconnect();
         res.status(200).send(finalMatch);
+      }
+      break;
+
+    // Agregar mensajes a la base de datos:
+    case "PUT":
+      {
+        await db.connect();
+
+        const id = req.body.id;
+        const mensaje = { author: req.body.author, message: req.body.mensaje };
+
+        console.log("MENSAJE", mensaje);
+
+        const match = await Match.find({ _id: id }).populate([
+          "user1",
+          "user2",
+        ]);
+
+        console.log("MATCHHH", match);
+
+        await match[0].chat.push(mensaje);
+
+        await match[0].save();
+
+        await db.disconnect();
+        res.status(200).send(match);
       }
       break;
 
