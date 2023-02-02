@@ -12,18 +12,32 @@ export default async function newuser(req, res) {
       {
         try {
           await db.connect();
-
-          console.log("REQ QUERYYY", req.query);
-
-          const id = req.query.id;
+          const [id, email] = req.query.id.split("-");
 
           const match = await Match.find({ _id: id }).populate([
             "user1",
             "user2",
           ]);
 
-          await db.disconnect();
-          res.status(200).send(match);
+          if (match[0].user1.email !== email) {
+            let finalMatch = {
+              user: match[0].user1,
+              chat: match[0].chat,
+              id: match[0]._id,
+            };
+
+            await db.disconnect();
+            res.status(200).send(finalMatch);
+          } else if (match[0].user2.email !== email) {
+            let finalMatch = {
+              user: match[0].user1,
+              chat: match[0].chat,
+              id: match[0]._id,
+            };
+
+            await db.disconnect();
+            res.status(200).send(finalMatch);
+          }
         } catch (error) {
           console.log(error);
         }
