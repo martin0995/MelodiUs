@@ -15,11 +15,15 @@ export default async function newuser(req, res) {
 
         const email = req.body.email;
 
+        console.log("EMAIL>>", email);
+
         const user = await User.findOne({ email: email });
 
         const matches = await Match.find({
           $or: [{ user1: user._id }, { user2: user._id }],
         }).populate(["user1", "user2"]);
+
+        console.log("MATCHES>", matches);
 
         let finalMatch = [];
 

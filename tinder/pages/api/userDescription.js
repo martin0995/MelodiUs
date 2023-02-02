@@ -10,13 +10,16 @@ export default async function newuser(req, res) {
         // Obtengo description del usuario:
         try {
           await db.connect();
-          const id = { _id: req.body.id };
+
+          const id = { _id: req.body.id.userId };
 
           const user = await User.findOne(id).populate("postedBy");
 
           await db.disconnect();
           res.status(200).send(user);
-        } catch (error) {}
+        } catch (error) {
+          console.log(error);
+        }
       }
       break;
   }

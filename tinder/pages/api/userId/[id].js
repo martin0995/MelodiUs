@@ -37,12 +37,14 @@ export default async function newuser(req, res) {
             connectionBy: user._id,
           }).select("-_id referencia");
 
-          console.log("find", findConnections);
+          console.log("IDs LIKES", findConnections);
 
           // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
           );
+
+          console.log("FILTRO-LIKES", usersfilter);
 
           // Filtro de GENERO:
           const usersfilter2 = usersfilter.filter((u) => {
@@ -62,6 +64,8 @@ export default async function newuser(req, res) {
               );
             return usersfilter;
           });
+
+          console.log("FILTRO GENERO", usersfilter2);
 
           // Filtro Artistas (MUSICA), y Filtro Peliculas  tienen que coincidir dos artistas. Comparo 2 Arrays:
 
@@ -105,6 +109,9 @@ export default async function newuser(req, res) {
               }
             }
           }
+
+          console.log("FILTRO MUSICA Y PELIS", usersfilter3);
+
           //Filtro Edad
           const usersfilter4 = usersfilter3.filter((otrousuario) => {
             const edad = otrousuario.birthday;
@@ -121,6 +128,8 @@ export default async function newuser(req, res) {
           // });
 
           if (user.distance == 5000) {
+            console.log("RESULTADO FILTRO", usersfilter4);
+
             await db.disconnect();
             return res.status(200).send(usersfilter4);
           }
@@ -137,6 +146,8 @@ export default async function newuser(req, res) {
 
             return distancia <= user.distance;
           });
+
+          console.log("RESULTADO FILTRO", usersfilter5);
 
           await db.disconnect();
           res.status(200).send(usersfilter5);

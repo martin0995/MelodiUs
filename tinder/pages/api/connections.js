@@ -27,7 +27,7 @@ export default async function newuser(req, res) {
           connectionBy: referencia,
         });
 
-        console.log(findLike);
+        console.log("FINDLIKEE>>", findLike);
 
         // Creo el match con la otra persona:
         if (like == true && findLike.length) {
