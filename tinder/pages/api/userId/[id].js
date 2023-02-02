@@ -37,8 +37,6 @@ export default async function newuser(req, res) {
             connectionBy: user._id,
           }).select("-_id referencia");
 
-          console.log("find", findConnections);
-
           // FILTRO de likes o dislike:
           let usersfilter = users.filter(
             (i) => !findConnections.filter((y) => y.referencia == i._id).length
@@ -72,6 +70,7 @@ export default async function newuser(req, res) {
             let artistasmatch = [];
             let moviesmatch = [];
             let pusheado = false;
+            let pusheado2 = false;
 
             for (let j = 0; j < usersfilter2[i].postedBy.artist.length; j++) {
               if (
@@ -83,9 +82,11 @@ export default async function newuser(req, res) {
                 artistasmatch.push(usersfilter2[i].postedBy.artist[j]);
 
                 if (valorArtist <= user.artistPreference) {
-                  usersfilter3.push(usersfilter2[i]);
-                  pusheado = true;
-                  usersfilter3[i]["similarartist"] = artistasmatch;
+                  if (pusheado2 == false) {
+                    usersfilter3.push(usersfilter2[i]);
+                    pusheado = true;
+                    usersfilter3[i]["similarartist"] = artistasmatch;
+                  }
                 }
               }
               if (
@@ -98,6 +99,7 @@ export default async function newuser(req, res) {
 
                 if (valorMovies <= user.moviePreference) {
                   if (pusheado == false) {
+                    pusheado2 = true;
                     usersfilter3.push(usersfilter2[i]);
                   }
                   usersfilter3[i]["similarmovies"] = moviesmatch;
@@ -105,6 +107,9 @@ export default async function newuser(req, res) {
               }
             }
           }
+
+          console.log("FILTRO MUSICA Y PELIS", usersfilter3);
+
           //Filtro Edad
           const usersfilter4 = usersfilter3.filter((otrousuario) => {
             const edad = otrousuario.birthday;

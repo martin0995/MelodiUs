@@ -56,23 +56,23 @@ const Navbar = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="w-full py-3 flex flex-row  justify-around mt-2 text-verdedos fixed bottom-0 z-30 bg-black">
+      <div className="w-full py-3 flex flex-row justify-around mt-2 text-verdedos fixed bottom-0 z-30 bg-black">
         <div>
           <HiOutlineMusicNote
-            className="text-2xl"
+            className="text-3xl"
             onClick={() => handleSection("/logged/home")}
           />
         </div>
         <div>
           <BsFillChatFill
-            className="text-2xl"
-            onClick={() => handleSection("/logged/chat")}
+            className="text-3xl"
+            onClick={() => handleSection("/logged/matchView")}
           />
         </div>
         <div>
           {" "}
           <CgProfile
-            className="text-2xl"
+            className="text-3xl"
             onClick={() => handleSection("/logged/userProfile/profile")}
           />
         </div>

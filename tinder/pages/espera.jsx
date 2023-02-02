@@ -17,6 +17,7 @@ const espera = () => {
     if (status === "authenticated") {
       setIsLoading(true);
       try {
+        console.log("entro1");
         const user = await axios.post("/api/newUser", {
           email: session.user.email,
         });
@@ -43,7 +44,7 @@ const espera = () => {
     fetchData();
 
     setIsLoading(false);
-  }, [session]);
+  }, [status]);
 
   return <div>{isLoading ? <Imagen /> : null}</div>;
 };
