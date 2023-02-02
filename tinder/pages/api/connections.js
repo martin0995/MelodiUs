@@ -32,7 +32,7 @@ export default async function newuser(req, res) {
         // Creo el match con la otra persona:
         if (like == true && findLike.length) {
           const match = await new Match({
-            chat: "",
+            chat: [],
           });
 
           await match.set("user1", connectionBy);

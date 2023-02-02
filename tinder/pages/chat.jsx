@@ -8,7 +8,6 @@ let socket;
 export default function Chat({ match }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const { data: session, status } = useSession();
 
   useEffect(() => {
     setMessages(match.chat);

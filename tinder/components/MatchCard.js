@@ -1,8 +1,9 @@
 import React from "react";
+import Link from "next/link";
 
 const MatchCard = ({ match }) => {
   return (
-    <>
+    <Link href={`/chat/${match.id}`}>
       <div className="flex flex-col items-center">
         <div className="flex justify-center w-28 items-center border border-gray-200 rounded-full">
           <div className="flex flex-col h-fit w-fit items-center ">
@@ -19,7 +20,7 @@ const MatchCard = ({ match }) => {
           </h5>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 
