@@ -8,7 +8,7 @@ import MatchCard from "../../components/MatchCard";
 // import { useSelector } from "react-redux";
 import ChatCard from "../../components/ChatCard";
 
-const chat = () => {
+const matchView = () => {
   const { data: session, status } = useSession();
   // const user = useSelector((state) => state.user);
   const [matches, setMatches] = useState([]);
@@ -65,4 +65,4 @@ const chat = () => {
   }
 };
 
-export default chat;
+export default matchView;

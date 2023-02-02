@@ -4,6 +4,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { BiArrowBack } from "react-icons/bi";
 import Chat from "../chat";
+import Link from "next/link";
 
 const chatId = () => {
   const router = useRouter();
@@ -14,7 +15,7 @@ const chatId = () => {
   const backPage = (event) => {
     event.preventDefault();
 
-    router.push("/logged/chat");
+    router.push("/logged/matchView");
   };
 
   console.log("DATA>", match);
@@ -31,23 +32,24 @@ const chatId = () => {
   if (status === "authenticated") {
     return (
       <div className="bg-black h-screen">
-        <div className="flex flex-row text-verdedos ">
+        <div className="flex flex-row text-verdedos h-[13%]">
           <div className="text-black">
             <button className="p-2 text-2xl ml-2 text-white" onClick={backPage}>
               <BiArrowBack />
             </button>
           </div>
-          <div className="flex gap-x-3 text-white items-center mb-6   w-3/4">
+          <div className="flex gap-x-3 text-white items-center    w-3/4">
             {match.user ? (
-              <div className="p-2 h-8 flex mx-auto gap-1">
-                <div className="flex flex-col h-fit w-fit items-center ">
-                  <img
-                    className="h-12 rounded-full shadow-lg"
-                    src={match.user.images[0]}
-                    alt="User Image"
-                  />
+              <div className="flex p-2 h-8 flex mx-auto gap-1 items-center">
+                <div className="flex flex-col w-fit  h-fit items-center ">
+                  <Link href={`/matchDescription/${match.user._id}`}>
+                    <img
+                      className="h-12 rounded-full shadow-lg mb-2"
+                      src={match.user.images[0]}
+                      alt="User Image"
+                    />
+                  </Link>
                   <h6> {match.user.name}</h6>
-                  <div className="mt-2 border-t border-solid w-full "></div>
                 </div>
               </div>
             ) : (
@@ -55,7 +57,6 @@ const chatId = () => {
             )}
           </div>
         </div>
-        <div className="mt-8 border-t border-solid w-full bg-white"></div>
         {match.user ? <Chat match={match} /> : ""}
       </div>
     );

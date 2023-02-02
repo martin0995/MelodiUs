@@ -66,7 +66,7 @@ const Navbar = () => {
         <div>
           <BsFillChatFill
             className="text-3xl"
-            onClick={() => handleSection("/logged/chat")}
+            onClick={() => handleSection("/logged/matchView")}
           />
         </div>
         <div>

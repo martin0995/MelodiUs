@@ -55,9 +55,9 @@ export default function Chat({ match }) {
   };
 
   return (
-    <main className="gap-4 flex flex-col items-center justify-center w-screen h-screen">
-      <div className="flex flex-col bg-white h-full w-full shadow-md ">
-        <div className="h-full last:border-b-0 overflow-y-scroll">
+    <div className="gap-4 flex flex-col items-center justify-around w-screen h-[87%]">
+      <div className="flex flex-col bg-gray-800 w-full h-full shadow-md text-white">
+        <div className="h-full last:border-b-0 overflow-y-scroll scroll-auto">
           {messages.map((msg, i) => {
             return (
               <div
@@ -69,27 +69,27 @@ export default function Chat({ match }) {
             );
           })}
         </div>
-        <div className="border-t border-gray-300 w-full flex rounded-bl-md">
+        <div className="border-t bg-verdedos w-full flex rounded-bl-md">
           <input
             type="text"
-            placeholder="New message..."
+            placeholder="Escribí un mensaje..."
             value={message}
-            className="outline-none py-2 px-2 rounded-bl-md flex-1"
+            className="outline-none py-2 px-2 rounded-bl-md flex-1 bg-verdedos"
             onChange={(e) => setMessage(e.target.value)}
             onKeyUp={handleKeypress}
           />
           <div className="border-l border-gray-300 flex justify-center items-center  rounded-br-md group hover:bg-purple-500 transition-all">
             <button
-              className="group-hover:text-white px-3 h-full"
+              className="group-hover:text-white px-3 h-full bg-verdedos"
               onClick={() => {
                 sendMessage();
               }}
             >
-              Send
+              Enviar
             </button>
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
