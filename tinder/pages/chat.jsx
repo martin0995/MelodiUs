@@ -55,43 +55,41 @@ export default function Chat({ match }) {
   };
 
   return (
-    <div className="flex items-center p-4 mx-auto min-h-screen justify-center bg-purple-500">
-      <main className="gap-4 flex flex-col items-center justify-center w-full h-full">
-        <div className="flex flex-col justify-end bg-white h-[20rem] min-w-[33%] rounded-md shadow-md ">
-          <div className="h-full last:border-b-0 overflow-y-scroll">
-            {messages.map((msg, i) => {
-              return (
-                <div
-                  className="w-full py-1 px-2 border-b border-gray-200"
-                  key={i}
-                >
-                  {msg.author} : {msg.message}
-                </div>
-              );
-            })}
-          </div>
-          <div className="border-t border-gray-300 w-full flex rounded-bl-md">
-            <input
-              type="text"
-              placeholder="New message..."
-              value={message}
-              className="outline-none py-2 px-2 rounded-bl-md flex-1"
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyUp={handleKeypress}
-            />
-            <div className="border-l border-gray-300 flex justify-center items-center  rounded-br-md group hover:bg-purple-500 transition-all">
-              <button
-                className="group-hover:text-white px-3 h-full"
-                onClick={() => {
-                  sendMessage();
-                }}
+    <main className="gap-4 flex flex-col items-center justify-center w-screen h-screen">
+      <div className="flex flex-col bg-white h-full w-full shadow-md ">
+        <div className="h-full last:border-b-0 overflow-y-scroll">
+          {messages.map((msg, i) => {
+            return (
+              <div
+                className="w-full py-1 px-2 border-b border-gray-200"
+                key={i}
               >
-                Send
-              </button>
-            </div>
+                {msg.author} : {msg.message}
+              </div>
+            );
+          })}
+        </div>
+        <div className="border-t border-gray-300 w-full flex rounded-bl-md">
+          <input
+            type="text"
+            placeholder="New message..."
+            value={message}
+            className="outline-none py-2 px-2 rounded-bl-md flex-1"
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyUp={handleKeypress}
+          />
+          <div className="border-l border-gray-300 flex justify-center items-center  rounded-br-md group hover:bg-purple-500 transition-all">
+            <button
+              className="group-hover:text-white px-3 h-full"
+              onClick={() => {
+                sendMessage();
+              }}
+            >
+              Send
+            </button>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
