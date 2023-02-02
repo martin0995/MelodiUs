@@ -42,7 +42,9 @@ const chatId = () => {
             {match.user ? (
               <div className="flex p-2 h-8 flex mx-auto gap-1 items-center">
                 <div className="flex flex-col w-fit  h-fit items-center ">
-                  <Link href={`/matchDescription/${match.user._id}`}>
+                  <Link
+                    href={`/matchDescription/${match.user._id}-${match.id}-2`}
+                  >
                     <img
                       className="h-12 rounded-full shadow-lg mb-2"
                       src={match.user.images[0]}

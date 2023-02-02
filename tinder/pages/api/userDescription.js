@@ -12,7 +12,7 @@ export default async function newuser(req, res) {
         try {
           await db.connect();
 
-          const id = { _id: req.body.id.userId };
+          const id = { _id: req.body.id };
 
           const user = await User.findOne(id).populate("postedBy");
 

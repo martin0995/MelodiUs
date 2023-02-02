@@ -9,13 +9,25 @@ import ageCalculator from "../../reactHooks/ageCalculator";
 import { ImLocation } from "react-icons/im";
 import { BsSpotify } from "react-icons/bs";
 import { MdMovie } from "react-icons/md";
+import { BiArrowBack } from "react-icons/bi";
 
 const matchDescription = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const id = router.query;
+  const data = router.query;
   const [user, setUser] = useState({});
   const [photo, setPhoto] = useState(0);
+
+  const backPage = (event) => {
+    event.preventDefault();
+
+    if (data.userId.split("-")[2] == 2) {
+      router.push(`/chat/${data.userId.split("-")[1]}`);
+    }
+    if (data.userId.split("-")[2] == 1) {
+      router.push("/logged/home");
+    }
+  };
 
   console.log("USER>>", user);
 
@@ -28,6 +40,8 @@ const matchDescription = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
+      let id = data.userId.split("-")[0];
+
       axios
         .post("/api/userDescription", { id })
         .then((data) => setUser(data.data));
@@ -37,8 +51,16 @@ const matchDescription = () => {
   if (status === "authenticated") {
     return (
       <div className="h-full flex flex-col w-full items-center pt-2 bg-black">
-        <div className="h-full w-full flex items-center justify-center">
-          <div className="flex flex-col w-full items-center mt-5 h-52">
+        <div className="h-full w-full flex">
+          <div>
+            <button
+              className="p-2 text-2xl text-left ml-2 text-white"
+              onClick={backPage}
+            >
+              <BiArrowBack />
+            </button>
+          </div>
+          <div className="flex flex-col w-9/12 justify-center items-center mt-5 h-52">
             {user.images && (
               <Image
                 src={user.images[photo]}
