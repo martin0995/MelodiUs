@@ -16,6 +16,7 @@ const register2 = () => {
   const [imagenes2, setImagenes2] = useState(null); // img URL
   const ref1 = useRef();
   const ref2 = useRef();
+  
   const Nextpage = (event) => {
     event.preventDefault();
 
