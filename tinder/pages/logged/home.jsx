@@ -98,7 +98,7 @@ const home = () => {
         </div>
         <div className="block h-full w-full flex items-center justify-center">
           <div
-            className={`m-auto relative  overflow-hidden border-4 border-solid w-11/12 mt-2 ${styles.photoContainer}`}
+            className={`m-auto relative  overflow-hidden border border-solid rounded-lg w-11/12 mt-2 ${styles.photoContainer}`}
           >
             {users.data ? (
               <>
@@ -112,7 +112,7 @@ const home = () => {
                         className={`object-cover object-center absolute z-5 ${styles.perspectiveBack}`}
                         onClick={handlePhoto}
                       />
-                      <div className="w-full absolute bottom-16 z-10 gap-2 flex flex-col justify-left text-white ml-10  w-4/5 ">
+                      <div className="w-full absolute bottom-16 z-10 gap-2 flex flex-col justify-left text-white ml-10  w-4/5">
                         <div className="flex flex-row justify-between">
                           <p className="text-white text-2xl">
                             <strong>
@@ -144,19 +144,19 @@ const home = () => {
                         </div>
                       </div>
 
-                      <div className="w-full absolute bottom-0 z-10 flex flew-row justify-around text-white ml-10   -left-[2%] w-4/5 ">
+                      <div className="w-full absolute bottom-2 z-10 flex flew-row justify-around text-white ml-10    w-4/5 ">
                         <button
-                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center "
+                          className="border border-red-600 rounded-full w-1/5 p-3 flex items-center justify-center "
                           onClick={() => hanldeLike(false)}
                         >
-                          <ImCross />
+                          <ImCross className="text-red-600" />
                         </button>
 
                         <button
-                          className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center"
+                          className="border border-verdedos rounded-full w-1/5 p-3 flex items-center justify-center"
                           onClick={() => hanldeLike(true)}
                         >
-                          <AiFillHeart className="text-red-600" />
+                          <AiFillHeart className="text-verdedos text-2xl" />
                         </button>
                       </div>
                     </div>
