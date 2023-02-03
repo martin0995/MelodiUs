@@ -10,6 +10,11 @@ import styles from "./home.module.css";
 import noUsers from "../../components/noUsers";
 import { useSelector } from "react-redux";
 import useGeolocation from "../../reactHooks/useGeolocation";
+import ageCalculator from "../../reactHooks/ageCalculator";
+import useDistance from "../../reactHooks/useDistance";
+import { ImLocation } from "react-icons/im";
+import { AiFillInfoCircle } from "react-icons/ai";
+import Link from "next/link";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -107,6 +112,38 @@ const home = () => {
                         className={`object-cover object-center absolute z-5 ${styles.perspectiveBack}`}
                         onClick={handlePhoto}
                       />
+                      <div className="w-full absolute bottom-16 z-10 gap-2 flex flex-col justify-left text-white ml-10  w-4/5 ">
+                        <div className="flex flex-row justify-between">
+                          <p className="text-white text-2xl">
+                            <strong>
+                              {users.data[person].name},
+                              {ageCalculator(users.data[person].birthday)}
+                            </strong>
+                          </p>
+                          <Link
+                            href={`/matchDescription/${users.data[person]._id}-home-1`}
+                          >
+                            <AiFillInfoCircle className="text-2xl mr-1 text-center" />
+                          </Link>
+                        </div>
+                        <div className="flex flex-row">
+                          <ImLocation color="white" className="text-xl mr-1" />
+                          <p className="text-white text-xl">
+                            A{" "}
+                            {Math.round(
+                              useDistance(
+                                userRedux.location.latitude,
+                                userRedux.location.longitude,
+                                users.data[person].location.latitude,
+                                users.data[person].location.longitude,
+                                "K"
+                              )
+                            )}{" "}
+                            kilómetros de distancia
+                          </p>
+                        </div>
+                      </div>
+
                       <div className="w-full absolute bottom-0 z-10 flex flew-row justify-around text-white ml-10   -left-[2%] w-4/5 ">
                         <button
                           className="border-2 rounded-full w-1/5 p-3 flex items-center justify-center "
