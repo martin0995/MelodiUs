@@ -9,7 +9,7 @@ export default async function newuser(req, res) {
     case "PUT":
       {
         await db.connect();
-        console.log("reqqqq", req.body);
+        console.log("reqqqq2", req.body);
         const email = { email: req.body.email };
         const artistAndMovies = {
           artist: req.body.artist,
@@ -18,14 +18,63 @@ export default async function newuser(req, res) {
 
         const findUser = await User.find(email);
 
-        const profile = await new Profile(artistAndMovies).save();
+        console.log("FINDUSER2>>", findUser);
 
-        await findUser[0].set("postedBy", profile._id);
-        await findUser[0].save();
-        console.log("que ondaaa");
+        const profile = await Profile.findOne(findUser[0].postedBy);
 
-        await db.disconnect();
-        res.status(200).send(profile);
+        if (!profile) {
+          const result = await new Profile(artistAndMovies).save();
+          console.log("CREADO2:", result);
+
+          await findUser[0].set("postedBy", result._id);
+          await findUser[0].save();
+          await db.disconnect();
+          return res.status(200).send(result);
+        }
+
+        if (profile) {
+          profile.movies = req.body.movies;
+          profile.artist = req.body.artist;
+          profile.save();
+          await db.disconnect();
+          console.log("UPDETEADO:", profile);
+          return res.status(200).send(profile);
+        }
+
+        // Find the document
+        // Profile.findOneAndUpdate(
+        //   findUser[0].postedBy,
+        //   artistAndMovies,
+        //   options,
+        //   async function (error, result) {
+        //     if (!error) {
+        //       // If the document doesn't exist
+        //       if (!result) {
+        //         // Create it
+        //         result = await new Profile(artistAndMovies).save();
+        //         await findUser[0].set("postedBy", result._id);
+        //         await findUser[0].save();
+        //         await db.disconnect();
+        //         console.log("CREADO:", result);
+
+        //         return res.status(200).send(result);
+        //       }
+        //       // Save the document
+        //       result.save(async function (error) {
+        //         if (!error) {
+        //           await db.disconnect();
+        //           console.log("UPDETEADO:", result);
+        //           return res.status(200).send(result);
+        //         } else {
+        //           throw error;
+        //         }
+        //       });
+        //     }
+        //   }
+        // );
+
+        // await db.disconnect();
+        // res.status(200).send(profile);
       }
       break;
 

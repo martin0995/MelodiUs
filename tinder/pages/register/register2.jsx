@@ -16,8 +16,8 @@ const register2 = () => {
   const router = useRouter();
   const [image, setimage] = useState(""); // JPG file uploaded
   const [image2, setimage2] = useState(""); // JPG file uploaded
-  const [imagenes, setImagenes] = useState(user.images[0]); // img URL
-  const [imagenes2, setImagenes2] = useState(user.images[1]); // img URL
+  const [imagenes, setImagenes] = useState(""); // img URL
+  const [imagenes2, setImagenes2] = useState(""); // img URL
   const ref1 = useRef();
   const ref2 = useRef();
   const dispatch = useDispatch();
@@ -27,9 +27,12 @@ const register2 = () => {
       registerData(session.user.email, dispatch);
     }
   }, [status]);
+
   useEffect(() => {
-    setImagenes(user.images[0]);
-    setImagenes2(user.images[1]);
+    if (user.images) {
+      setImagenes(user.images[0]);
+      setImagenes2(user.images[1]);
+    }
   }, [user]);
 
   const Nextpage = (event) => {

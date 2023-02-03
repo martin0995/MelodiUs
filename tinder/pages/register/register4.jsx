@@ -8,16 +8,15 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/reducers/userSlice";
+import { update } from "../../store/reducers/userSlice";
+import registerData from "../../reactHooks/registerData.js";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
-  const { data: session } = useSession();
-  console.log("holaa");
+  const { data: session, status } = useSession();
 
   if (user.movies) {
     var movieredux = [...user.movies];
-    var redux = true;
   }
   const dispatch = useDispatch();
   const router = useRouter();
@@ -26,13 +25,21 @@ const register3 = () => {
   const [savedMovies, setsavedMovies] = useState(movieredux || []);
   const [deleted, setDeleted] = useState(false);
 
+  useEffect(() => {
+    if (status === "authenticated") {
+      registerData(session.user.email, dispatch);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    if (user.movies) {
+      setsavedMovies([...user.movies]);
+    }
+  }, [user]);
+
   const Nextpage = (event) => {
     event.preventDefault();
-    if (redux) {
-      router.push("/logged/userProfile/info");
-    } else if (!redux) {
-      router.push("/register/register2");
-    }
+    router.push("/register/register2");
   };
 
   useEffect(() => {
@@ -77,29 +84,16 @@ const register3 = () => {
     if (savedMovies.length !== 5) {
       return alert("Por favor, seleccionar 5 peliculas.");
     }
-    if (redux) {
-      await axios.put("/api/newUser3", {
-        artist: user.artists,
-        email: session.user.email,
-        movies: savedMovies,
-      });
-      return router.push("/logged/userProfile/info");
-    }
-
-    const loggedUser = {
+    await axios.put("/api/newUser3", {
       email: session.user.email,
-      name: user.name,
-      birthday: user.birthday,
-      genre: user.genre,
-      searchGenre: user.searchGenre,
+      movies: savedMovies,
+    });
+
+    const movies = {
       movies: savedMovies,
     };
-    dispatch(login(loggedUser));
 
-    // await axios.put("/api/newUser3", {
-    //   movies: savedMovies,
-    //   email: session.user.email,
-    // });
+    dispatch(update(movies));
 
     router.push("/register/register3");
   };
