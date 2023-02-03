@@ -2,13 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Cruz from "./cruz.js";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { update } from "../../store/reducers/userSlice";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
+import registerData from "../../reactHooks/registerData.js";
 
 const register2 = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const user = useSelector((state) => state.user);
   const router = useRouter();
   const [image, setimage] = useState(""); // JPG file uploaded
   const [image2, setimage2] = useState(""); // JPG file uploaded
@@ -16,7 +20,16 @@ const register2 = () => {
   const [imagenes2, setImagenes2] = useState(null); // img URL
   const ref1 = useRef();
   const ref2 = useRef();
-  
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      registerData(session.user.email, dispatch);
+    }
+    setImagenes(user.images[0]);
+    setImagenes2(user.images[1]);
+  }, [status]);
+
   const Nextpage = (event) => {
     event.preventDefault();
 
@@ -34,6 +47,12 @@ const register2 = () => {
       imagenes: [imagenes, imagenes2],
       email: session.user.email,
     });
+
+    const loggedUser = {
+      images: [imagenes, imagenes2],
+    };
+
+    dispatch(update(loggedUser));
 
     router.push("/register/register4");
   };

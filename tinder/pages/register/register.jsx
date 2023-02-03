@@ -64,7 +64,7 @@ export default function Register() {
     await axios.put("/api/newUser", {
       email: session.user.email,
       name: nombre,
-      birthday: Date(fecha),
+      birthday: new Date(fecha),
       genre: genero,
       searchGenre: buscargenero,
       isAdmin: "",
