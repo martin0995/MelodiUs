@@ -29,7 +29,7 @@ export default function Register() {
     setNombre(user.name);
     setinputGenero(user.genre);
     setinputBuscarGenero(user.searchGenre);
-    setFecha(user.birthday.substring(0, 10));
+    setFecha(user.birthday);
   }, [user]);
 
   //condicion para saber si estamen en register o desde settings
