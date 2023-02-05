@@ -18,11 +18,9 @@ export default async function newuser(req, res) {
 
         const findUser = await User.find(email);
 
-        console.log("FINDUSER2>>", findUser);
+        console.log("FINDUSER4>>", findUser[0].postedBy);
 
-        const profile = await Profile.findOne(findUser[0].postedBy);
-
-        if (!profile) {
+        if (!findUser[0].postedBy) {
           const result = await new Profile(artistAndMovies).save();
           console.log("CREADO2:", result);
 
@@ -32,7 +30,8 @@ export default async function newuser(req, res) {
           return res.status(200).send(result);
         }
 
-        if (profile) {
+        if (findUser[0].postedBy) {
+          const profile = await Profile.findOne(findUser[0].postedBy);
           profile.movies = req.body.movies;
           profile.artist = req.body.artist;
           profile.save();
