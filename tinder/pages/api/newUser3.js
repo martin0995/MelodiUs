@@ -15,6 +15,7 @@ export default async function newuser(req, res) {
           artist: req.body.artist,
           movies: req.body.movies,
         };
+        console.log("artistandmovies", artistAndMovies);
 
         const findUser = await User.find(email);
 
@@ -32,8 +33,13 @@ export default async function newuser(req, res) {
 
         if (findUser[0].postedBy) {
           const profile = await Profile.findOne(findUser[0].postedBy);
-          profile.movies = req.body.movies;
-          profile.artist = req.body.artist;
+          if (req.body.artist) {
+            profile.artist = req.body.artist;
+          }
+          if (req.body.movies) {
+            profile.movies = req.body.movies;
+          }
+
           profile.save();
           await db.disconnect();
           console.log("UPDETEADO:", profile);
