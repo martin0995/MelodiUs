@@ -13,7 +13,7 @@ const MoviesSelection = () => {
           Películas
         </h5>
         <Link
-          href="/register/register4"
+          href={{ pathname: "/register/register4", query: { settings: true } }}
           className="text-md font-medium text-green-500 hover:underline dark:text-green-500"
         >
           Editar

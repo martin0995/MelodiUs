@@ -13,7 +13,7 @@ const ArtistSelection = () => {
           Artistas
         </h5>
         <Link
-          href="/register/register3"
+          href={{ pathname: "/register/register3", query: { settings: true } }}
           className="text-md font-medium text-green-500 hover:underline dark:text-green-500"
         >
           Editar

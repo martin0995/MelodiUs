@@ -14,12 +14,14 @@ import registerData from "../../reactHooks/registerData.js";
 const register3 = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
+  const router = useRouter();
+  const data2 = router.query;
 
   if (user.movies) {
     var movieredux = [...user.movies];
   }
   const dispatch = useDispatch();
-  const router = useRouter();
+
   const searchedMovies = handleInput();
   const [movies, setMovies] = useState([]);
   const [savedMovies, setsavedMovies] = useState(movieredux || []);
@@ -39,6 +41,9 @@ const register3 = () => {
 
   const Nextpage = (event) => {
     event.preventDefault();
+    if (data2.settings == "true") {
+      return router.push("/logged/userProfile/info");
+    }
     router.push("/register/register2");
   };
 
@@ -94,6 +99,9 @@ const register3 = () => {
     };
 
     dispatch(update(movies));
+    if (data2.settings == "true") {
+      return router.push("/logged/userProfile/info");
+    }
 
     router.push("/register/register3");
   };
