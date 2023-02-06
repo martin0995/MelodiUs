@@ -12,21 +12,22 @@ import registerData from "../../reactHooks/registerData.js";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
+  const router = useRouter();
+  const data2 = router.query;
 
-  if (user.artists[0]) {
-    var redux = true;
-    var art = [...user.artists];
-  }
+  // if (user.artists.length) {
+  //   var redux = true;
+  //   var art = [...user.artists];
+  // }
 
   const { data: session, status } = useSession();
 
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
-  const router = useRouter();
   const [accessToken, setAccessToken] = useState();
   const searchedArtist = handleInput();
   const [artists, setArtists] = useState([]);
-  const [savedArtist, setsavedArtist] = useState(art || []);
+  const [savedArtist, setsavedArtist] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const [location, setLocation] = useState({});
   const dispatch = useDispatch();
@@ -46,11 +47,10 @@ const register3 = () => {
   const Nextpage = (event) => {
     event.preventDefault();
 
-    if (redux) {
+    if (data2.settings == "true") {
       return router.push("/logged/userProfile/info");
-    } else if (!redux) {
-      return router.push("/register/register4");
     }
+    router.push("/register/register4");
   };
 
   useEffect(() => {
@@ -136,19 +136,19 @@ const register3 = () => {
       email: session.user.email,
     });
 
-    if (!redux) {
-      await axios.put("/api/newUser", {
-        email: session.user.email,
-        ageRange: [18, 40],
-        location: location,
-        distance: 100,
-        artistPreference: 1,
-        moviePreference: 1,
-      });
-      return router.push("/logged/home");
+    if (data2.settings) {
+      return router.push("/logged/userProfile/info");
     }
-
-    return router.push("/logged/userProfile/info");
+    
+    await axios.put("/api/newUser", {
+      email: session.user.email,
+      ageRange: [18, 40],
+      location: location,
+      distance: 100,
+      artistPreference: 1,
+      moviePreference: 1,
+    });
+    return router.push("/logged/home");
   };
 
   return (
