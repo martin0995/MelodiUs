@@ -7,7 +7,7 @@ import Image from "next/image";
 import { AiFillHeart } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
 import styles from "./home.module.css";
-import noUsers from "../../components/noUsers";
+import NoUsers from "../../components/noUsers";
 import { useSelector } from "react-redux";
 import useGeolocation from "../../reactHooks/useGeolocation";
 import ageCalculator from "../../reactHooks/ageCalculator";
@@ -15,6 +15,7 @@ import useDistance from "../../reactHooks/useDistance";
 import { ImLocation } from "react-icons/im";
 import { AiFillInfoCircle } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -24,11 +25,21 @@ const home = () => {
   const [userId, setuserId] = useState(null);
   const [noPerson, setNoPerson] = useState(false);
   const userRedux = useSelector((state) => state.user);
+  const [updatePage, setUpdatePage] = useState(false);
   const { location, place } = useGeolocation();
+  const router = useRouter();
 
   const getImage = async () => {
     const response = await axios.get(`/api/userId/${session.user.email}`);
     setUsers(response);
+  };
+
+  const editPreferences = () => {
+    router.push("/logged/userProfile/settings");
+  };
+
+  const update = () => {
+    setUpdatePage(!updatePage);
   };
 
   useEffect(() => {
@@ -46,11 +57,10 @@ const home = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      console.log("holaaa");
       getImage();
       setuserId(userRedux);
     }
-  }, [noPerson, userRedux.id]);
+  }, [noPerson, userRedux.id, updatePage]);
 
   const handlePhoto = () => {
     if (photo === 0) setPhoto(1);
@@ -161,12 +171,27 @@ const home = () => {
                       </div>
                     </div>
                   ) : (
-                    <noUsers />
+                    ""
                   )}
                 </div>
               </>
             ) : (
-              ""
+              <div className="bg-gray-800 h-full w-full flex justify-center items-center flex-col gap-2 text-white">
+                <NoUsers />
+                <button
+                  className="bg-verdecito border-b-2 border-verdedos hover:bg-verdedos rounded-full p-2 text-md"
+                  onClick={update}
+                >
+                  Actualizar
+                </button>
+                <p className="text-xl">ó</p>
+                <button
+                  className="bg-verdedos border-b-2 border-verdecito hover:bg-verdedos rounded-full p-2 text-md"
+                  onClick={editPreferences}
+                >
+                  Editar preferencias de búsqueda
+                </button>
+              </div>
             )}
           </div>
         </div>

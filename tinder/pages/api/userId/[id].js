@@ -108,7 +108,6 @@ export default async function newuser(req, res) {
             }
           }
 
-          console.log("FILTRO MUSICA Y PELIS", usersfilter3);
 
           //Filtro Edad
           const usersfilter4 = usersfilter3.filter((otrousuario) => {
