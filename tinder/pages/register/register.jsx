@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { login } from "../../store/reducers/userSlice";
 import axios from "axios";
+import registerData from "../../reactHooks/registerData.js";
 
 export default function Register() {
   const user = useSelector((state) => state.user);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [genero, setinputGenero] = useState(user.genre);
   const [buscargenero, setinputBuscarGenero] = useState(user.searchGenre);
@@ -17,6 +18,19 @@ export default function Register() {
   const [nombre, setNombre] = useState(user.name);
   const [fecha, setFecha] = useState(user.birthday);
   const data = router.query;
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      registerData(session.user.email, dispatch);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    setNombre(user.name);
+    setinputGenero(user.genre);
+    setinputBuscarGenero(user.searchGenre);
+    setFecha(user.birthday);
+  }, [user]);
 
   //condicion para saber si estamen en register o desde settings
 
@@ -46,16 +60,21 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let letters = /^[A-Za-z]{3,10}$/;
+    if (!nombre.match(letters)) {
+      return alert("only letters");
+    }
+
+    await axios.put("/api/newUser", {
+      email: session.user.email,
+      name: nombre,
+      birthday: new Date(fecha),
+      genre: genero,
+      searchGenre: buscargenero,
+      isAdmin: "",
+    });
 
     if (data.settings == "true") {
-      await axios.put("/api/newUser", {
-        email: session.user.email,
-        name: nombre,
-        birthday: fecha,
-        genre: genero,
-        searchGenre: buscargenero,
-        isAdmin: "",
-      });
       return router.push("/logged/userProfile/settings");
     }
 

@@ -84,14 +84,16 @@ const matchDescription = () => {
             <ImLocation color="white" className="text-2xl mr-2" />
             <p className="text-lg mt-2 mr-2 text-white  mb-2">{user.city}</p>
           </div>
-          <div className="flex flex-col text-left ml-4 border-b mr-2">
-            <p className="text-xl mt-2 mr-2 text-verdedos">
-              <strong>Sobre mí</strong>
-            </p>
-            <p className="text-xl mt-2 mr-2 text-white mb-2">
-              {user.description}
-            </p>
-          </div>
+          {user.description && (
+            <div className="flex flex-col text-left ml-4 border-b mr-2">
+              <p className="text-xl mt-2 mr-2 text-verdedos">
+                <strong>Sobre mí</strong>
+              </p>
+              <p className="text-xl mt-2 mr-2 text-white mb-2">
+                {user.description}
+              </p>
+            </div>
+          )}
           <div className="flex flex-col text-left ml-4 border-b mr-2">
             <p className="text-xl mt-2 mr-2 text-verdedos">
               <strong>Música</strong>

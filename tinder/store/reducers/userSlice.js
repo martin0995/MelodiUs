@@ -28,10 +28,16 @@ export const userSlice = createSlice({
       state = initialState;
       return state;
     },
+    update: (state, action) => {
+      if (state.hasOwnProperty(action.key)) {
+        state[action.key] = action.payload;
+      }
+      return state;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { login, logout } = userSlice.actions;
+export const { login, logout, update } = userSlice.actions;
 
 export default userSlice.reducer;
