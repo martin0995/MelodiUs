@@ -60,12 +60,9 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const regex = /^[a-zA-Z]{3,10}$/;
-
-    // VALIDACIONES:
-    if (regex.test(nombre)) {
-      console.log("MATCHES NAME");
+    let letters = /^[A-Za-z]{3,10}$/;
+    if (!nombre.match(letters)) {
+      return alert("only letters");
     }
 
     await axios.put("/api/newUser", {
