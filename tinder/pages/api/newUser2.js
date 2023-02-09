@@ -28,6 +28,8 @@ export default async function newuser(req, res) {
 
           const users = await User.findOne(email).populate("postedBy");
 
+          console.log("USUARIOOO>>", users);
+
           await db.disconnect();
           res.status(200).send(users);
         } catch (error) {}

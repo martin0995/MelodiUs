@@ -18,7 +18,7 @@ const settings = () => {
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
-    signOut();
+    signOut({ callbackUrl: "/" });
   };
 
   const handleDelete = async () => {

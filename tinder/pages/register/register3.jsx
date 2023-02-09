@@ -7,35 +7,50 @@ import Icon from "../Index/Icon";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import registerData from "../../reactHooks/registerData.js";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
+  const router = useRouter();
+  const data2 = router.query;
 
-  if (user.artists) {
-    var art = [...user.artists];
-    var redux = true;
-  }
+  // if (user.artists.length) {
+  //   var redux = true;
+  //   var art = [...user.artists];
+  // }
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   let SPOTIFY_CLIENT_ID = "8136e40ba3434c3e9c493fd8cb7a4aa8";
   let SPOTIFY_CLIENT_SECRET = "ea73769123aa41d8b139ee20ee18fff8";
-  const router = useRouter();
   const [accessToken, setAccessToken] = useState();
   const searchedArtist = handleInput();
   const [artists, setArtists] = useState([]);
-  const [savedArtist, setsavedArtist] = useState(art || []);
+  const [savedArtist, setsavedArtist] = useState([]);
   const [deleted, setDeleted] = useState(false);
   const [location, setLocation] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      registerData(session.user.email, dispatch);
+    }
+  }, [status]);
+
+  useEffect(() => {
+    if (user.artists) {
+      setsavedArtist([...user.artists]);
+    }
+  }, [user]);
 
   const Nextpage = (event) => {
     event.preventDefault();
-    if (redux) {
-      router.push("/logged/userProfile/info");
-    } else if (!redux) {
-      router.push("/register/register2");
+
+    if (data2.settings == "true") {
+      return router.push("/logged/userProfile/info");
     }
+    router.push("/register/register4");
   };
 
   useEffect(() => {
@@ -116,41 +131,30 @@ const register3 = () => {
       return alert("Por favor, seleccionar 5 artistas.");
     }
 
-    if (redux) {
-      await axios.put("/api/newUser3", {
-        artist: savedArtist,
-        email: session.user.email,
-        movies: user.movies,
-      });
+    await axios.put("/api/newUser3", {
+      artist: savedArtist,
+      email: session.user.email,
+    });
 
-      router.push("/logged/userProfile/info");
-    } else if (!redux) {
-      await axios.put("/api/newUser", {
-        email: session.user.email,
-        name: user.name,
-        birthday: user.birthday,
-        genre: user.genre,
-        searchGenre: user.searchGenre,
-        ageRange: [18, 40],
-        location: location,
-        distance: 100,
-        artistPreference: 1,
-        moviePreference: 1,
-      });
-      await axios.put("/api/newUser3", {
-        artist: savedArtist,
-        email: session.user.email,
-        movies: user.movies,
-      });
-
-      router.push("/logged/home");
+    if (data2.settings) {
+      return router.push("/logged/userProfile/info");
     }
+    
+    await axios.put("/api/newUser", {
+      email: session.user.email,
+      ageRange: [18, 40],
+      location: location,
+      distance: 100,
+      artistPreference: 1,
+      moviePreference: 1,
+    });
+    return router.push("/logged/home");
   };
 
   return (
     <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
-        <div className="text-black">
+        <div className="text-white">
           <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
             <BiArrowBack />
           </button>
