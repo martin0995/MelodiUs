@@ -144,6 +144,9 @@ a {
   pointer-events: all;
   position: relative;
 }
+.imagenstrong {
+  text-shadow: 0px 0px 5px black, 0px 0px 6px black;
+}
 
 @media (prefers-color-scheme: dark) {
   html {

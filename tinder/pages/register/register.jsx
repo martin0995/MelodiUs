@@ -110,33 +110,35 @@ export default function Register() {
             <Cruz />
           </button>
         </div>
-        <div className="p-2 h-8 flex mx-auto gap-1">
+        <div className="p-2 h-8 flex gap-1 w-3/4 flex justify-center around ">
           <Icon />
           <h6> tinderMusic</h6>
         </div>
       </div>
       <div className="flex flex-col text-2xl m-6 ">
-        <h2 className="mb-8">Necesitamos tu información</h2>
-        <form className="flex flex-col text-xl gap-6" onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-1">
-            <p>Nombre</p>
+        <h2 className="mb-8 font-bold uppercase text-xl text-center">
+          Necesitamos tu información
+        </h2>
+        <form className="flex flex-col text-lg  gap-6" onSubmit={handleSubmit}>
+          <div className="flex flex-col">
+            <p className="text-lg font-bold uppercase">Nombre</p>
             <input
-              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              className="h-10 bg-transparent p-2 text-base outline-0 border-b-2 w-60"
               type="text"
               onChange={handleNombre}
               placeholder="Ingresa tu nombre.."
               value={nombre}
             ></input>
-            <p className="text-sm ml-2">Así es como se verá en tu perfil</p>
+            <p className="text-sm ml-2 ">Así es como se verá en tu perfil</p>
           </div>
 
-          <div className="flex flex-col gap-1">
-            <p>Fecha de nacimiento</p>
+          <div className="flex flex-col ">
+            <p className="text-lg font-bold uppercase">Fecha de nacimiento</p>
             <div class="flex items-center justify-center">
               <div class="flex items-center justify-center"></div>
             </div>
             <input
-              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              className="h-10 bg-transparent p-2 outline-0 border-b-2 w-60 text-base"
               type="date"
               onChange={handleDate}
               value={fecha}
@@ -144,8 +146,8 @@ export default function Register() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p>Genero</p>
-            <div className="flex flex-row gap-6">
+            <p className="text-lg font-bold uppercase">Genero</p>
+            <div className="flex flex-row gap-2">
               <button
                 id="genero-hombre"
                 className={genero === "hombre" ? rojito : verde}
@@ -174,8 +176,8 @@ export default function Register() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <p>Qué buscás?</p>
-            <div className="flex flex-row gap-6">
+            <p className="text-lg font-bold uppercase">Qué buscás?</p>
+            <div className="flex flex-row gap-2">
               <button
                 id="mostrar-hombres"
                 className={buscargenero === "hombres" ? rojito : verde}
@@ -203,7 +205,7 @@ export default function Register() {
             </div>
           </div>
           <button
-            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
+            className="bg-verdespotify border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto mt-12"
             type="submit"
           >
             Continuar

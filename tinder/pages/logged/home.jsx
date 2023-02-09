@@ -119,20 +119,22 @@ const home = () => {
           >
             {users.data ? (
               <>
-                <div className="relative w-[120%] h-full -left-[10%]  bg-gray-900">
+                <div className="relative w-[120%] h-full -left-[10%]  bg-white">
                   {users.data.length > 0 ? (
-                    <div>
-                      <Image
-                        src={users.data[person].images[photo]}
-                        alt="Users pictures"
-                        fill
-                        className={`object-cover object-center absolute z-5 ${styles.perspectiveBack}`}
-                        onClick={handlePhoto}
-                      />
+                    <div className="">
+                      <div className={`${styles.gradient}`}>
+                        <Image
+                          src={users.data[person].images[photo]}
+                          alt="Users pictures"
+                          fill
+                          className={`object-cover object-center absolute z-5 ${styles.perspectiveBack} ${styles.gradient}`}
+                          onClick={handlePhoto}
+                        />
+                      </div>
                       <div className="w-full absolute bottom-16 z-10 gap-2 flex flex-col justify-left text-white ml-10  w-4/5">
                         <div className="flex flex-row justify-between">
                           <p className="text-white text-2xl">
-                            <strong>
+                            <strong class="imagenstrong">
                               {users.data[person].name},
                               {ageCalculator(users.data[person].birthday)}
                             </strong>
@@ -145,7 +147,10 @@ const home = () => {
                         </div>
                         <div className="flex flex-row">
                           <ImLocation color="white" className="text-xl mr-1" />
-                          <p className="text-white text-xl">
+                          <p
+                            className="text-white text-xl"
+                            class="imagenstrong"
+                          >
                             A{" "}
                             {Math.round(
                               useDistance(
