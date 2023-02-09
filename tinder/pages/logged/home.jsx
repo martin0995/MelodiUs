@@ -134,7 +134,7 @@ const home = () => {
                           <p className="text-white text-2xl">
                             <strong>
                               {users.data[person].name},
-                              {ageCalculator(users.data[person].birthday)}
+                              {users.data[person].birthday}
                             </strong>
                           </p>
                           <Link
