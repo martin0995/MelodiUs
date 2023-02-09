@@ -1,5 +1,5 @@
 .perspectiveBack {
-  transform: perspective(600px) translateZ(-100px);
+  transform: perspective(600px) translateZ(-0px);
 }
 
 .photoContainer {

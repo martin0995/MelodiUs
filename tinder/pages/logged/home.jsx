@@ -105,8 +105,8 @@ const home = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="h-screen flex flex-grow flex-shrink-0 flex-col w-full items-center justify-end pt-6 bg-black">
-        <div className="flex gap-x-3 text-verdedos flex-grow flex-shrink-0 items-center mb-6">
+      <div className="h-screen flex flex-col w-full items-center justify-end pt-6 bg-black">
+        <div className="flex gap-x-3 text-verdedos items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
             <Icon />
             <h6> tinderMusic</h6>
@@ -134,7 +134,7 @@ const home = () => {
                           <p className="text-white text-2xl">
                             <strong>
                               {users.data[person].name},
-                              {ageCalculator(users.data[person].birthday)}
+                              {users.data[person].birthday}
                             </strong>
                           </p>
                           <Link
