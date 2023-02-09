@@ -79,7 +79,7 @@ const Preferences = () => {
         </button>
       </div>
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
+        <h5 className="text-md font-bold leading-none dark:text-white uppercase">
           Ubicación
         </h5>
       </div>
@@ -89,7 +89,7 @@ const Preferences = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.city}
                 </p>
               </div>
@@ -98,8 +98,8 @@ const Preferences = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Preferencia de distancia
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          PREFERENCIA DE DISTANCIA
         </h5>
       </div>
       <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
@@ -167,8 +167,8 @@ const Preferences = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Preferencia de edad
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          PREFERENCIA DE EDAD
         </h5>
       </div>
       <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
@@ -189,8 +189,8 @@ const Preferences = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Coincidencia de artistas
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          COINCIDENCIA DE ARTISTAS
         </h5>
       </div>
       <div className="flex items-center flow-root mt-4 bg-gray-800 rounded-md">
@@ -203,7 +203,7 @@ const Preferences = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between mt-4">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
+        <h5 className="text-md font-bold leading-none dark:text-white uppercase">
           Coincidencia de películas
         </h5>
       </div>
