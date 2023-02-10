@@ -122,9 +122,9 @@ const register3 = () => {
 
       <div className="flex flex-col text-2xl m-6">
         <div className="flex flex-col gap-1 items-center">
-          <p>Agrega película</p>
+          <p className="text-lg font-bold uppercase">Agrega película</p>
           <input
-            className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+            className="h-10 bg-transparent p-2 text-base outline-0 border-b-2 w-40"
             type="text"
             placeholder="Ingresar película..."
             {...searchedMovies}
@@ -133,12 +133,12 @@ const register3 = () => {
       </div>
 
       {searchedMovies.value ? (
-        <div>
+        <div className="m-2">
           {movies
             ? movies.slice(0, 5).map((movie) => {
                 return (
                   <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root bg-gray-800">
+                    <div className="flow-root bg-gray-800 ">
                       <ul
                         role="list"
                         className="divide-y divide-gray-200 dark:divide-gray-700"

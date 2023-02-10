@@ -139,7 +139,7 @@ const register3 = () => {
     if (data2.settings) {
       return router.push("/logged/userProfile/info");
     }
-    
+
     await axios.put("/api/newUser", {
       email: session.user.email,
       ageRange: [18, 40],
@@ -178,7 +178,7 @@ const register3 = () => {
       </div>
 
       {searchedArtist.value ? (
-        <div>
+        <div className="m-2">
           {artists.artists
             ? artists.artists.items.slice(0, 5).map((artist) => {
                 return (

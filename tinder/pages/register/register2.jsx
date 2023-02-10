@@ -119,7 +119,7 @@ const register2 = () => {
 
       <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
         <div className="flex flex-col text-1xl m-6 gap-6 ">
-          <p>Cargar fotos</p>
+          <p className="text-lg font-bold uppercase">Cargar fotos</p>
           <div id="divfile">
             <button
               onClick={(e) => deleteimage(e, 1)}
@@ -172,7 +172,7 @@ const register2 = () => {
         </div>
         <div className="flex flex-col text-2xl m-6 ">
           <button
-            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto "
+            className="bg-verdespotify border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto "
             type="submit"
           >
             Continuar
