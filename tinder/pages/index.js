@@ -6,11 +6,16 @@ import fondo from "../public/bg-img.jpeg";
 import { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { login } from "../store/reducers/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(login({}));
+
     const timer = setTimeout(() => {
       setIsLoading(true);
     }, 1000);
