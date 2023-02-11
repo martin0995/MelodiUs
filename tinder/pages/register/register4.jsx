@@ -10,6 +10,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../store/reducers/userSlice";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
@@ -68,12 +69,30 @@ const register3 = () => {
     // Limit up to 7 artists to choose
     if (savedMovies.length < 5) {
       if (savedMovies.includes(movie)) {
-        return alert(`Ya tenes agregado a ${movie}`);
+        return toast.info(`Ya tenes agregado a ${movie}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
 
       setsavedMovies([...savedMovies, movie]);
     } else {
-      alert("No se puede agregar mas de 5 artistas");
+      toast.warn("Lo sentimos, no se pueden agregar mas de 5 películas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -87,7 +106,16 @@ const register3 = () => {
     e.preventDefault();
 
     if (savedMovies.length !== 5) {
-      return alert("Por favor, seleccionar 5 peliculas.");
+      return toast.warn("Por favor, seleccionar 5 peliculas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
     await axios.put("/api/newUser3", {
       email: session.user.email,

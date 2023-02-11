@@ -16,6 +16,7 @@ import { ImLocation } from "react-icons/im";
 import { AiFillInfoCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -98,7 +99,16 @@ const home = () => {
         if (person + 1 >= users.data.length) {
           setNoPerson(!noPerson);
 
-          return alert("Lo sentimos, no hay personas en tu area.");
+          return toast.info(`Lo sentimos, no hay personas en tu area`, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
         setPerson(person + 1);
         setPhoto(0);

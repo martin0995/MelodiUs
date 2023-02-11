@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register2 = () => {
   const { data: session, status } = useSession();
@@ -45,7 +46,16 @@ const register2 = () => {
     event.preventDefault();
 
     if (!imagenes || !imagenes2) {
-      return alert("Por favor, agregar dos fotos");
+      return toast.warn("Por favor, agregar dos fotos", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser2", {

@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { login } from "../../store/reducers/userSlice";
 import axios from "axios";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const user = useSelector((state) => state.user);
@@ -62,7 +63,16 @@ export default function Register() {
     e.preventDefault();
     let letters = /^[A-Za-z]{3,10}$/;
     if (!nombre.match(letters)) {
-      return alert("only letters");
+      return toast.warn("Su nombre debe contener solo letras", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser", {

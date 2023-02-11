@@ -9,6 +9,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { BiArrowBack } from "react-icons/bi";
 import ArtistSelection from "../../../components/ArtistSelection";
 import MoviesSelection from "../../../components/MoviesSelection";
+import { toast } from "react-toastify";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
@@ -69,7 +70,16 @@ const userProfile = () => {
     event.preventDefault();
 
     if (!imagenes || !imagenes2) {
-      return alert("Por favor, agregar dos fotos");
+      return toast.warn("Por favor, agregar dos fotos", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser2", {

@@ -9,6 +9,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
@@ -90,11 +91,29 @@ const register3 = () => {
     // Limit up to 5 artists to choose
     if (savedArtist.length < 5) {
       if (savedArtist.includes(artist)) {
-        return alert(`Ya tenes agregado a ${artist}`);
+        return toast.info(`Ya tenes agregado a ${artist}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
       setsavedArtist([...savedArtist, artist]);
     } else {
-      return alert("No se puede agregar mas de 5 artistas");
+      return toast.warn("Lo sentimos, no se pueden agregar mas de 5 artistas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -128,7 +147,16 @@ const register3 = () => {
     e.preventDefault();
 
     if (savedArtist.length !== 5) {
-      return alert("Por favor, seleccionar 5 artistas.");
+      return toast.warn("Por favor, seleccionar 5 artistas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser3", {
@@ -251,8 +279,6 @@ const register3 = () => {
         </div>
       </div>
     );
-  } else {
-    router.push("/");
   }
 };
 

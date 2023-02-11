@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import styles from "./multiRangeSlider.module.css";
 import ArtistChoice from "./ArtistChoice";
 import MovieChoice from "./MovieChoice";
+import { toast } from "react-toastify";
 
 const Preferences = () => {
   const user = useSelector((state) => state.user);
@@ -64,7 +65,16 @@ const Preferences = () => {
           moviePreference: movieSelection,
         });
 
-    return alert("Se ha actualizado correctamente");
+    return toast.success("Preferencias actualizadas correctamente", {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   return (
