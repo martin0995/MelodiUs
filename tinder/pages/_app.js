@@ -21,6 +21,7 @@ export default function App({ Component, pageProps, session }) {
         draggable
         pauseOnHover
         theme="colored"
+        limit={3}
       />
       <Provider store={store}>
         <main className={gotham.className}>
