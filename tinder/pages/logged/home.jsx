@@ -28,7 +28,7 @@ const home = () => {
   const { location, place } = useGeolocation();
   const router = useRouter();
   const [spinner, setSpinner] = useState(false);
-  const [height, setHeight] = useState("screen");
+  // const [height, setHeight] = useState("full");
 
   console.log("USER", users);
 
@@ -51,7 +51,7 @@ const home = () => {
   };
 
   useEffect(() => {
-    users.data ? setHeight("full") : setHeight("screen");
+    // users.data ? setHeight("full") : setHeight("screen");
   }, [users]);
 
   useEffect(() => {
@@ -111,7 +111,7 @@ const home = () => {
   if (status === "authenticated") {
     return (
       <div
-        className={`h-${height} flex flex-col w-full items-center justify-between pt-6 bg-black`}
+        className={`h-screen flex flex-col w-full items-center justify-between pt-6 bg-black`}
       >
         <div className="flex gap-x-3 text-verdedos items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
@@ -234,7 +234,7 @@ const home = () => {
           </div>
         </div>
 
-        {users.data
+        {/* {users.data
           ? users.data[person].similarartist && (
               <div className="flex flex-col w-screen h-full mt-4">
                 <div>
@@ -274,7 +274,7 @@ const home = () => {
                 </div>
               </div>
             )
-          : ""}
+          : ""} */}
 
         <Navbar></Navbar>
       </div>

@@ -93,7 +93,7 @@ const userProfile = () => {
           className="flex flex-col text-xl gap-6 w-full max-w-md"
         >
           <div className="flex flex-col mt-6 mb-6 gap-6 p-4">
-            <h5 className="text-xl font-bold leading-none dark:text-whitetext-xl font-bold leading-none dark:text-white">
+            <h5 className="text-lg font-bold leading-none dark:text-whitetext-xl font-bold leading-none dark:text-white uppercase">
               Editar fotos
             </h5>
             <div id="divfile">

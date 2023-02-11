@@ -139,7 +139,7 @@ const register3 = () => {
     if (data2.settings) {
       return router.push("/logged/userProfile/info");
     }
-    
+
     await axios.put("/api/newUser", {
       email: session.user.email,
       ageRange: [18, 40],
@@ -150,107 +150,110 @@ const register3 = () => {
     });
     return router.push("/logged/home");
   };
+  if (status === "authenticated") {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="flex flex-row text-verdedos">
+          <div className="text-white">
+            <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+              <BiArrowBack />
+            </button>
+          </div>
+          <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
+            <Icon />
+            <h6> tinderMusic</h6>
+          </div>
+        </div>
 
-  return (
-    <div className="bg-black text-white h-screen">
-      <div className="flex flex-row text-verdedos">
-        <div className="text-white">
-          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
-            <BiArrowBack />
+        <div className="flex flex-col text-2xl m-6">
+          <div className="flex flex-col gap-1 items-center">
+            <p>Agrega artista de spotify</p>
+            <input
+              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              type="text"
+              placeholder="Ingresar artista..."
+              {...searchedArtist}
+            ></input>
+          </div>
+        </div>
+
+        {searchedArtist.value ? (
+          <div>
+            {artists.artists
+              ? artists.artists.items.slice(0, 5).map((artist) => {
+                  return (
+                    <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                      <div className="flow-root bg-gray-800">
+                        <ul
+                          role="list"
+                          className="divide-y divide-gray-200 dark:divide-gray-700"
+                        >
+                          <li className="py-3 sm:py-4">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex-shrink-0 ml-5">
+                                {artist.images[0] ? (
+                                  <img
+                                    className="w-8 h-8 rounded-full"
+                                    src={artist.images[0].url}
+                                    alt="Neil image"
+                                  />
+                                ) : (
+                                  <Icon />
+                                )}
+                              </div>
+                              <div className="flex-1 min-w-0 text-white">
+                                <p className="text-sm font-medium truncate">
+                                  {artist.name}
+                                </p>
+                              </div>
+                              <div onClick={() => selectArtist(artist.name)}>
+                                <IoAddCircleOutline className="mr-4 text-2xl text-white" />
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
+        ) : (
+          ""
+        )}
+
+        <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
+          {savedArtist.map((artist) => {
+            return (
+              <div
+                className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
+                onClick={() => deleteArtist(artist)}
+              >
+                <AiOutlineClose />
+                <p>{artist}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          className={
+            artists.artists ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"
+          }
+        >
+          <button
+            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Continuar
           </button>
         </div>
-        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
-          <Icon />
-          <h6> tinderMusic</h6>
-        </div>
       </div>
-
-      <div className="flex flex-col text-2xl m-6">
-        <div className="flex flex-col gap-1 items-center">
-          <p>Agrega artista de spotify</p>
-          <input
-            className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
-            type="text"
-            placeholder="Ingresar artista..."
-            {...searchedArtist}
-          ></input>
-        </div>
-      </div>
-
-      {searchedArtist.value ? (
-        <div>
-          {artists.artists
-            ? artists.artists.items.slice(0, 5).map((artist) => {
-                return (
-                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root bg-gray-800">
-                      <ul
-                        role="list"
-                        className="divide-y divide-gray-200 dark:divide-gray-700"
-                      >
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 ml-5">
-                              {artist.images[0] ? (
-                                <img
-                                  className="w-8 h-8 rounded-full"
-                                  src={artist.images[0].url}
-                                  alt="Neil image"
-                                />
-                              ) : (
-                                <Icon />
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0 text-white">
-                              <p className="text-sm font-medium truncate">
-                                {artist.name}
-                              </p>
-                            </div>
-                            <div onClick={() => selectArtist(artist.name)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                );
-              })
-            : ""}
-        </div>
-      ) : (
-        ""
-      )}
-
-      <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
-        {savedArtist.map((artist) => {
-          return (
-            <div
-              className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
-              onClick={() => deleteArtist(artist)}
-            >
-              <AiOutlineClose />
-              <p>{artist}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div
-        className={
-          artists.artists ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"
-        }
-      >
-        <button
-          className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Continuar
-        </button>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    router.push("/");
+  }
 };
 
 export default register3;
