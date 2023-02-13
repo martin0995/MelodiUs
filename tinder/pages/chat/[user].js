@@ -32,7 +32,7 @@ const chatId = () => {
   if (status === "authenticated") {
     return (
       <div className="bg-black h-screen">
-        <div className="flex flex-row text-verdedos h-[13%]">
+        <div className="flex flex-row text-verdedos h-[10%]">
           <div className="text-black">
             <button className="p-2 text-2xl ml-2 text-white" onClick={backPage}>
               <BiArrowBack />
@@ -40,13 +40,13 @@ const chatId = () => {
           </div>
           <div className="flex gap-x-3 text-white items-center    w-3/4">
             {match.user ? (
-              <div className="flex p-2 h-8 flex mx-auto gap-1 items-center">
+              <div className="flex p-2 h-8 flex mx-auto items-center">
                 <div className="flex flex-col w-fit  h-fit items-center ">
                   <Link
                     href={`/matchDescription/${match.user._id}-${match.id}-2`}
                   >
                     <img
-                      className="h-12 rounded-full shadow-lg mb-2"
+                      className="h-12 rounded-full shadow-lg"
                       src={match.user.images[0]}
                       alt="User Image"
                     />
