@@ -10,6 +10,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { update } from "../../store/reducers/userSlice";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
@@ -68,12 +69,30 @@ const register3 = () => {
     // Limit up to 7 artists to choose
     if (savedMovies.length < 5) {
       if (savedMovies.includes(movie)) {
-        return alert(`Ya tenes agregado a ${movie}`);
+        return toast.info(`Ya tenes agregado a ${movie}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
 
       setsavedMovies([...savedMovies, movie]);
     } else {
-      alert("No se puede agregar mas de 5 artistas");
+      toast.warn("Lo sentimos, no se pueden agregar mas de 5 películas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -87,7 +106,16 @@ const register3 = () => {
     e.preventDefault();
 
     if (savedMovies.length !== 5) {
-      return alert("Por favor, seleccionar 5 peliculas.");
+      return toast.warn("Por favor, seleccionar 5 peliculas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
     await axios.put("/api/newUser3", {
       email: session.user.email,
@@ -105,99 +133,102 @@ const register3 = () => {
 
     router.push("/register/register3");
   };
+  if (status === "authenticated") {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="flex flex-row text-verdedos">
+          <div className="text-black">
+            <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
+              <BiArrowBack />
+            </button>
+          </div>
+          <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
+            <Icon />
+            <h6> tinderMusic</h6>
+          </div>
+        </div>
 
-  return (
-    <div className="bg-black text-white h-screen">
-      <div className="flex flex-row text-verdedos">
-        <div className="text-black">
-          <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
-            <BiArrowBack />
+        <div className="flex flex-col text-2xl m-6">
+          <div className="flex flex-col gap-1 items-center">
+            <p>Agrega película</p>
+            <input
+              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              type="text"
+              placeholder="Ingresar película..."
+              {...searchedMovies}
+            ></input>
+          </div>
+        </div>
+
+        {searchedMovies.value ? (
+          <div>
+            {movies
+              ? movies.slice(0, 5).map((movie) => {
+                  return (
+                    <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                      <div className="flow-root bg-gray-800">
+                        <ul
+                          role="list"
+                          className="divide-y divide-gray-200 dark:divide-gray-700"
+                        >
+                          <li className="py-3 sm:py-4">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex-shrink-0 ml-5">
+                                <img
+                                  className="w-8 h-8 rounded-full"
+                                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                  alt="Neil image"
+                                />
+                              </div>
+                              <div className="flex-1 min-w-0 text-white">
+                                <p className="text-sm font-medium truncate">
+                                  {movie.title}
+                                </p>
+                              </div>
+                              <div onClick={() => selectMovies(movie.title)}>
+                                <IoAddCircleOutline className="mr-4 text-2xl text-white" />
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
+        ) : (
+          ""
+        )}
+
+        <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
+          {savedMovies.map((movie) => {
+            return (
+              <div
+                className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
+                onClick={() => deleteArtist(movie)}
+              >
+                <AiOutlineClose />
+                <p>{movie}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className={movies ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"}>
+          <button
+            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Continuar
           </button>
         </div>
-        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
-          <Icon />
-          <h6> tinderMusic</h6>
-        </div>
       </div>
-
-      <div className="flex flex-col text-2xl m-6">
-        <div className="flex flex-col gap-1 items-center">
-          <p>Agrega película</p>
-          <input
-            className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
-            type="text"
-            placeholder="Ingresar película..."
-            {...searchedMovies}
-          ></input>
-        </div>
-      </div>
-
-      {searchedMovies.value ? (
-        <div>
-          {movies
-            ? movies.slice(0, 5).map((movie) => {
-                return (
-                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root bg-gray-800">
-                      <ul
-                        role="list"
-                        className="divide-y divide-gray-200 dark:divide-gray-700"
-                      >
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 ml-5">
-                              <img
-                                className="w-8 h-8 rounded-full"
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt="Neil image"
-                              />
-                            </div>
-                            <div className="flex-1 min-w-0 text-white">
-                              <p className="text-sm font-medium truncate">
-                                {movie.title}
-                              </p>
-                            </div>
-                            <div onClick={() => selectMovies(movie.title)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                );
-              })
-            : ""}
-        </div>
-      ) : (
-        ""
-      )}
-
-      <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
-        {savedMovies.map((movie) => {
-          return (
-            <div
-              className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
-              onClick={() => deleteArtist(movie)}
-            >
-              <AiOutlineClose />
-              <p>{movie}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className={movies ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"}>
-        <button
-          className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Continuar
-        </button>
-      </div>
-    </div>
-  );
+    );
+  } else {
+    router.push("/");
+  }
 };
 
 export default register3;
