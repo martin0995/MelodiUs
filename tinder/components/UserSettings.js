@@ -7,8 +7,8 @@ const UserSettings = () => {
   return (
     <div className="w-full max-w-md p-4 bg-black border border-gray-200 shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 text-white">
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Nombre
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          NOMBRE
         </h5>
         <Link
           href={{
@@ -26,7 +26,7 @@ const UserSettings = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.name}
                 </p>
               </div>
@@ -35,7 +35,9 @@ const UserSettings = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">Edad</h5>
+        <h5 className="text-md font-bold leading-none dark:text-white uppercase">
+          Edad
+        </h5>
       </div>
       <div className="flow-root">
         <ul role="list">
@@ -43,7 +45,7 @@ const UserSettings = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.birthday}
                 </p>
               </div>
@@ -52,8 +54,8 @@ const UserSettings = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Correo
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          CORREO
         </h5>
       </div>
       <div className="flow-root">
@@ -62,7 +64,7 @@ const UserSettings = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.email}
                 </p>
               </div>
@@ -71,8 +73,8 @@ const UserSettings = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Género
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          GENERO
         </h5>
       </div>
       <div className="flow-root">
@@ -81,7 +83,7 @@ const UserSettings = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.genre}
                 </p>
               </div>
@@ -90,8 +92,8 @@ const UserSettings = () => {
         </ul>
       </div>
       <div className="flex items-center justify-between">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
-          Mostrar
+        <h5 className="text-md font-bold leading-none dark:text-white">
+          MOSTRAR
         </h5>
       </div>
       <div className="flow-root">
@@ -100,7 +102,7 @@ const UserSettings = () => {
             <div className="flex items-center bg-gray-800 rounded-md h-10">
               <div class="flex-shrink-0 ml-2 text-green-500"></div>
               <div className="flex flex-1 min-w-0 justify-center">
-                <p className="text-lg font-medium text-white truncate dark:text-white pr-10">
+                <p className="text-md font-medium text-white truncate dark:text-white pr-10">
                   {user.searchGenre}
                 </p>
               </div>

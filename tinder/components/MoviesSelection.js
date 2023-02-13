@@ -9,7 +9,7 @@ const MoviesSelection = () => {
   return (
     <div className="w-full max-w-md p-4 bg-black border border-gray-200 shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 text-white">
       <div className="flex items-center justify-between mb-4">
-        <h5 className="text-xl font-bold leading-none dark:text-white">
+        <h5 className="text-lg font-bold leading-none dark:text-white uppercase">
           Películas
         </h5>
         <Link

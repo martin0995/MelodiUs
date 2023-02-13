@@ -2,20 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../../../components/Navbar";
 import Icon from "../../Index/Icon";
 import { useSession } from "next-auth/react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import UserSettings from "../../../components/UserSettings";
 import { signOut } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Preferences from "../../../components/Preferences";
-import { login } from "../../../store/reducers/userSlice";
+import Swal from "sweetalert2";
 
 const settings = () => {
   const user = useSelector((state) => state.user);
   const { data: session, status } = useSession();
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     signOut({ callbackUrl: "/" });
@@ -23,13 +22,35 @@ const settings = () => {
 
   const handleDelete = async () => {
     try {
-      const usuariodelete = axios.delete(`/api/userId/${session.user.email}`, {
-        email: session.user.email,
+      Swal.fire({
+        title: "TinderMusic",
+        text: "Estas seguro que quieres eliminar tu cuenta?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Eliminar cuenta",
+        cancelButtonText: "No",
+      }).then((result) => {
+        if (result.value) {
+          const usuariodelete = axios.delete(
+            `/api/userId/${session.user.email}`,
+            {
+              email: session.user.email,
+            }
+          );
+
+          return router.push("/");
+        }
       });
 
-      dispatch(login({}));
+      // const usuariodelete = axios.delete(`/api/userId/${session.user.email}`, {
+      //   email: session.user.email,
+      // });
 
-      return router.push("/");
+      // dispatch(login({}));
+
+      // return router.push("/");
     } catch (error) {
       console.log(error);
     }
