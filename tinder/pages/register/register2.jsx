@@ -123,7 +123,7 @@ const register2 = () => {
         </div>
         <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
           <Icon />
-          <h6> tinderMusic</h6>
+          <h6 className="text-verdespotify"> tinderMusic</h6>
         </div>
       </div>
 

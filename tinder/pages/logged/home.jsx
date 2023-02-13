@@ -133,7 +133,7 @@ const home = () => {
       <div
         className={`h-${height} flex flex-col w-full items-center justify-between pt-6 bg-black`}
       >
-        <div className="flex gap-x-3 text-verdedos items-center mb-6">
+        <div className="flex gap-x-3 text-verdespotify items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
             <Icon />
             <h6> tinderMusic</h6>

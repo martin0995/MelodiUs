@@ -83,7 +83,7 @@ const Preferences = () => {
         {" "}
         <button
           onClick={updatePreferences}
-          className="bg-verdecito text-white text-base border-b-4 border-verdedos w-2/6 rounded-full p-3"
+          className="bg-verdespotify text-white text-base border-b-4 border-verdedos w-2/6 rounded-full p-3"
         >
           Actualizar
         </button>

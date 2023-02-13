@@ -91,7 +91,7 @@ const userProfile = () => {
   if (status === "authenticated") {
     return (
       <div className="flex flex-col justify-between bg-black text-white h-screen">
-        <div className="flex text-green-500  items-center ">
+        <div className="flex text-verdespotify  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
             <h6> tinderMusic</h6>

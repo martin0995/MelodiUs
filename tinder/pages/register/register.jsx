@@ -114,7 +114,7 @@ export default function Register() {
 
   return (
     <div className="bg-black text-white h-screen">
-      <div className="flex flex-row text-verdedos">
+      <div className="flex flex-row text-verdespotify">
         <div className="text-black">
           <button className="p-2">
             <Cruz />

@@ -59,7 +59,7 @@ const settings = () => {
   if (status === "authenticated") {
     return (
       <div className="flex flex-col bg-black text-white ">
-        <div className="flex text-green-500  items-center mb-4">
+        <div className="flex text-verdespotify  items-center mb-4">
           <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
             <h6> tinderMusic</h6>
