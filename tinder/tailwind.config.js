@@ -13,6 +13,7 @@ module.exports = {
         rojito: "#e5383b",
         verdecito: "#2b9348",
         verdedos: "#007f5f",
+        verdespotify: "#1DB954",
       },
       height: {
         heightdiv: "40rem",

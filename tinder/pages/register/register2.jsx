@@ -113,30 +113,31 @@ const register2 = () => {
     if (image2) submitImage(2);
   }, [image2]);
 
-  if (status === "authenticated") {
-    return (
-      <div className="bg-black text-white h-screen">
-        <div className="flex flex-row text-verdedos">
-          <div className="text-black">
-            <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
-              <BiArrowBack />
-            </button>
-          </div>
-          <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
-            <Icon />
-            <h6> tinderMusic</h6>
-          </div>
-        </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
-          <div className="flex flex-col text-1xl m-6 gap-6 ">
-            <p>Cargar fotos</p>
-            <div id="divfile">
-              <button
-                onClick={(e) => deleteimage(e, 1)}
-                className={imagenes ? "absolute z-10" : "hidden"}
-              >
-                <Cruz />
+  return (
+    <div className="bg-black text-white h-screen">
+      <div className="flex flex-row text-verdedos">
+        <div className="text-black">
+          <button className="p-2 text-2xl ml-2 text-white" onClick={Nextpage}>
+            <BiArrowBack />
+          </button>
+        </div>
+        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
+          <Icon />
+          <h6> tinderMusic</h6>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="flex flex-col text-xl gap-6">
+        <div className="flex flex-col text-1xl m-6 gap-6 ">
+          <p className="text-lg font-bold uppercase">Cargar fotos</p>
+          <div id="divfile">
+            <button
+              onClick={(e) => deleteimage(e, 1)}
+              className={imagenes ? "absolute z-10" : "hidden"}
+            >
+              <Cruz />
+
               </button>
               <IoAddCircleOutline
                 className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
@@ -189,12 +190,18 @@ const register2 = () => {
               Continuar
             </button>
           </div>
-        </form>
-      </div>
-    );
-  } else {
-    router.push("/");
-  }
+        </div>
+        <div className="flex flex-col text-2xl m-6 ">
+          <button
+            className="bg-verdespotify border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto "
+            type="submit"
+          >
+            Continuar
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default register2;

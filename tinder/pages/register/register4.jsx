@@ -148,46 +148,48 @@ const register3 = () => {
           </div>
         </div>
 
-        <div className="flex flex-col text-2xl m-6">
-          <div className="flex flex-col gap-1 items-center">
-            <p>Agrega película</p>
-            <input
-              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
-              type="text"
-              placeholder="Ingresar película..."
-              {...searchedMovies}
-            ></input>
-          </div>
+
+      <div className="flex flex-col text-2xl m-6">
+        <div className="flex flex-col gap-1 items-center">
+          <p className="text-lg font-bold uppercase">Agrega película</p>
+          <input
+            className="h-10 bg-transparent p-2 text-base outline-0 border-b-2 w-40"
+            type="text"
+            placeholder="Ingresar película..."
+            {...searchedMovies}
+          ></input>
         </div>
 
-        {searchedMovies.value ? (
-          <div>
-            {movies
-              ? movies.slice(0, 5).map((movie) => {
-                  return (
-                    <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                      <div className="flow-root bg-gray-800">
-                        <ul
-                          role="list"
-                          className="divide-y divide-gray-200 dark:divide-gray-700"
-                        >
-                          <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                              <div className="flex-shrink-0 ml-5">
-                                <img
-                                  className="w-8 h-8 rounded-full"
-                                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                  alt="Neil image"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0 text-white">
-                                <p className="text-sm font-medium truncate">
-                                  {movie.title}
-                                </p>
+      {searchedMovies.value ? (
+        <div className="m-2">
+          {movies
+            ? movies.slice(0, 5).map((movie) => {
+                return (
+                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="flow-root bg-gray-800 ">
+                      <ul
+                        role="list"
+                        className="divide-y divide-gray-200 dark:divide-gray-700"
+                      >
+                        <li className="py-3 sm:py-4">
+                          <div className="flex items-center space-x-4">
+                            <div className="flex-shrink-0 ml-5">
+                              <img
+                                className="w-8 h-8 rounded-full"
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                alt="Neil image"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0 text-white">
+                              <p className="text-sm font-medium truncate">
+                                {movie.title}
+                              </p>
+
                               </div>
                               <div onClick={() => selectMovies(movie.title)}>
                                 <IoAddCircleOutline className="mr-4 text-2xl text-white" />
                               </div>
+
                             </div>
                           </li>
                         </ul>
