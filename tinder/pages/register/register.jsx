@@ -125,6 +125,7 @@ export default function Register() {
           <h6> tinderMusic</h6>
         </div>
       </div>
+
       <div className="flex flex-col text-2xl m-6 ">
         <h2 className="mb-8 font-bold uppercase text-xl text-center">
           Necesitamos tu información
@@ -140,8 +141,7 @@ export default function Register() {
               value={nombre}
             ></input>
             <p className="text-sm ml-2 ">Así es como se verá en tu perfil</p>
-            </div>
-
+          </div>
 
           <div className="flex flex-col ">
             <p className="text-lg font-bold uppercase">Fecha de nacimiento</p>
@@ -184,6 +184,7 @@ export default function Register() {
                 Otro
               </button>
             </div>
+          </div>
 
           <div className="flex flex-col gap-4">
             <p className="text-lg font-bold uppercase">Qué buscás?</p>
@@ -221,8 +222,7 @@ export default function Register() {
             Continuar
           </button>
         </form>
-
       </div>
-    );
-  } 
+    </div>
+  );
 }

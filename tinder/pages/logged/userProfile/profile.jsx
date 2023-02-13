@@ -55,7 +55,7 @@ const userProfile = () => {
   if (status === "authenticated") {
     return (
       <div className="flex flex-col text-white justify-between h-screen  w-full items-center pt-6 bg-black">
-        <div className="flex text-verdecito  items-center ">
+        <div className="flex text-verdespotify  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 ">
             <Icon />
             <h6> tinderMusic</h6>
@@ -80,11 +80,16 @@ const userProfile = () => {
         <div className="flex flex-col justify-center items-center w-screen mb-20">
           {valor && !info ? (
             <div className="flex flex-col justify-center w-3/4 gap-2">
-              <div className="flex justify-end items-end">
-                <CiEdit onClick={handleInfo} className="text-3xl" />
+              <div className="flex flex-row justify-between">
+                <p className="text-center text-xl text-verdedos uppercase font-bold">
+                  Sobre mí
+                </p>
+                <div className="flex justify-end items-end">
+                  <CiEdit onClick={handleInfo} className="text-3xl" />
+                </div>
               </div>
-              <div className="flex flex-col justify-center border-2 rounded-md border-verdecito p-2">
-                <p className="text-xl font-mono md:text-center">{valor}</p>
+              <div className="flex flex-col justify-center border-2 rounded-md border-verdedos p-2">
+                <p className="text-xl md:text-center">{valor}</p>
               </div>
             </div>
           ) : info ? (
@@ -117,13 +122,13 @@ const userProfile = () => {
 
         <div className="flex flex-row justify-between w-4/5 h-1/5">
           <button
-            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5"
+            className="rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5 bg-azul border-2"
             onClick={() => handleClick("info")}
           >
             Perfil
           </button>
           <button
-            className="border-2 rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5"
+            className="rounded-full w-2/5 p-3 flex items-center justify-center text-xl h-2/5 bg-verdespotify border-2"
             onClick={() => handleClick("settings")}
           >
             Ajustes

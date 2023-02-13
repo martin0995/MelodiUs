@@ -178,6 +178,7 @@ const register3 = () => {
     });
     return router.push("/logged/home");
   };
+
   if (status === "authenticated") {
     return (
       <div className="bg-black text-white h-screen">
@@ -195,9 +196,11 @@ const register3 = () => {
 
         <div className="flex flex-col text-2xl m-6">
           <div className="flex flex-col gap-1 items-center">
-            <p>Agrega artista de spotify</p>
+            <p className="text-lg font-bold uppercase">
+              Agregar artistas favoritos
+            </p>
             <input
-              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              className="h-10 bg-transparent p-2 text-base outline-0 border-b-2 w-40"
               type="text"
               placeholder="Ingresar artista..."
               {...searchedArtist}
@@ -205,31 +208,29 @@ const register3 = () => {
           </div>
         </div>
 
-
-      {searchedArtist.value ? (
-        <div className="m-2">
-          {artists.artists
-            ? artists.artists.items.slice(0, 5).map((artist) => {
-                return (
-                  <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div className="flow-root bg-gray-800">
-                      <ul
-                        role="list"
-                        className="divide-y divide-gray-200 dark:divide-gray-700"
-                      >
-                        <li className="py-3 sm:py-4">
-                          <div className="flex items-center space-x-4">
-                            <div className="flex-shrink-0 ml-5">
-                              {artist.images[0] ? (
-                                <img
-                                  className="w-8 h-8 rounded-full"
-                                  src={artist.images[0].url}
-                                  alt="Neil image"
-                                />
-                              ) : (
-                                <Icon />
-                              )}
-
+        {searchedArtist.value ? (
+          <div className="m-2">
+            {artists.artists
+              ? artists.artists.items.slice(0, 5).map((artist) => {
+                  return (
+                    <div className="w-full max-w-md p-1 border rounded-lg shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                      <div className="flow-root bg-gray-800">
+                        <ul
+                          role="list"
+                          className="divide-y divide-gray-200 dark:divide-gray-700"
+                        >
+                          <li className="py-3 sm:py-4">
+                            <div className="flex items-center space-x-4">
+                              <div className="flex-shrink-0 ml-5">
+                                {artist.images[0] ? (
+                                  <img
+                                    className="w-8 h-8 rounded-full"
+                                    src={artist.images[0].url}
+                                    alt="Neil image"
+                                  />
+                                ) : (
+                                  <Icon />
+                                )}
                               </div>
                               <div className="flex-1 min-w-0 text-white">
                                 <p className="text-sm font-medium truncate">
