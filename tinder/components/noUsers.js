@@ -9,7 +9,7 @@ const NoUsers = () => {
       </div>
       <div className="p-1 flex justify-center w-3/4">
         <p className="text-center text-xl">
-          Lo sentimos, no hay mas usuarios en la zona seleccionada
+          Lo sentimos, no hay más usuarios en la zona seleccionada
         </p>
       </div>
     </div>

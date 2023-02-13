@@ -18,8 +18,6 @@ const chatId = () => {
     router.push("/logged/matchView");
   };
 
-  console.log("DATA>", match);
-
   useEffect(() => {
     if (status === "authenticated") {
       axios
@@ -33,10 +31,15 @@ const chatId = () => {
     return (
       <div className="bg-black h-screen">
         <div className="flex flex-row text-verdedos h-[10%]">
-          <div className="text-black">
-            <button className="p-2 text-2xl ml-2 text-white" onClick={backPage}>
-              <BiArrowBack />
-            </button>
+          <div className="text-black flex flex-col justify-center">
+            <div>
+              <button
+                className="p-2 text-2xl ml-2 text-white"
+                onClick={backPage}
+              >
+                <BiArrowBack />
+              </button>
+            </div>
           </div>
           <div className="flex gap-x-3 text-white items-center    w-3/4">
             {match.user ? (

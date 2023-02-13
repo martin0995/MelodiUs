@@ -16,7 +16,7 @@ const Chatcard = ({ match }) => {
         </div>
         <div className="flex flex-col text-white">
           <h5 className="text-lg text-white font-medium dark:text-white">
-            {match.user.name}
+            <strong>{match.user.name}</strong>
           </h5>
           <p>
             {match.chat[match.chat.length - 1].message.length > 30

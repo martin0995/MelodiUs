@@ -236,7 +236,7 @@ const home = () => {
                       ) : (
                         <>
                           <button
-                            className="bg-verdecito border-b-2 border-verdedos hover:bg-verdedos rounded-full p-4 text-lg"
+                            className="bg-verdespotify border-b-2 border-verdedos hover:bg-verdedos rounded-full p-4 text-lg"
                             onClick={update}
                           >
                             Actualizar

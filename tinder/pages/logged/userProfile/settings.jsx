@@ -24,13 +24,12 @@ const settings = () => {
     try {
       Swal.fire({
         title: "TinderMusic",
-        text: "Estas seguro que quieres eliminar tu cuenta?",
-        icon: "warning",
+        text: "¿Estás seguro que quieres eliminar tu cuenta?",
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: "Eliminar cuenta",
-        cancelButtonText: "No",
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.value) {
           const usuariodelete = axios.delete(
@@ -77,7 +76,7 @@ const settings = () => {
             onClick={handleLogout}
             className="border-green-600 bg-green-600 text-black  border-2 p-2 text-xl rounded-full w-3/5 m-auto"
           >
-            Cerrar sesion
+            Cerrar sesión
           </button>
         </div>
         <div className=" border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 mt-4"></div>
