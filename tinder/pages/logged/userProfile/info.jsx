@@ -111,7 +111,9 @@ const userProfile = () => {
                 onClick={(e) => deleteimage(e, 1)}
                 className={imagenes ? "absolute z-10" : "hidden"}
               >
-                <Cruz />
+                <div className="rounded bg-red-400">
+                  <Cruz />
+                </div>
               </button>
               <IoAddCircleOutline
                 className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
@@ -136,7 +138,9 @@ const userProfile = () => {
                 onClick={(e) => deleteimage(e, 2)}
                 className={imagenes2 ? "absolute z-10" : "hidden"}
               >
-                <Cruz />
+                <div className="rounded bg-red-400">
+                  <Cruz />
+                </div>
               </button>
               <IoAddCircleOutline
                 className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
