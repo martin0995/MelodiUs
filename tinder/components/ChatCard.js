@@ -5,7 +5,7 @@ const Chatcard = ({ match }) => {
   return (
     <Link href={`/chat/${match.id}`}>
       <div className="flex flex-row items-center">
-        <div className="flex justify-center w-16 items-center border border-gray-200 mr-4 rounded-lg">
+        <div className="flex justify-center w-16 items-center  border-gray-200 mr-4 rounded-lg">
           <div className="flex flex-col h-fit w-fit items-center ">
             <img
               className="h-16 rounded-lg shadow-lg"
@@ -18,7 +18,11 @@ const Chatcard = ({ match }) => {
           <h5 className="text-lg text-white font-medium dark:text-white">
             {match.user.name}
           </h5>
-          <p>{match.chat[match.chat.length - 1].message}</p>
+          <p>
+            {match.chat[match.chat.length - 1].message.length > 30
+              ? match.chat[match.chat.length - 1].message.slice(0, 30) + " ..."
+              : match.chat[match.chat.length - 1].message}
+          </p>
         </div>
       </div>
       <div className="mt-2 border-t border-solid w-full "></div>

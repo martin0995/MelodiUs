@@ -1,6 +1,5 @@
 import io from "socket.io-client";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useRef } from "react";
 
@@ -9,7 +8,11 @@ let socket;
 export default function Chat({ match }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const dummy = useRef(null);
+  const mensajes = useRef(null);
+
+  const scrollToBottom = () => {
+    mensajes.current?.scrollIntoView({ block: "end" });
+  };
 
   useEffect(() => {
     setMessages(match.chat);
@@ -17,7 +20,7 @@ export default function Chat({ match }) {
 
   useEffect(() => {
     socketInitializer();
-    console.log("MENSAJES>>", messages);
+    scrollToBottom();
   }, [message, messages]);
 
   const socketInitializer = async () => {
@@ -36,15 +39,12 @@ export default function Chat({ match }) {
   const sendMessage = async () => {
     socket.emit("createdMessage", { author: match.myUser, message });
     setMessages([...messages, { author: match.myUser, message }]);
-    console.log("resultado", { author: match.myUser, message });
 
     await axios.put("/api/match", {
       id: match.id,
       mensaje: message,
       author: match.myUser,
     });
-
-    dummy.current.scrollIntoView({ behavior: "smooth" });
 
     setMessage("");
   };
@@ -57,9 +57,6 @@ export default function Chat({ match }) {
       }
     }
   };
-
-  console.log("MATCHHH", match);
-  // console.log("MSG AUTHOR", msg.author);
 
   return (
     <div className="gap-4 flex flex-col items-center justify-around w-screen h-[90%] border-t">
@@ -92,7 +89,6 @@ export default function Chat({ match }) {
                           </span>
                         </div>
                         <span>{msg.author}</span>
-                        <div ref={dummy} />
                       </div>
                       {/* <img
                       src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
@@ -102,11 +98,10 @@ export default function Chat({ match }) {
                     </div>
                   )}
                 </div>
-
-                {/* {msg.author} : {msg.message} */}
               </div>
             );
           })}
+          <div ref={mensajes}></div>
         </div>
         <div className=" w-full flex rounded-bl-md p-2">
           <input
@@ -136,28 +131,6 @@ export default function Chat({ match }) {
             </button>
           </div>
         </div>
-
-        {/* <input
-          type="text"
-          placeholder="Escribí un mensaje..."
-          class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-md py-3"
-        />
-        <div class="absolute right-0 items-center inset-y-0 hidden sm:flex">
-          <button
-            type="button"
-            class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-white bg-blue-500 hover:bg-blue-400 focus:outline-none"
-          >
-            <span class="font-bold">Send</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              class="h-6 w-6 ml-2 transform rotate-90"
-            >
-              <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
-            </svg>
-          </button>
-        </div> */}
       </div>
     </div>
   );
