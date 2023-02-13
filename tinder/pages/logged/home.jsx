@@ -16,6 +16,7 @@ import { ImLocation } from "react-icons/im";
 import { AiFillInfoCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -28,6 +29,9 @@ const home = () => {
   const { location, place } = useGeolocation();
   const router = useRouter();
   const [spinner, setSpinner] = useState(false);
+  // const [height, setHeight] = useState("full");
+
+  console.log("USER", users);
 
   const getImage = async () => {
     const response = await axios.get(`/api/userId/${session.user.email}`);
@@ -47,7 +51,9 @@ const home = () => {
     }, 3000);
   };
 
-  useEffect(() => {}, [users]);
+  useEffect(() => {
+    // users.data ? setHeight("full") : setHeight("screen");
+  }, [users]);
 
   useEffect(() => {
     if (status === "authenticated" && place) {
@@ -93,7 +99,16 @@ const home = () => {
         if (person + 1 >= users.data.length) {
           setNoPerson(!noPerson);
 
-          return alert("Lo sentimos, no hay personas en tu area.");
+          return toast.info(`Lo sentimos, no hay personas en tu area`, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
         }
         setPerson(person + 1);
         setPhoto(0);
@@ -105,8 +120,10 @@ const home = () => {
 
   if (status === "authenticated") {
     return (
-      <div className="h-screen flex flex-grow flex-shrink-0 flex-col w-full items-center justify-end pt-6 bg-black">
-        <div className="flex gap-x-3 text-verdedos flex-grow flex-shrink-0 items-center mb-6">
+      <div
+        className={`h-screen flex flex-col w-full items-center justify-between pt-6 bg-black`}
+      >
+        <div className="flex gap-x-3 text-verdedos items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
             <Icon />
             <h6> tinderMusic</h6>
@@ -136,7 +153,7 @@ const home = () => {
                           <p className="text-white text-2xl">
                             <strong class="imagenstrong">
                               {users.data[person].name},
-                              {ageCalculator(users.data[person].birthday)}
+                              {users.data[person].birthday}
                             </strong>
                           </p>
                           <Link
@@ -231,6 +248,49 @@ const home = () => {
             )}
           </div>
         </div>
+
+        {/* {users.data
+          ? users.data[person].similarartist && (
+              <div className="flex flex-col w-screen h-full mt-4">
+                <div>
+                  <p className="text-base ml-4 text-white uppercase">
+                    <strong>Match de artistas</strong>
+                  </p>
+                </div>
+                <div className="flex flex-row gap-2 flex-wrap mt-2 mb-2 ml-4">
+                  {users.data[person].similarartist.map((artist) => {
+                    return (
+                      <div className="flex flex-row text-sm border-2 border-verdecito border-solid rounded-md items-center p-1">
+                        <p className="text-white">{artist}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )
+          : ""}
+
+        {users.data
+          ? users.data[person].similarmovies && (
+              <div className="flex flex-col w-screen h-full mt-2 mb-16">
+                <div>
+                  <p className="text-base ml-4 text-white uppercase">
+                    <strong>Match de películas</strong>
+                  </p>
+                </div>
+                <div className="flex flex-row gap-2 flex-wrap mt-2 ml-4">
+                  {users.data[person].similarmovies.map((movie) => {
+                    return (
+                      <div className="flex flex-row text-sm border-2 border-verdecito border-solid rounded-md items-center p-1">
+                        <p className="text-white">{movie}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )
+          : ""} */}
+
         <Navbar></Navbar>
       </div>
     );

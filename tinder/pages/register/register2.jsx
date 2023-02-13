@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Icon from "../Index/Icon.js";
 import { BiArrowBack } from "react-icons/bi";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register2 = () => {
   const { data: session, status } = useSession();
@@ -45,7 +46,16 @@ const register2 = () => {
     event.preventDefault();
 
     if (!imagenes || !imagenes2) {
-      return alert("Por favor, agregar dos fotos");
+      return toast.warn("Por favor, agregar dos fotos", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser2", {
@@ -103,6 +113,7 @@ const register2 = () => {
     if (image2) submitImage(2);
   }, [image2]);
 
+
   return (
     <div className="bg-black text-white h-screen">
       <div className="flex flex-row text-verdedos">
@@ -126,48 +137,58 @@ const register2 = () => {
               className={imagenes ? "absolute z-10" : "hidden"}
             >
               <Cruz />
-            </button>
-            <IoAddCircleOutline
-              className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
-            />
-            <input
-              type="file"
-              className="absolute inset-0 opacity-0 h-full w-full "
-              onChange={(e) => {
-                setimage(e.target.files[0]);
-              }}
-              ref={ref1}
-            ></input>
 
-            <img
-              className={imagenes ? "inset-0 h-full" : "hidden"}
-              src={imagenes}
-            ></img>
+              </button>
+              <IoAddCircleOutline
+                className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
+              />
+              <input
+                type="file"
+                className="absolute inset-0 opacity-0 h-full w-full "
+                onChange={(e) => {
+                  setimage(e.target.files[0]);
+                }}
+                ref={ref1}
+              ></input>
+
+              <img
+                className={imagenes ? "inset-0 h-full" : "hidden"}
+                src={imagenes}
+              ></img>
+            </div>
+
+            <div id="divfile">
+              <button
+                onClick={(e) => deleteimage(e, 2)}
+                className={imagenes2 ? "absolute z-10" : "hidden"}
+              >
+                <Cruz />
+              </button>
+              <IoAddCircleOutline
+                className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
+              />
+              <input
+                type="file"
+                className="absolute inset-0 opacity-0 h-full w-full "
+                onChange={(e) => {
+                  setimage2(e.target.files[0]);
+                }}
+                ref={ref2}
+              ></input>
+
+              <img
+                className={imagenes2 ? "inset-0 h-full" : "hidden"}
+                src={imagenes2}
+              ></img>
+            </div>
           </div>
-
-          <div id="divfile">
+          <div className="flex flex-col text-2xl m-6 ">
             <button
-              onClick={(e) => deleteimage(e, 2)}
-              className={imagenes2 ? "absolute z-10" : "hidden"}
+              className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto "
+              type="submit"
             >
-              <Cruz />
+              Continuar
             </button>
-            <IoAddCircleOutline
-              className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}
-            />
-            <input
-              type="file"
-              className="absolute inset-0 opacity-0 h-full w-full "
-              onChange={(e) => {
-                setimage2(e.target.files[0]);
-              }}
-              ref={ref2}
-            ></input>
-
-            <img
-              className={imagenes2 ? "inset-0 h-full" : "hidden"}
-              src={imagenes2}
-            ></img>
           </div>
         </div>
         <div className="flex flex-col text-2xl m-6 ">

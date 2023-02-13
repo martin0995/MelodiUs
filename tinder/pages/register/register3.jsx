@@ -9,6 +9,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import registerData from "../../reactHooks/registerData.js";
+import { toast } from "react-toastify";
 
 const register3 = () => {
   const user = useSelector((state) => state.user);
@@ -90,11 +91,29 @@ const register3 = () => {
     // Limit up to 5 artists to choose
     if (savedArtist.length < 5) {
       if (savedArtist.includes(artist)) {
-        return alert(`Ya tenes agregado a ${artist}`);
+        return toast.info(`Ya tenes agregado a ${artist}`, {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
       setsavedArtist([...savedArtist, artist]);
     } else {
-      return alert("No se puede agregar mas de 5 artistas");
+      return toast.warn("Lo sentimos, no se pueden agregar mas de 5 artistas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
@@ -128,7 +147,16 @@ const register3 = () => {
     e.preventDefault();
 
     if (savedArtist.length !== 5) {
-      return alert("Por favor, seleccionar 5 artistas.");
+      return toast.warn("Por favor, seleccionar 5 artistas", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser3", {
@@ -150,32 +178,33 @@ const register3 = () => {
     });
     return router.push("/logged/home");
   };
+  if (status === "authenticated") {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="flex flex-row text-verdedos">
+          <div className="text-white">
+            <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
+              <BiArrowBack />
+            </button>
+          </div>
+          <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
+            <Icon />
+            <h6> tinderMusic</h6>
+          </div>
+        </div>
 
-  return (
-    <div className="bg-black text-white h-screen">
-      <div className="flex flex-row text-verdedos">
-        <div className="text-white">
-          <button className="p-2 text-2xl ml-2" onClick={Nextpage}>
-            <BiArrowBack />
-          </button>
+        <div className="flex flex-col text-2xl m-6">
+          <div className="flex flex-col gap-1 items-center">
+            <p>Agrega artista de spotify</p>
+            <input
+              className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
+              type="text"
+              placeholder="Ingresar artista..."
+              {...searchedArtist}
+            ></input>
+          </div>
         </div>
-        <div className="p-2 h-8 flex ml-8 w-1/2 justify-center">
-          <Icon />
-          <h6> tinderMusic</h6>
-        </div>
-      </div>
 
-      <div className="flex flex-col text-2xl m-6">
-        <div className="flex flex-col gap-1 items-center">
-          <p>Agrega artista de spotify</p>
-          <input
-            className="h-12 bg-transparent p-2 outline-0 border-b-2 w-60"
-            type="text"
-            placeholder="Ingresar artista..."
-            {...searchedArtist}
-          ></input>
-        </div>
-      </div>
 
       {searchedArtist.value ? (
         <div className="m-2">
@@ -200,57 +229,59 @@ const register3 = () => {
                               ) : (
                                 <Icon />
                               )}
+
+                              </div>
+                              <div className="flex-1 min-w-0 text-white">
+                                <p className="text-sm font-medium truncate">
+                                  {artist.name}
+                                </p>
+                              </div>
+                              <div onClick={() => selectArtist(artist.name)}>
+                                <IoAddCircleOutline className="mr-4 text-2xl text-white" />
+                              </div>
                             </div>
-                            <div className="flex-1 min-w-0 text-white">
-                              <p className="text-sm font-medium truncate">
-                                {artist.name}
-                              </p>
-                            </div>
-                            <div onClick={() => selectArtist(artist.name)}>
-                              <IoAddCircleOutline className="mr-4 text-2xl text-white" />
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                );
-              })
-            : ""}
+                  );
+                })
+              : ""}
+          </div>
+        ) : (
+          ""
+        )}
+
+        <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
+          {savedArtist.map((artist) => {
+            return (
+              <div
+                className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
+                onClick={() => deleteArtist(artist)}
+              >
+                <AiOutlineClose />
+                <p>{artist}</p>
+              </div>
+            );
+          })}
         </div>
-      ) : (
-        ""
-      )}
 
-      <div className="flex flex-row gap-2 flex-wrap mt-4 mb-4 ml-2">
-        {savedArtist.map((artist) => {
-          return (
-            <div
-              className="flex flex-row text-sm border-2 border-verdedos border-solid rounded-md items-center p-1"
-              onClick={() => deleteArtist(artist)}
-            >
-              <AiOutlineClose />
-              <p>{artist}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div
-        className={
-          artists.artists ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"
-        }
-      >
-        <button
-          className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
-          type="submit"
-          onClick={handleSubmit}
+        <div
+          className={
+            artists.artists ? "flex mt-3 mb-4" : "flex min-h-screen mb-4"
+          }
         >
-          Continuar
-        </button>
+          <button
+            className="bg-verdecito border-b-8 border-verdedos text-white hover:bg-verdedos  w-48 rounded-full p-3 m-auto"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Continuar
+          </button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default register3;

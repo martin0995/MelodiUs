@@ -9,6 +9,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { BiArrowBack } from "react-icons/bi";
 import ArtistSelection from "../../../components/ArtistSelection";
 import MoviesSelection from "../../../components/MoviesSelection";
+import { toast } from "react-toastify";
 
 const userProfile = () => {
   const user = useSelector((state) => state.user);
@@ -69,7 +70,16 @@ const userProfile = () => {
     event.preventDefault();
 
     if (!imagenes || !imagenes2) {
-      return alert("Por favor, agregar dos fotos");
+      return toast.warn("Por favor, agregar dos fotos", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     await axios.put("/api/newUser2", {
@@ -93,7 +103,7 @@ const userProfile = () => {
           className="flex flex-col text-xl gap-6 w-full max-w-md"
         >
           <div className="flex flex-col mt-6 mb-6 gap-6 p-4">
-            <h5 className="text-xl font-bold leading-none dark:text-whitetext-xl font-bold leading-none dark:text-white">
+            <h5 className="text-lg font-bold leading-none dark:text-whitetext-xl font-bold leading-none dark:text-white uppercase">
               Editar fotos
             </h5>
             <div id="divfile">
