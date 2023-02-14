@@ -10,8 +10,6 @@ export default function Chat({ match }) {
   const [messages, setMessages] = useState([]);
   const mensajes = useRef(null);
 
-  console.log("MATCHH INFO", match);
-
   const scrollToBottom = () => {
     mensajes.current?.scrollIntoView({ block: "end" });
   };

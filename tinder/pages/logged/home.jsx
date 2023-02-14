@@ -122,11 +122,6 @@ const home = () => {
     }
   };
 
-  if (users.data?.length > 0) {
-    console.log("Hay data.length");
-  }
-
-  console.log("USER LENGTH", users.data?.length);
 
   if (status === "authenticated") {
     return (

@@ -29,8 +29,6 @@ const matchDescription = () => {
     }
   };
 
-  console.log("USER>>", user);
-
   const handlePhoto = () => {
     if (photo === 0) setPhoto(1);
     else {
