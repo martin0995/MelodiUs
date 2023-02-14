@@ -8,7 +8,6 @@ export default async function newuser(req, res) {
   const { method, body } = req;
 
   switch (method) {
-
     // Trae un match especifico:
     case "GET":
       {
@@ -27,6 +26,7 @@ export default async function newuser(req, res) {
               chat: match[0].chat,
               id: match[0]._id,
               myUser: match[0].user2.name,
+              myUserImages: match[0].user2.images,
             };
 
             await db.disconnect();

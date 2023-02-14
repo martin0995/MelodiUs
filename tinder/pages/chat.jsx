@@ -10,6 +10,8 @@ export default function Chat({ match }) {
   const [messages, setMessages] = useState([]);
   const mensajes = useRef(null);
 
+  console.log("MATCHH INFO", match);
+
   const scrollToBottom = () => {
     mensajes.current?.scrollIntoView({ block: "end" });
   };
@@ -75,9 +77,9 @@ export default function Chat({ match }) {
                               {msg.message}
                             </span>
                           </div>
-                          <span>{msg.author}</span>
+                          {/* <span>{msg.author}</span> */}
                         </div>
-                        {/* <img src="https://images.unsplash.com/photo-1590031905470-a1a1feacbb0b?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144" alt="My profile" class="w-6 h-6 rounded-full order-2"/> */}
+                        {/* <img src={match.myUserImages[0]} alt="My profile" class="w-6 h-6 rounded-full order-2"/> */}
                       </div>
                     </div>
                   ) : (
@@ -88,13 +90,13 @@ export default function Chat({ match }) {
                             {msg.message}
                           </span>
                         </div>
-                        <span>{msg.author}</span>
+                        {/* <span>{msg.author}</span> */}
                       </div>
-                      {/* <img
-                      src="https://images.unsplash.com/photo-1549078642-b2ba4bda0cdb?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=3&amp;w=144&amp;h=144"
-                      alt="My profile"
-                      class="w-6 h-6 rounded-full order-1"
-                    /> */}
+                      <img
+                        src={match.user.images[0]}
+                        alt="My profile"
+                        class="w-6 h-6 rounded-full order-1"
+                      />
                     </div>
                   )}
                 </div>
@@ -119,7 +121,7 @@ export default function Chat({ match }) {
                 sendMessage();
               }}
             >
-              <span class="font-bold">Enviar</span>
+              {/* <span class="font-bold">Enviar</span> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
