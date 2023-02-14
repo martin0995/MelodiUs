@@ -25,7 +25,7 @@ const Chatcard = ({ match }) => {
           </p>
         </div>
       </div>
-      <div className="mt-2 border-t border-solid w-full "></div>
+      <div className="mt-2 border-t border-solid border-gray-600 w-full "></div>
     </Link>
   );
 };

@@ -211,7 +211,7 @@ const home = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-gray-800 h-full w-full flex  items-center flex-col gap-2 text-white">
+                    <div className="bg-gray-900 h-full w-full flex  items-center flex-col gap-2 text-white">
                       <NoUsers />
                       {spinner ? (
                         <div role="status" className="p-2">

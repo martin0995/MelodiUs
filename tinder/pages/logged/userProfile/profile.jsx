@@ -81,14 +81,14 @@ const userProfile = () => {
           {valor && !info ? (
             <div className="flex flex-col justify-center w-3/4 gap-2">
               <div className="flex flex-row justify-between">
-                <p className="text-center text-xl text-verdedos uppercase font-bold">
+                <p className="text-center text-xl text-verdespotify uppercase font-bold">
                   Sobre mí
                 </p>
                 <div className="flex justify-end items-end">
                   <CiEdit onClick={handleInfo} className="text-3xl" />
                 </div>
               </div>
-              <div className="flex flex-col justify-center border-2 rounded-md border-verdedos p-2">
+              <div className="flex flex-col justify-center border-2 rounded-md border-verdespotify p-2">
                 <p className="text-xl md:text-center">{valor}</p>
               </div>
             </div>

@@ -61,8 +61,8 @@ export default function Chat({ match }) {
   };
 
   return (
-    <div className="gap-4 flex flex-col items-center justify-around w-screen h-[90%] border-t">
-      <div className="flex flex-col bg-gray-800 w-full h-full shadow-md text-white">
+    <div className="gap-4 flex flex-col items-center justify-around w-screen h-[90%] border-t border-gray-600">
+      <div className="flex flex-col bg-gray-900 w-full h-full shadow-md text-white">
         <div className="h-full last:border-b-0 overflow-y-scroll scroll-auto">
           {messages.map((msg, i) => {
             return (
