@@ -91,7 +91,7 @@ const userProfile = () => {
   if (status === "authenticated") {
     return (
       <div className="flex flex-col justify-between bg-black text-white h-screen">
-        <div className="flex text-green-500  items-center ">
+        <div className="flex text-verdespotify  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
             <h6> tinderMusic</h6>
@@ -111,7 +111,9 @@ const userProfile = () => {
                 onClick={(e) => deleteimage(e, 1)}
                 className={imagenes ? "absolute z-10" : "hidden"}
               >
-                <Cruz />
+                <div className="rounded bg-red-400">
+                  <Cruz />
+                </div>
               </button>
               <IoAddCircleOutline
                 className={imagenes ? "hidden" : "text-4xl mt-24 m-auto"}
@@ -136,7 +138,9 @@ const userProfile = () => {
                 onClick={(e) => deleteimage(e, 2)}
                 className={imagenes2 ? "absolute z-10" : "hidden"}
               >
-                <Cruz />
+                <div className="rounded bg-red-400">
+                  <Cruz />
+                </div>
               </button>
               <IoAddCircleOutline
                 className={imagenes2 ? "hidden" : "text-4xl mt-24 m-auto 	"}

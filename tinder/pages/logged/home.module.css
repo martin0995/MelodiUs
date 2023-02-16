@@ -1,8 +1,17 @@
 .perspectiveBack {
-  /* transform: perspective(600px) translateZ(-0px); */
-  height: 300px;
+  transform: perspective(600px) translateZ(-0px);
 }
 
 .photoContainer {
   height: calc(100vh - 240px);
+}
+.gradient {
+  background: rgb(0, 0, 0);
+  z-index: 6;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 5%,
+    rgba(0, 0, 0, 0) 34%
+  );
 }
