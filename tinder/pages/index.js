@@ -33,12 +33,12 @@ export default function Home() {
         <Imagen />
       ) : (
         <>
-          <div className="text-gray-800  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
+          <div className="text-white  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
             <div className="p-2 h-8 flex justify-center gap-1">
               <Icon />
-              <h6 className="text-verdespotify"> MelodiUs</h6>
+              <h6 className="text-verdespotify text-lg"> MelodiUs</h6>
             </div>
-            <div className="italic text-4xl font-bold text-center flex justify-center items-center m-auto ">
+            <div className="italic text-4xl font-bold text-center flex justify-center m-auto w-3/4 h-[20%]">
               <h1>Bienvenido a MelodiUs</h1>
             </div>
             <div className="flex flex-col mb-28 gap-4">
