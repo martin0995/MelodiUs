@@ -20,6 +20,9 @@ module.exports = {
       height: {
         heightdiv: "40rem",
       },
+      fontSize: {
+        grande: "9rem",
+      },
     },
   },
   plugins: [],
