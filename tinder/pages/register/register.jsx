@@ -122,7 +122,7 @@ export default function Register() {
         </div>
         <div className="p-2 h-8 flex gap-1 w-3/4 flex justify-center around ">
           <Icon />
-          <h6> tinderMusic</h6>
+          <h6> MelodiUs</h6>
         </div>
       </div>
 

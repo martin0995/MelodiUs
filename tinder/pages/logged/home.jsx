@@ -17,6 +17,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const home = () => {
   const { data: session, status } = useSession();
@@ -96,7 +97,13 @@ const home = () => {
         });
 
         // Distinguir Array de Objeto. Alerta de MATCH:
-        if (connection.data.user1) alert("Has conseguido un MATCH!");
+        if (connection.data.user1) {
+          Swal.fire({
+            icon: "success",
+            title: "MATCH",
+            text: "Has conseguido un match!",
+          });
+        }
 
         // No hay mas personas en el area:
         if (person + 1 >= users.data.length) {
@@ -122,7 +129,6 @@ const home = () => {
     }
   };
 
-
   if (status === "authenticated") {
     return (
       <div
@@ -131,7 +137,7 @@ const home = () => {
         <div className="flex gap-x-3 text-verdespotify items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
             <Icon />
-            <h6> tinderMusic</h6>
+            <h6> MelodiUs</h6>
           </div>
           {/* <button onClick={() => signOut({ callbackUrl: "/" })}>Logout</button> */}
         </div>

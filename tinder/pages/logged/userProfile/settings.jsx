@@ -23,7 +23,7 @@ const settings = () => {
   const handleDelete = async () => {
     try {
       Swal.fire({
-        title: "TinderMusic",
+        title: "MelodiUs",
         text: "¿Estás seguro que quieres eliminar tu cuenta?",
         showCancelButton: true,
         confirmButtonColor: "#d33",
@@ -61,7 +61,7 @@ const settings = () => {
         <div className="flex text-verdespotify  items-center mb-4">
           <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
-            <h6> tinderMusic</h6>
+            <h6> MelodiUs</h6>
           </div>
         </div>
         <div>

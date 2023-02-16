@@ -58,7 +58,7 @@ const userProfile = () => {
         <div className="flex text-verdespotify  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 ">
             <Icon />
-            <h6> tinderMusic</h6>
+            <h6> MelodiUs</h6>
           </div>
         </div>
         <div className="flex flex-col items-start mt-5">
