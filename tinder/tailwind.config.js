@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        fondito: "url('../public/bg-img3.jpeg')",
+        fondito: "url('../public/bg-img5.jpg')",
       },
       colors: {
         rojito: "#e5383b",
@@ -19,6 +19,9 @@ module.exports = {
       },
       height: {
         heightdiv: "40rem",
+      },
+      fontSize: {
+        grande: "9rem",
       },
     },
   },

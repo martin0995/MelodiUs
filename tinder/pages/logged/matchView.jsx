@@ -27,7 +27,7 @@ const matchView = () => {
         <div className="flex gap-x-3 text-verdespotify items-center mb-6">
           <div className="p-2 h-8 flex mx-auto gap-1">
             <Icon />
-            <h6> tinderMusic</h6>
+            <h6> MelodiUs</h6>
           </div>
         </div>
 
