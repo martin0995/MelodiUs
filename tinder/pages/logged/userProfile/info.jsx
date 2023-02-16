@@ -94,7 +94,7 @@ const userProfile = () => {
         <div className="flex text-verdespotify  items-center ">
           <div className="p-2 h-8 flex mx-auto gap-1 text-green-500">
             <Icon />
-            <h6> tinderMusic</h6>
+            <h6> MelodiUs</h6>
           </div>
         </div>
 
