@@ -150,7 +150,6 @@ const home = () => {
                 <div className="relative w-[120%] h-full -left-[10%]  bg-white">
                   {users.data.length > 0 ? (
                     <div className="">
-                      <p className="text-black">HOLA</p>
                       <div className={`${styles.gradient}`}>
                         <Image
                           src={users.data[person].images[photo]}
