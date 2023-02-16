@@ -33,10 +33,10 @@ export default function Home() {
         <Imagen />
       ) : (
         <>
-          <div className="text-white  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
+          <div className="text-gray-800  h-screen flex flex-col justify-between bg-fondito bg-center bg-no-repeat">
             <div className="p-2 h-8 flex justify-center gap-1">
               <Icon />
-              <h6> tinderMusic</h6>
+              <h6 className="text-verdespotify"> tinderMusic</h6>
             </div>
             <div className="italic text-4xl font-bold text-center flex justify-center items-center m-auto ">
               <h1>Bienvenido a tinderMusic</h1>

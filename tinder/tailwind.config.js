@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        fondito: "url('../public/bg-img3.jpeg')",
+        fondito: "url('../public/bg-img4.jpg')",
       },
       colors: {
         rojito: "#e5383b",
