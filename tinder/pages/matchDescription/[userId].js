@@ -58,14 +58,14 @@ const matchDescription = () => {
               <BiArrowBack />
             </button>
           </div>
-          <div className="flex flex-col w-9/12 justify-center items-center mt-5 h-52">
+          <div className="flex flex-col w-9/12 justify-center items-center mt-5 h-52 mb-6">
             {user.images && (
               <Image
                 src={user.images[photo]}
                 alt="Users pictures"
                 width={200}
                 height={200}
-                className={`object-center absolute${styles.perspectiveBack}`}
+                className={`object-center absolute ${styles.perspectiveBack}`}
                 onClick={handlePhoto}
               />
             )}

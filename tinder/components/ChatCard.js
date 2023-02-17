@@ -8,7 +8,7 @@ const Chatcard = ({ match }) => {
         <div className="flex justify-center w-16 items-center  border-gray-200 mr-4 rounded-lg">
           <div className="flex flex-col h-fit w-fit items-center ">
             <img
-              className="h-16 rounded-lg shadow-lg"
+              className="h-16 w-16 rounded-lg shadow-lg"
               src={match.user.images[0]}
               alt="User Image"
             />

@@ -128,7 +128,7 @@ const userProfile = () => {
               ></input>
 
               <img
-                className={imagenes ? "inset-0 h-full" : "hidden"}
+                className={imagenes ? "inset-0 h-full w-full" : "hidden"}
                 src={imagenes}
               ></img>
             </div>
@@ -155,7 +155,7 @@ const userProfile = () => {
               ></input>
 
               <img
-                className={imagenes2 ? "inset-0 h-full" : "hidden"}
+                className={imagenes2 ? "inset-0 h-full w-full" : "hidden"}
                 src={imagenes2}
               ></img>
             </div>

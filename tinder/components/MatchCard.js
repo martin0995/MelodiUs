@@ -4,11 +4,11 @@ import Link from "next/link";
 const MatchCard = ({ match }) => {
   return (
     <Link href={`/chat/${match.id}`}>
-      <div className="flex flex-col items-center">
-        <div className="flex justify-center w-28 items-center border-gray-200 rounded-full">
-          <div className="flex flex-col h-fit w-fit items-center ">
+      <div className="flex flex-col items-center ml-2">
+        <div className="flex justify-center  items-center">
+          <div className="flex flex-col h-full w-full items-center ">
             <img
-              className="h-28 rounded-full shadow-lg"
+              className="h-20 w-20 rounded-full shadow-lg"
               src={match.user.images[0]}
               alt="User Image"
             />

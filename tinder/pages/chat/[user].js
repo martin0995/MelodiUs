@@ -49,7 +49,7 @@ const chatId = () => {
                     href={`/matchDescription/${match.user._id}-${match.id}-2`}
                   >
                     <img
-                      className="h-12 rounded-full shadow-lg"
+                      className="h-12 w-12 rounded-full shadow-lg"
                       src={match.user.images[0]}
                       alt="User Image"
                     />
