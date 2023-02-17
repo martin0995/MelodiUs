@@ -150,15 +150,16 @@ const home = () => {
                 <div className="relative w-[120%] h-full -left-[10%]  bg-white">
                   {users.data.length > 0 ? (
                     <div className="">
-                      <div className={`${styles.gradient}`}>
-                        <Image
-                          src={users.data[person].images[photo]}
-                          alt="Users pictures"
-                          fill
-                          className={`object-cover object-center absolute z-5 ${styles.perspectiveBack} ${styles.gradient}`}
-                          onClick={handlePhoto}
-                        />
-                      </div>
+                      <Image
+                        src={users.data[person].images[photo]}
+                        alt="Users pictures"
+                        fill
+                        className={`object-cover object-center absolute z-5 ${styles.perspectiveBack} ${styles.gradient}`}
+                      />
+                      <div
+                        className={`${styles.gradient}`}
+                        onClick={handlePhoto}
+                      ></div>
                       <div className="w-full absolute bottom-16 z-10 gap-2 flex flex-col justify-left text-white ml-10  w-4/5">
                         <div className="flex flex-row justify-between">
                           <p className="text-white text-2xl">
