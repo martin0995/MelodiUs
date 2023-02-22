@@ -13,7 +13,9 @@
 Developed a mobile applications that connects users with similar interests/taste (music, movies and more). Once a new user registers, the app will automatically show only those who match the user's preferences. The main focus of the app is to create real connections between paople who share interests.
   
  Once a match is generated (both users liked each other), a chat will automatically be created to start a conversation. Hope you like it!
-
+ 
+ Here's a link to the DEMO: https://youtu.be/2562ZTwkOoE
+ 
 ## Main technologies:
 
  [![Next][Next.js]][Next-url]
